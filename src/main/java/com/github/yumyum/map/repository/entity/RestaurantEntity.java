@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.geo.Point;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -33,11 +35,12 @@ public class RestaurantEntity {
 
     @Column(name="cuisine")
     private String cuisine;
-
+//
 //    @OneToMany(mappedBy = "RestaurantEntity")
 //    private List<MemberVisitedRestaurant> memberVisitedRestaurants;
 //
 //    @OneToMany(mappedBy = "RestaurantEntity")
 //    private List<MemberInterestedRestaurant> memberInterestedRestaurants;
+//
 
 }

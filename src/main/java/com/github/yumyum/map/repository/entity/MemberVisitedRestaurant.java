@@ -22,6 +22,7 @@ public class MemberVisitedRestaurant {
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private RestaurantEntity restaurantEntity;
+    @Column(name="visit_date")
     private Date visitDate;
 
 }

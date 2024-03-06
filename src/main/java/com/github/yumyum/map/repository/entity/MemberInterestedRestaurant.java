@@ -3,6 +3,9 @@ package com.github.yumyum.map.repository.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,4 +23,6 @@ public class MemberInterestedRestaurant{
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private RestaurantEntity restaurantEntity;
+
+
 }

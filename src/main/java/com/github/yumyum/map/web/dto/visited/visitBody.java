@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class visitedRestaurantBody {
+public class visitBody {
     private Integer memberId;
     private Integer restaurantId;
     private LocalDate visitDate;

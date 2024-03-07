@@ -13,9 +13,9 @@ import java.util.Date;
 @Entity
 @Table(name="member_visited_restaurant")
 public class MemberVisitedRestaurant {
-    @Id @Column(name="visited_restaurant_id")
+    @Id @Column(name="visit_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer visitedRestaurantId;
+    private Integer visitId;
     @ManyToOne
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;

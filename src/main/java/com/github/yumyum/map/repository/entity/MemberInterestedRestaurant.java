@@ -14,9 +14,9 @@ import java.util.Set;
 @Entity
 @Table(name="member_interested_restaurant")
 public class MemberInterestedRestaurant{
-    @Id @Column(name="member_interested_id")
+    @Id @Column(name="interest_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer memberInetestedId;
+    private Integer InterestId;
     @ManyToOne
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;

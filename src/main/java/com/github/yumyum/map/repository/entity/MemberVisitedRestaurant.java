@@ -19,9 +19,9 @@ public class MemberVisitedRestaurant {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;
-    @ManyToOne
-    @JoinColumn(name = "restaurant_id")
-    private RestaurantEntity restaurantEntity;
+//    @ManyToOne
+//    @JoinColumn(name = "restaurant_id")
+//    private Restaurant restaurantEntity;
     @Column(name="visit_date")
     private Date visitDate;
 

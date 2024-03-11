@@ -1,4 +1,6 @@
 package com.github.yumyum.config;
+import jakarta.persistence.EntityManagerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -12,21 +14,17 @@ import java.util.HashMap;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = {
-                "com.github.yumyum.map.repository"
-        },
-        entityManagerFactoryRef = "entityManagerFactory",
-        transactionManagerRef = "transactionManager"
+        basePackages = {"com.github.yumyum.map.repository"},
+        entityManagerFactoryRef = "entityManagerFactoryBean",
+        transactionManagerRef = "tmJpa"
 )
 public class JpaConfig {
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(@Qualifier("dataSource") DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setPackagesToScan(
-                "com.github.yumyum.map.repository"
-        );
+        em.setPackagesToScan("com.github.yumyum.map.repository");
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
@@ -41,11 +39,10 @@ public class JpaConfig {
         return em;
     }
 
-    @Bean
-    public PlatformTransactionManager transactionManager(DataSource dataSource) {
-
+    @Bean(name = "tmJpa")
+    public PlatformTransactionManager transactionManager1(@Qualifier("dataSource") DataSource dataSource){
         JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactory(dataSource).getObject());
+        transactionManager.setEntityManagerFactory(entityManagerFactoryBean(dataSource).getObject());
         return transactionManager;
     }
 }

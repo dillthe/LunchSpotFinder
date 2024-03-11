@@ -1,7 +1,6 @@
 package com.github.yumyum.config;
 
-import com.github.yumyum.map.service.restaurantAPI.RestaurantAPIService;
-import org.springframework.boot.web.client.RestTemplateBuilder;
+import com.github.yumyum.map.service.RestaurantService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
@@ -10,12 +9,12 @@ import org.springframework.web.client.RestTemplate;
 public class AppConfig {
 
     @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.build();
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 
-    @Bean
-    public RestaurantAPIService restaurantAPIService(RestTemplate restTemplate) {
-        return new RestaurantAPIService(restTemplate);
-    }
+//    @Bean
+//    public RestaurantService restaurantService(RestTemplate restTemplate) {
+//        return new RestaurantService(restTemplate);
+//    }
 }

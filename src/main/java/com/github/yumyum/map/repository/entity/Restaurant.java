@@ -8,13 +8,13 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Restaurant")
+@Table(name = "restaurant")
 public class Restaurant {
-        @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name= "restaurant_id")
-        private Integer restaurantId;
+//        @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+//        @Column(name= "restaurant_id")
+//        private Integer restaurantId;
 
-        @Column(name = "rstr_id")
+        @Id @Column(name = "rstr_id")
         private Integer rstrId;
 
         @Column(name = "rstr_nm")

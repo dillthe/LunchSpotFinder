@@ -13,7 +13,7 @@ import lombok.Setter;
 //@AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
     public class RestaurantDTO {
-        private Integer restaurantId;
+//        private Integer restaurantId;
         private Integer rstrId;
         private String rstrNm;
         private String rstrRdnmadr;

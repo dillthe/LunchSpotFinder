@@ -1,5 +1,4 @@
-package com.github.yumyum.map.service;
-
+package com.github.yumyum.map.web.dto.restaurant;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +11,4 @@ public class Header {
     private int numOfRows;
     private int pageNo;
     private int totalCount;
-
-    // getters and setters
 }

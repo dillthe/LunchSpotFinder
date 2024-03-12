@@ -10,7 +10,7 @@ import org.mapstruct.factory.Mappers;
 public interface RestaurantMapper {
    RestaurantMapper INSTANCE = Mappers.getMapper(RestaurantMapper.class);
 
-   @Mapping(target = "restaurantId", ignore = true)
+   //@Mapping(target = "restaurantId", ignore = true)
    Restaurant toEntity(RestaurantDTO restaurantDTO);
 
 

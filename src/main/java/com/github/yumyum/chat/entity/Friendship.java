@@ -4,16 +4,17 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Getter @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Entity
-@Table(name = "frendship")
-public class Frendship {
+@Table(name = "friendship")
+public class Friendship {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "frendship_id")
-    private Integer frendshipId;
+    @Column(name = "friendship_id")
+    private Integer friendshipId;
     @ManyToOne(fetch = FetchType.LAZY)  // TODO CASCADE 설정
     @JoinColumn(name = "member_id1")
     private Member member1;

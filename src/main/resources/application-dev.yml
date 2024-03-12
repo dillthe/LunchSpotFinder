@@ -1,3 +1,12 @@
+server:
+  port: 8085
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+
 spring:
   config:
     activate:
@@ -9,24 +18,16 @@ spring:
     restart:
       enabled: true
 
-server:
-  port: 8085
+  datasource:
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/supercoding-proj3?useUnicode=true&characterEncoding=UTF-8
 
-#logging:
 #  config: classpath:logback-spring-dev.xml
-#  level:
-#    org:
-#      hibernate:
-#        SQL: DEBUG
 
 #datasource:
 #  username: ${DATABASE_USERNAME}
 #  password: ${DATABASE_PASSWORD}
 #  driver-class-name: com.mysql.cj.jdbc.Driver
 #  url: jdbc:mysql://gcp.connect.psdb.cloud:3306/yumyum?useUnicode=true&characterEncoding=UTF-8
-
-datasource:
-  username: root
-  password: 1234
-  driver-class-name: com.mysql.cj.jdbc.Driver
-  url: jdbc:mysql://localhost:3306/supercoding-proj3?useUnicode=true&characterEncoding=UTF-8

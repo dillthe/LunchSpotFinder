@@ -13,7 +13,7 @@ import java.util.HashMap;
 @Configuration
 @EnableJpaRepositories(
         basePackages = {
-                "com.github.yumyum.map.repository"
+                "com.github.yumyum.map.repository", "com.github.yumyum.chat.entity", "com.github.yumyum.chat.repository"
         },
         entityManagerFactoryRef = "entityManagerFactory",
         transactionManagerRef = "transactionManager"
@@ -25,7 +25,7 @@ public class JpaConfig {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
         em.setPackagesToScan(
-                "com.github.yumyum.map.repository"
+                "com.github.yumyum.map.repository", "com.github.yumyum.chat.entity", "com.github.yumyum.chat.repository"
         );
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();

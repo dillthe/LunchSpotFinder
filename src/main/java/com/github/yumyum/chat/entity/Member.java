@@ -1,13 +1,17 @@
 package com.github.yumyum.chat.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "member")
@@ -24,11 +28,5 @@ public class Member {
 
     public Member(int memberId) {
         this.memberId = memberId;
-    }
-
-    public Member(int memberId, String email, String name) {
-        this.memberId = memberId;
-        this.email = email;
-        this.name = name;
     }
 }

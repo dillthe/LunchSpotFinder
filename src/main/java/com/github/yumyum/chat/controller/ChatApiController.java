@@ -18,7 +18,15 @@ public class ChatApiController {
 
     private final ChatApiService chatApiService;
 
-    @PostMapping(value = "/{userId}/friendship")
+//    @GetMapping(value = "/{userId}/friends")
+//    public List<Friendship> getMemberFriends(@PathVariable("userId") int userId1) {
+//
+//        // TODO token값의 id와 userId 동일 여부 체크
+//
+//        return chatApiService.getMemberAllFriends(userId1);
+//    }
+
+    @PostMapping(value = "/{userId}/friend")
     public String makeFriendship(@PathVariable("userId") int userId1, @RequestBody FriendshipId friendshipId) {
 
         // TODO token값의 id와 userId 동일 여부 체크
@@ -28,5 +36,14 @@ public class ChatApiController {
         log.info("userId1: {}, friendShipSearchId: {}", userId1, friendShipSearchId);
 
         return chatApiService.checkMembersFriendShip(userId1, friendShipSearchId);
+    }
+
+    @DeleteMapping(value = "/{userId}/friend")
+    public String getMemberFriends(@PathVariable("userId") int userId1, @RequestBody FriendshipId friendshipId) {
+
+        // TODO token값의 id와 userId 동일 여부 체크
+        chatApiService.breakFreindship(userId1, friendshipId.getFriendshipId());
+
+        return "delete 성공";
     }
 }

@@ -19,7 +19,7 @@ public class ChatApiService {
 
     @Transactional
     public int isUsersFriend(final int memberId1, final int memberId2) {
-        return friendshipRepository.exists(memberId1, memberId2);
+        return friendshipRepository.existsFriendship(memberId1, memberId2);
     }
 
 //    @Transactional
@@ -29,16 +29,15 @@ public class ChatApiService {
 ////        friendshipRepository.findByMemberId1AndMemberId2(memberId1, memberId2);
 //    }
 
-//    @Transactional
-//    public void breakFreindship() {
-//        boolean byMemberId1 = friendshipRepository.existsByMemberId1(1);
-//        log.info("byMemberId1: {}", byMemberId1);
-//    }
-//
     @Transactional
     public List<Friendship> getFriends() {
         return friendshipRepository.findAll();
     }
+
+//    @Transactional
+//    public List<Friendship> getMemberAllFriends(int id) {
+//        return friendshipRepository.findAllById(id);
+//    }
 
     /**
      * friendship table에서 row (id1, id2), (id2, id1) 2개씩 저장
@@ -59,6 +58,28 @@ public class ChatApiService {
 
         friendshipRepository.save(friendship1);
         friendshipRepository.save(friendship2);
+    }
+
+    /**
+     * friendship table에서 row (id1, id2), (id2, id1) 2개씩 삭제
+     * 참고: https://okky.kr/questions/590874 마지막 댓글 참고)
+     * @param id1
+     * @param id2
+     */
+    @Transactional
+    public void breakFreindship(int id1, int id2) {
+        int usersFriend = isUsersFriend(id1, id2);
+        log.info("usersFriend: {}", usersFriend);
+        if (isUsersFriend(id1, id2) == 0) {
+            new RuntimeException(String.format("%s와 %s는 이미 친구가 아닙니다.", id1, id2));
+        } else {
+            List<Friendship> friendships1 = friendshipRepository.findByMemberId1AndMemberId2(id1, id2);
+            List<Friendship> friendships2 = friendshipRepository.findByMemberId1AndMemberId2(id2, id1);
+
+            friendshipRepository.delete(friendships1.get(0));
+            friendshipRepository.delete(friendships2.get(0));
+            log.info(String.format("%s와 %s 친구 관계 제거 완료", id1, id2));
+        }
     }
 
     public String checkMembersFriendShip(int userId1, int friendShipSearchId) {

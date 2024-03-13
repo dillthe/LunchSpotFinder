@@ -1,5 +1,4 @@
 package com.github.yumyum.config;
-import jakarta.persistence.EntityManagerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,17 +13,21 @@ import java.util.HashMap;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = {"com.github.yumyum.map.repository"},
-        entityManagerFactoryRef = "entityManagerFactoryBean",
-        transactionManagerRef = "tmJpa"
+        basePackages = {
+                "com.github.yumyum.map.repository"
+        },
+        entityManagerFactoryRef = "entityManagerFactory",
+        transactionManagerRef = "transactionManager"
 )
 public class JpaConfig {
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(@Qualifier("dataSource") DataSource dataSource) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(@Qualifier("dataSource") DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setPackagesToScan("com.github.yumyum.map.repository");
+        em.setPackagesToScan(
+                "com.github.yumyum.map.repository"
+        );
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
@@ -39,10 +42,11 @@ public class JpaConfig {
         return em;
     }
 
-    @Bean(name = "tmJpa")
-    public PlatformTransactionManager transactionManager1(@Qualifier("dataSource") DataSource dataSource){
+    @Bean
+    public PlatformTransactionManager transactionManager(@Qualifier("dataSource") DataSource dataSource) {
+
         JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactoryBean(dataSource).getObject());
+        transactionManager.setEntityManagerFactory(entityManagerFactory(dataSource).getObject());
         return transactionManager;
     }
 }

@@ -1,19 +1,22 @@
 server:
   port: 8080
 spring:
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
+#  mvc:
+#    pathmatch:
+#      matching-strategy: ant_path_matcher
+#  jpa:
+#    hibernate:
+#      ddl-auto: create
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/yumyum?useUnicode=true&characterEncoding=UTF-8
     username: root
     password: 8282
-#
-#logging:
-#  config: classpath:logback-spring-local.xml
-#  level:
-#    org:
-#      hibernate:
-#        SQL: DEBUG
+
+logging:
+  config: classpath:logback-spring-local.xml
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG

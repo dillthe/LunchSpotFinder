@@ -1,7 +1,5 @@
 package com.github.yumyum.config;
 
-import com.github.yumyum.map.repository.RestaurantRepository;
-import com.github.yumyum.map.service.RestaurantService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

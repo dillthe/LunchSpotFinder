@@ -1,4 +1,4 @@
-package com.github.yumyum.map.web.controller;
+package com.github.yumyum.exceptions;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

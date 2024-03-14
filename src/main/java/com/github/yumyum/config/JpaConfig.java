@@ -14,6 +14,7 @@ import java.util.HashMap;
 @EnableJpaRepositories(
         basePackages = {
                 "com.github.yumyum.map.repository"
+                , "com.github.yumyum.mypage.repository"
         },
         entityManagerFactoryRef = "entityManagerFactory",
         transactionManagerRef = "transactionManager"
@@ -26,6 +27,7 @@ public class JpaConfig {
         em.setDataSource(dataSource);
         em.setPackagesToScan(
                 "com.github.yumyum.map.repository"
+                , "com.github.yumyum.mypage.repository"
         );
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();

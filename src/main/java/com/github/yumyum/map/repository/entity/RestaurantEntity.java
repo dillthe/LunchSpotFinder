@@ -1,6 +1,9 @@
 package com.github.yumyum.map.repository.entity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -9,74 +12,91 @@ import lombok.*;
 @Entity
 @Table(name = "restaurant")
 public class RestaurantEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-//    @Column(name = "RSTR_ID")
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Integer id;
+//
+//    @Id
+//    @Column(name = "rstr_id")
 //    private Integer rstrId;
 //
-//    @Column(name = "RSTR_NM")
+//    @Column(name = "rstr_nm")
 //    private String rstrNm;
 //
-//    @Column(name = "RSTR_RDNMADR")
+//    @Column(name = "rstr_rdnmadr")
 //    private String rstrRdnmadr;
 //
-//    @Column(name = "RSTR_LNNO_ADRES")
+//    @Column(name = "rstr_lnno_adres")
 //    private String rstrLnnoAdres;
 //
-//    @Column(name = "RSTR_LA")
-//    private Double rstrLa;
+//    //@Column(name = "rstr_la", precision = 10, scale = 8)
+//    @Column(name = "rstr_la")
+//    private String rstrLa;
 //
-//    @Column(name = "RSTR_LO")
-//    private Double rstrLo;
+////    @Column(name = "rstr_lo", precision = 11, scale = 8)
+//    @Column(name = "rstr_lo")
+//    private String rstrLo;
 //
-//    @Column(name = "RSTR_TELNO")
+//    @Column(name = "rstr_telno")
 //    private String rstrTelno;
 //
-//    @Column(name = "BSNS_STATM_BZCND_NM")
+//    @Column(name = "bsns_statm_bzcnd_nm")
 //    private String bsnsStatmBzcndNm;
 //
-//    @Column(name = "BSNS_LCNC_NM")
+//    @Column(name = "bsns_lcnc_nm")
 //    private String bsnsLcncNm;
 //
-//    @Column(name = "RSTR_INTRCN_CONT")
+//    @Column(name = "rstr_intrcn_cont")
 //    private String rstrIntrcnCont;
 //
-//    @Column(name = "RSTR_AREA_CLSF_NM")
+//    @Column(name = "rstr_area_clsf_nm")
 //    private String rstrAreaClsfNm;
 //}
+////////////////////////////////////
+    @Id
+    @JsonProperty("RSTR_ID")
+    @Column(name = "RSTR_ID")
+    private Long rstrId;
 
-
-    @Column(name = "rstr_id")
-    private Integer rstrId;
-
-    @Column(name = "rstr_nm")
+    @JsonProperty("RSTR_NM")
+    @Column(name = "RSTR_NM")
     private String rstrNm;
 
-    @Column(name = "rstr_rdnmadr")
+
+    @JsonProperty("RSTR_RDNMADR")
+    @Column(name = "RSTR_RDNMADR")
     private String rstrRdnmadr;
 
-    @Column(name = "rstr_lnno_adres")
+    @JsonProperty("RSTR_LNNO_ADRES")
+    @Column(name = "RSTR_LNNO_ADRES")
     private String rstrLnnoAdres;
 
-    @Column(name = "rstr_la")
-    private Double rstrLa;
+    @JsonProperty("RSTR_LA")
+    @Column(name = "RSTR_LA")
+    private BigDecimal rstrLa;
 
-    @Column(name = "rstr_lo")
-    private Double rstrLo;
+    @JsonProperty("RSTR_LO")
+    @Column(name = "RSTR_LO")
+    private BigDecimal rstrLo;
 
-    @Column(name = "rstr_telno")
+    @JsonProperty("RSTR_TELNO")
+    @Column(name = "RSTR_TELNO")
     private String rstrTelno;
 
-    @Column(name = "bsns_statm_bzcnd_nm")
+    @JsonProperty("BSNS_STATM_BZCND_NM")
+    @Column(name = "BSNS_STATM_BZCND_NM")
     private String bsnsStatmBzcndNm;
 
-    @Column(name = "bsns_lcnc_nm")
+    @JsonProperty("BSNS_LCNC_NM")
+    @Column(name = "BSNS_LCNC_NM")
     private String bsnsLcncNm;
 
-    @Column(name = "rstr_intrcn_cont")
+    @JsonProperty("RSTR_INTRCN_CONT")
+    @Column(name = "RSTR_INTRCN_CONT")
     private String rstrIntrcnCont;
 
-    @Column(name = "rstr_area_clsf_nm")
+    @JsonProperty("RSTR_AREA_CLSF_NM")
+    @Column(name = "RSTR_AREA_CLSF_NM")
     private String rstrAreaClsfNm;
 }
+

@@ -24,7 +24,7 @@
 //    @Bean
 //    public JdbcTemplate jdbcTemplate() { return new JdbcTemplate(dataSource()); }
 //
-//    @Bean(name = "tm1")
+//    @Bean//            (name = "tm1")
 //    public PlatformTransactionManager transactionManager() { return new DataSourceTransactionManager(dataSource()); }
 //
 //}

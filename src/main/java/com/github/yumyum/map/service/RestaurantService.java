@@ -6,17 +6,13 @@ import com.github.yumyum.exceptions.InvalidValueException;
 import com.github.yumyum.exceptions.NotAcceptException;
 import com.github.yumyum.map.repository.entity.RestaurantEntity;
 import com.github.yumyum.map.repository.restaurant.RestaurantJpaRepository;
-import com.github.yumyum.map.service.mapper.RestaurantMapper;
-import com.github.yumyum.map.web.dto.restaurant.*;
+//import com.github.yumyum.map.service.mapper.RestaurantMapper;
+//import com.github.yumyum.map.web.dto.restaurant.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -24,9 +20,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -60,17 +53,17 @@ public class RestaurantService {
     }
 
 
-    //임시로 JSON 데이터 저장해보기 - 성공
-    public Long saveRestaurant(RestaurantDTO restaurantDTO) {
-        RestaurantEntity restaurantEntity = RestaurantMapper.INSTANCE.restaurantDTOtoRestaurantEntity(restaurantDTO);
-        RestaurantEntity restaurantEntityCreated;
-        try {
-            restaurantEntityCreated = restaurantJpaRepository.save(restaurantEntity);
-        } catch (RuntimeException exception) {
-            throw new NotAcceptException("Restaurant 정보를 저장하는 도중에 Error 가 발생하였습니다.");
-        }
-        return restaurantEntityCreated.getRstrId();
-    }
+//    임시로 JSON 데이터 저장해보기 - 성공
+//    public Long saveRestaurant(RestaurantDTO restaurantDTO) {
+//        RestaurantEntity restaurantEntity = RestaurantMapper.INSTANCE.restaurantDTOtoRestaurantEntity(restaurantDTO);
+//        RestaurantEntity restaurantEntityCreated;
+//        try {
+//            restaurantEntityCreated = restaurantJpaRepository.save(restaurantEntity);
+//        } catch (RuntimeException exception) {
+//            throw new NotAcceptException("Restaurant 정보를 저장하는 도중에 Error 가 발생하였습니다.");
+//        }
+//        return restaurantEntityCreated.getRstrId();
+//    }
 
     //외부 API 정보 DB에 저장하기 - 성공
     public void saveRestaurantsFromExternalAPI() {
@@ -96,4 +89,28 @@ public class RestaurantService {
             throw new NotAcceptException("JSON data를 저장할 수 없습니다.");
         }
     }
+
+//    public void saveRestaurantsFromExternalAPI() {
+//        RestTemplate restTemplate = new RestTemplate();
+//        String json = restTemplate.getForObject(buildRequestUrl("/api/rstr"), String.class);
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        JsonNode rootNode = null;
+//        try {
+//            rootNode = mapper.readTree(json);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            throw new InvalidValueException("JSON data를 읽을 수 없습니다.");
+//        }
+//
+//        if (rootNode != null && rootNode.has("body")) {
+//            JsonNode bodyNode = rootNode.get("body");
+//            for (JsonNode restaurantNode : bodyNode) {
+//                RestaurantEntity restaurant = mapper.convertValue(restaurantNode, RestaurantEntity.class);
+//                restaurantJpaRepository.save(restaurant);
+//            }
+//        } else {
+//            throw new NotAcceptException("JSON data를 저장할 수 없습니다.");
+//        }
+//    }
 }

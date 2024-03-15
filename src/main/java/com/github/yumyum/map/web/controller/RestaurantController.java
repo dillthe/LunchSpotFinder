@@ -1,12 +1,10 @@
 package com.github.yumyum.map.web.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.yumyum.map.service.RestaurantService;
-import com.github.yumyum.map.web.dto.restaurant.RestaurantDTO;
+//import com.github.yumyum.map.web.dto.restaurant.RestaurantDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,12 +20,12 @@ public class RestaurantController {
         return restaurantService.getRestaurants();
     }
 
-    @Operation(summary = "JSON 정보 임시로 넣어보기 - 성공")
-    @PostMapping("/api/saveRes")
-    public String addToRestaurant(@RequestBody RestaurantDTO restaurantDTO) {
-        Long rstrId = restaurantService.saveRestaurant(restaurantDTO);
-        return "restaurant ID: " + rstrId;
-    }
+//    @Operation(summary = "JSON 정보 임시로 넣어보기 - 성공")
+//    @PostMapping("/api/saveRes")
+//    public String addToRestaurant(@RequestBody RestaurantDTO restaurantDTO) {
+//        Long rstrId = restaurantService.saveRestaurant(restaurantDTO);
+//        return "restaurant ID: " + rstrId;
+//    }
     @Operation(summary = "외부 API 식당 정보 DB에 저장하기 - 성공")
     @GetMapping("api/saveRestaurants")
     public ResponseEntity<String> saveRestaurants() {

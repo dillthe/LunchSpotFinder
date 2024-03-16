@@ -1,12 +1,14 @@
-package com.github.yumyum.map.web.dto.member;
+package com.github.yumyum.map.web.dto.visited;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.geo.Point;
+
+import java.time.LocalDate;
 
 
 @Getter
@@ -14,11 +16,13 @@ import org.springframework.data.geo.Point;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class memberDTO {
+public class VisitDTO {
+        private Integer visitedId;
         private Integer memberId;
-        private String email;
-        private String name;
-        private String password;
-        private String phoneNumber;
-        private Point locationPoint;
+        private Integer rstrId;
+        private LocalDate visitDate;
+
+        private String rstrName;
+        private String address;
+        private String tellNumber;
 }

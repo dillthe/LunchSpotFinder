@@ -1,4 +1,4 @@
-package com.github.yumyum.map.repository.restaurant;
+package com.github.yumyum.map.repository;
 
 
 import com.github.yumyum.map.repository.entity.RestaurantEntity;

@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class interestBody {
+public class InterestBody {
     private Integer memberId;
-    private Integer restaurantId;
+    private Integer rstrId;
 }

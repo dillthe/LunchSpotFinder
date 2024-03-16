@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 @Slf4j
-public class RestaurantController {
+public class RestaurantController implements ApiController{
     private final RestaurantService restaurantService;
 
     @Operation(summary = "외부 API 식당 정보 가져오기")
-    @GetMapping("/api/rstr")
+    @GetMapping("/rstr")
     public String getRestaurants() {
         return restaurantService.getRestaurants();
     }
@@ -27,7 +27,7 @@ public class RestaurantController {
 //        return "restaurant ID: " + rstrId;
 //    }
     @Operation(summary = "외부 API 식당 정보 DB에 저장하기 - 성공")
-    @GetMapping("api/saveRestaurants")
+    @GetMapping("/saveRestaurants")
     public ResponseEntity<String> saveRestaurants() {
         restaurantService.saveRestaurantsFromExternalAPI();
         return ResponseEntity.ok("외부 API 정보가 데이터베이스에 저장되었습니다.");

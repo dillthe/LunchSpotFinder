@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.yumyum.exceptions.InvalidValueException;
 import com.github.yumyum.exceptions.NotAcceptException;
 import com.github.yumyum.map.repository.entity.RestaurantEntity;
-import com.github.yumyum.map.repository.restaurant.RestaurantJpaRepository;
+import com.github.yumyum.map.repository.RestaurantJpaRepository;
 //import com.github.yumyum.map.service.mapper.RestaurantMapper;
 //import com.github.yumyum.map.web.dto.restaurant.*;
 import lombok.RequiredArgsConstructor;

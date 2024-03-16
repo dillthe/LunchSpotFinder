@@ -24,7 +24,7 @@ public class RestaurantEntity {
     @Id
     @JsonProperty("RSTR_ID")
     @Column(name = "rstr_id")
-    private Long rstrId;
+    private Integer rstrId;
 
     @JsonProperty("RSTR_NM")
     @Column(name = "rstr_name")
@@ -44,7 +44,7 @@ public class RestaurantEntity {
 
     @JsonProperty("RSTR_TELNO")
     @Column(name = "tell_number")
-    private String tell_number;
+    private String tellNumber;
 
     @JsonProperty("BSNS_STATM_BZCND_NM")
     @Column(name = "cuisine")

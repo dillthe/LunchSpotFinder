@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class RestaurantDTO {
-    private Long rstrId;
+    private Integer rstrId;
     private String rstrName;
     private String address;
     private String latitude;

@@ -3,6 +3,7 @@ package com.github.yumyum.map.repository.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -23,7 +24,7 @@ public class VisitEntity {
     @JoinColumn(name = "rstr_id")
     private RestaurantEntity restaurantEntity;
     @Column(name="visit_date")
-    private Date visitDate;
+    private LocalDate visitDate;
     @Column(name = "rstr_name")
     private String rstrName;
     @Column(name = "address")

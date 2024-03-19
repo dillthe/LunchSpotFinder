@@ -17,4 +17,6 @@ public interface RestaurantRepository extends JpaRepository<RestaurantEntity, In
 
     @Query(value = "SELECT r.* FROM restaurant r WHERE 6371 * acos(cos(radians(:latitude)) * cos(radians(r.latitude)) * cos(radians(r.longitude) - radians(:longitude)) + sin(radians(:latitude)) * sin(radians(r.latitude))) <= :radius", nativeQuery = true)
     List<RestaurantEntity> findRestaurantsWithinRadiusForMember(@Param("latitude") BigDecimal latitude, @Param("longitude") BigDecimal longitude, @Param("radius") BigDecimal radius);
+
+    List<RestaurantEntity> findByCuisine(String cuisine);
 }

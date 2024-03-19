@@ -94,6 +94,27 @@ public class RestaurantService {
         return restaurants;
     }
 
+    //음식 카테고리 별로 식당 조회하기
+    public List<RestaurantEntity> restaurantsByCategory(String cuisine) {
+        List<RestaurantEntity> restaurantByCategory = restaurantRepository.findByCuisine(cuisine);
+        return restaurantByCategory;
+    }
+
+    //사용자 반경 n km 내 음식 카테고리별로 식당 조회하기
+    public List<RestaurantEntity> findRestaurantsWithinRadiusAndCategory(BigDecimal latitude, BigDecimal longitude, BigDecimal radius, String cuisine) {
+        List<RestaurantEntity> restaurants = restaurantRepository.findRestaurantsWithinRadiusForMember(latitude, longitude, radius);
+
+        if (cuisine != null) {
+            List<RestaurantEntity> filteredRestaurants = restaurants.stream()
+                    .filter(restaurant -> cuisine.equals(restaurant.getCuisine()))
+                    .collect(Collectors.toList());
+            return filteredRestaurants;
+        } else {
+            return restaurants;
+        }
+    }
+}
+
 //    임시로 JSON 데이터 저장해보기 - 성공
 //    public Long saveRestaurant(RestaurantDTO restaurantDTO) {
 //        RestaurantEntity restaurantEntity = RestaurantMapper.INSTANCE.restaurantDTOtoRestaurantEntity(restaurantDTO);
@@ -105,4 +126,3 @@ public class RestaurantService {
 //        }
 //        return restaurantEntityCreated.getRstrId();
 //    }
-}

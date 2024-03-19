@@ -42,16 +42,12 @@ public class VisitService {
     }
 
     //다녀간 식당 정보 삭제하기
-    public void deleteVisit(String visitId, Integer memberId) {
+    public void deleteVisit(String visitId) {
         try {
             Integer visitIdInt = Integer.valueOf(visitId);
-//            Integer memberIdInt = Integer.valueOf(memberId);
-            visitRepository.findById(memberId);
             visitRepository.deleteById(visitIdInt);
         } catch (NumberFormatException e) {
             throw new NotAcceptException("Id 형식이 올바르지 않습니다.");
         }
     }
-
-
 }

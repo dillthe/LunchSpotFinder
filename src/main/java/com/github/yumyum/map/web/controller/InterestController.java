@@ -31,13 +31,4 @@ public class InterestController implements ApiController{
         return ResponseEntity.ok("식당 정보가 즐겨찾기에서 삭제되었습니다.");
     }
 
-//    @Operation(summary = "관심있는 식당 정보 삭제")
-//    @DeleteMapping("/delete-interest")
-//    public ResponseEntity<String> deleteInterest(@RequestBody Map<String, Integer> requestBody){
-//        Integer memberId = requestBody.get("memberId");
-//        Integer rstrId = requestBody.get("rstrId");
-//        interestService.deleteInterest(memberId,rstrId);
-//        return ResponseEntity.ok("식당 정보가 즐겨찾기에서 삭제되었습니다.");
-//    }
-
 }

@@ -1,9 +1,6 @@
 package com.github.yumyum.map.service.mapper;
 
-import com.github.yumyum.map.repository.entity.RestaurantEntity;
-//import com.github.yumyum.map.web.dto.restaurant.RestaurantDTO;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper

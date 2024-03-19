@@ -45,58 +45,5 @@ public class InterestService {
         Integer interestIdInt = Integer.valueOf(interestId);
         interestRepository.deleteById(interestIdInt);
     }
-//
-//    //관심있는 식당 삭제하기
-//    public void deleteInterest(String memberId, String rstrId) {
-//        try {
-//            Integer memberIdInt = Integer.valueOf(memberId);
-//            Integer rstrIdInt = Integer.valueOf(rstrId);
-//            interestRepository.deleteByMemberIdAndRstrId(memberIdInt, rstrIdInt);
-//        } catch (NumberFormatException e) {
-//            throw new NotAcceptException("Id 형식이 올바르지 않습니다.");
-//        }
-//    }
-
-//    public void deleteInterest(String interestId) {
-//        try {
-//            Integer interestIdInt = Integer.valueOf(interestId);
-//            Optional<InterestEntity> interestEntityOptional = interestRepository.findById(interestIdInt);
-//            if (interestEntityOptional.isPresent()) {
-//                InterestEntity interestEntity = interestEntityOptional.get();
-//                MemberEntity memberEntity = interestEntity.getMemberEntity();
-//                RestaurantEntity restaurantEntity = interestEntity.getRestaurantEntity();
-//                Integer memberId = memberEntity.getMemberId();
-//                Integer rstrId = restaurantEntity.getRstrId();
-//                // Now you have memberId and rstrId, you can use them as needed
-//                // For example, you can pass them to another method or use them to perform additional operations
-//
-//                interestRepository.deleteById(interestIdInt);
-//            } else {
-//                throw new NotFoundException("Interest with ID " + interestId + " not found.");
-//            }
-//        } catch (NumberFormatException e) {
-//            throw new NotAcceptException("InterestId 형식이 올바르지 않습니다.");
-//        }
-//    }
-
-    //관심있는 식당 삭제하기
-//    public void deleteInterest(Integer memberId, Integer rstrId) {
-//        try {
-//            Optional<MemberEntity> memberEntity = memberRepository.findById(memberId);
-//            Optional<RestaurantEntity> restaurantEntity = restaurantJpaRepository.findById(rstrId);
-//            if (memberEntity.isPresent() && restaurantEntity.isPresent()) {
-//                Optional<InterestEntity> interest = interestRepository.findByMemberEntityAndRestaurantEntity(memberEntity, restaurantEntity);
-//                if (interest.isPresent()) {
-//                    interestRepository.deleteById(interest.get().getInterestId());
-//                } else {
-//                    throw new NotFoundException("해당하는 관심 식당 정보가 없습니다.");
-//                }
-//            } else {
-//                throw new NotFoundException("해당하는 회원 정보 또는 식당 정보가 없습니다.");
-//            }
-//        } catch (NumberFormatException e) {
-//            throw new NotAcceptException("Id 형식이 올바르지 않습니다.");
-//        }
-//    }
 
 }

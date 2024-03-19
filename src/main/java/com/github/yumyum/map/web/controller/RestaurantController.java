@@ -25,20 +25,14 @@ public class RestaurantController implements ApiController{
         return restaurantService.getRestaurants();
     }
 
-//    @Operation(summary = "JSON 정보 임시로 넣어보기 - 성공")
-//    @PostMapping("/api/saveRes")
-//    public String addToRestaurant(@RequestBody RestaurantDTO restaurantDTO) {
-//        Long rstrId = restaurantService.saveRestaurant(restaurantDTO);
-//        return "restaurant ID: " + rstrId;
-//    }
-    @Operation(summary = "외부 API 식당 정보 DB에 저장하기 - 성공")
+    @Operation(summary = "외부 API 식당 정보 DB에 저장하기")
     @GetMapping("/saveRestaurants")
     public ResponseEntity<String> saveRestaurants() {
         restaurantService.saveRestaurantsFromExternalAPI();
         return ResponseEntity.ok("외부 API 정보가 데이터베이스에 저장되었습니다.");
     }
 
-
+    @Operation(summary = "사용자 반경 내 식당 정보 조회")
     @GetMapping("/within-radius")
     public ResponseEntity<List<RestaurantEntity>> getRestaurantsWithinRadius(
             @RequestParam("latitude") BigDecimal latitude,
@@ -49,29 +43,10 @@ public class RestaurantController implements ApiController{
         return ResponseEntity.ok(restaurants);
     }
 
-//    @Operation(summary = "반경 n km내 레스토랑 찾기")
-//    @GetMapping("/rstrInRadius")
-//    public List<RestaurantEntity> getRestaurantsWithinRadiusForMember(@RequestParam String memberId, @RequestParam double radius) {
-//        return restaurantService.findRestaurantsWithinRadiusForMember(memberId, radius);
-//    }
-
-
-
-
-//    @Operation(summary = "반경 n km내 레스토랑 찾기")
-//    @GetMapping("/restaurants/{memberId}")
-//    public List<RestaurantDTO> getRestaurantsWithinRadius(@PathVariable String memberId) {
-//        Integer memberIdInt=Integer.valueOf(memberId);
-//        double radiusInKm = 5.0; // 예시로 5km 반경으로 설정
-//        return restaurantService.getRestaurantsWithinRadius(memberIdInt, radiusInKm);
-//    }
-
-
-//    @Operation(summary = "반경 n km내 레스토랑 찾기")
-//    @GetMapping("/nearby")
-//    public ResponseEntity<List<RestaurantDTO>> getRestaurantsNearby(@RequestParam BigDecimal latitude,
-//                                                                    @RequestParam BigDecimal longitude) {
-//        List<RestaurantDTO> nearbyRestaurants = restaurantService.getRestaurantsWithinRadius(latitude, longitude, 30);
-//        return ResponseEntity.ok(nearbyRestaurants);
+    //    @Operation(summary = "JSON 정보 임시로 넣어보기")
+//    @PostMapping("/api/saveRes")
+//    public String addToRestaurant(@RequestBody RestaurantDTO restaurantDTO) {
+//        Long rstrId = restaurantService.saveRestaurant(restaurantDTO);
+//        return "restaurant ID: " + rstrId;
 //    }
 }

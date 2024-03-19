@@ -30,11 +30,13 @@ public class UserMatchEntity {
     @Column(name = "match_dt")
     private String matchDt;
 
-    @Column(name = "send_user")
-    private int sendUser;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "send_user", referencedColumnName = "user_sn")
+    private UserEntity sendUser;
 
-    @Column(name = "receive_user")
-    private int receiveUser;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "receive_user", referencedColumnName = "user_sn")
+    private UserEntity receiveUser;
 
 
 }

@@ -39,7 +39,8 @@ public class SecurityConfig {
                                 // Swagger 허용 URL
                                 "/v1/api/**", "/v2/api-docs", "/v3/api-docs", "/v3/api-docs/**", "/swagger-resources",
                                 "/swagger-resources/**", "/configuration/ui", "/configuration/security", "/swagger-ui/**",
-                                "/webjars/**", "/swagger-ui.html","/resources/static/**", "/v1/api/updatePassword", "/v1/api/deleteUser", "/v1/api/userIdSearch")
+                                "/webjars/**", "/swagger-ui.html","/resources/static/**", "/v1/api/updatePassword", "/v1/api/deleteUser", "/v1/api/userIdSearch",
+                                "/v1/api/getReceiveMatchList", "/v1/api/insertUserMatch", "/v1/api/monthMemoList", "/v1/api/dayMemoList")
                         .permitAll().anyRequest().authenticated()
                 );
 

@@ -33,11 +33,30 @@ public class UserMatchController {
         int insertCount = userMatchService.insertUserMatch(userMatchDTO);
         System.out.println("insertCount = " + insertCount);
 
+        // 프론트에서 목록 리스트에 있는 사람에게 보내는 부분으로 user 테이블에 존재하는 사용자인지 체크가 필요할지?!
         if(insertCount > 0) {
             return ResponseEntity.ok().body("친구신청이 성공적으로 이루어졌습니다.");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("친구신청에 실패했습니다.");
         }
     }
+
+    // 내가 받은 목록 리스트
+    @Operation(summary = "내가 받은 목록 조회")
+    @PostMapping("/getReceiveMatchList")
+    public ResponseEntity<?> getReceiveMatchList(@RequestBody int receiveUserSn) {
+        return ResponseEntity.ok(userMatchService.getReceiveMatchList(receiveUserSn));
+    }
+
+    // 친구 수락 / 거절 하기
+    @Operation(summary = "친구 수락 / 거절 API")
+    @PostMapping("/satMatchStatus")
+    public ResponseEntity<?> satMatchStatus(@RequestBody UserMatchDTO userMatchDTO) {
+        return ResponseEntity.ok(userMatchService.satMatchStatus(userMatchDTO));
+    }
+
+    // 내가 보낸 목록 리스트
+
+    // 매칭된 친구 리스트 확인
 
 }

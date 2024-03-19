@@ -1,5 +1,6 @@
 package com.github.yumyum.mypage.dto;
 
+import com.github.yumyum.mypage.repository.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,10 +17,7 @@ public class UserMatchDTO {
     private char matchCode;
     private Date sendDt;
     private Date matchDt;
-    private int sendUser;
-    private int receiveUser;
-
-
-
+    private UserEntity sendUser;
+    private UserEntity receiveUser;
 
 }

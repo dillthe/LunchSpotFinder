@@ -11,9 +11,9 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CalenderDTO {
-    private int calenderSn;
-    private String calenderCn;
+public class CalendarDTO {
+    private int calendarSn;
+    private String calendarCn;
     private Date memoDt;
     private Date regDt;
     private int userSn;

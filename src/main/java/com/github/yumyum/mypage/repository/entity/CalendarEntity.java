@@ -2,6 +2,9 @@ package com.github.yumyum.mypage.repository.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.util.Date;
 
 @Getter
 @Setter
@@ -9,22 +12,23 @@ import lombok.*;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "calender")
-public class CalenderEntity {
+@Table(name = "calendar")
+public class CalendarEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "calender_sn")
-    private int calenderSn;
+    @Column(name = "calendar_sn")
+    private int calendarSn;
 
-    @Column(name = "calender_cn")
-    private String calenderCn;
+    @Column(name = "calendar_cn")
+    private String calendarCn;
 
     @Column(name = "memo_dt")
-    private String memoDt;
+    private Date memoDt;
 
+    @CreationTimestamp
     @Column(name = "reg_dt")
-    private String regDt;
+    private Date regDt;
 
     @Column(name = "user_sn")
     private int userSn;

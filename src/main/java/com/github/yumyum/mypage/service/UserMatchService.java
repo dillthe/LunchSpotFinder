@@ -25,7 +25,6 @@ public class UserMatchService {
 
     public List<UserEntity> getUserIdSearch(UserDTO userDTO) {
         return userRepository.findByUserIdContaining(userDTO.getUserId()).orElseThrow(() -> new NotFoundException("검색 결과가 없습니다."));
-
     }
 
     @Transactional
@@ -48,12 +47,30 @@ public class UserMatchService {
 
     }
 
+    // 내가 받은 친구 목록 리스트
+    @Transactional
+    public List<UserMatchEntity> getReceiveMatchList(int receiveUserSn) {
+        return userMatchJpaRepository.findByReceiveUser(receiveUserSn);
+
+
+//        return userMatchJpaRepository.findByReceiveUser(userMatchDTO.getReceiveUser()).orElseThrow(() -> new NotFoundException("검색 결과가 없습니다."));
+    }
+
+    // 친구 수락/거절 Service
+    public int satMatchStatus(UserMatchDTO userMatchDTO) {
+
+        return 0;
+
+    }
+
+    // convertDtoToEntity
     private UserMatchEntity convertDtoToEntity(UserMatchDTO userMatchDTO) {
         UserMatchEntity userMatchEntity = new UserMatchEntity();
         userMatchEntity.setMatchCode(userMatchDTO.getMatchCode());
         userMatchEntity.setSendUser(userMatchDTO.getSendUser());
         userMatchEntity.setReceiveUser(userMatchDTO.getReceiveUser());
-        // 필요한 나머지 필드도 여기서 설정합니다.
         return userMatchEntity;
     }
+
+
 }

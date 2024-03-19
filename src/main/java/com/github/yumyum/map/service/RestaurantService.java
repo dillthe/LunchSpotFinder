@@ -62,6 +62,30 @@ public class RestaurantService {
         return restTemplate.getForObject(buildRequestUrl("/api/rstr"), String.class);
     }
 
+    //외부 API 식당 운영시간 및 운영정보 불러오기
+    public String getRestaurantOperation() { return restTemplate.getForObject(buildRequestUrl("/api/rstr/oprt"), String.class);
+    }
+
+    //외부 API 음식 이미지 정보 불러오기
+    public String getFoodImage() { return restTemplate.getForObject(buildRequestUrl("/api/food/img"), String.class);
+    }
+    //외부 API 식당 이미지 정보 불러오기
+    public String getRestaurantImage() { return restTemplate.getForObject(buildRequestUrl("/api/rstr/img"), String.class);
+    }
+
+    //외부 API 식당 메뉴 정보 불러오기
+    public String getMenu() {return restTemplate.getForObject(buildRequestUrl("/api/menu/korean"), String.class);
+    }
+    //외부 API 식당 평점 정보 불러오기
+    public String getReviews() {return restTemplate.getForObject(buildRequestUrl("/api/rstr/qlt"), String.class);
+    }
+
+    //아래 서비스는 오픈 API 서비스에 없는 것 같음.
+    public String getReviewsById(String id) {
+        Integer idInt = Integer.valueOf(id);
+        return restTemplate.getForObject(buildRequestUrl("/api/rstr/qlt/" + idInt), String.class);
+    }
+
 
     //외부 API 정보 DB에 저장하기
     public void saveRestaurantsFromExternalAPI() {
@@ -100,7 +124,7 @@ public class RestaurantService {
         return restaurantByCategory;
     }
 
-    //사용자 반경 n km 내 음식 카테고리별로 식당 조회하기
+    //사용자 반경 n km 내 음식 카테고리별로 식당 조회하기 - 음식종류 분류 안하고 싶은 경우에는 위 기본코드를 사용해야함.
     public List<RestaurantEntity> findRestaurantsWithinRadiusAndCategory(BigDecimal latitude, BigDecimal longitude, BigDecimal radius, String cuisine) {
         List<RestaurantEntity> restaurants = restaurantRepository.findRestaurantsWithinRadiusForMember(latitude, longitude, radius);
 
@@ -113,6 +137,9 @@ public class RestaurantService {
             return restaurants;
         }
     }
+
+
+
 }
 
 //    임시로 JSON 데이터 저장해보기 - 성공
@@ -125,4 +152,8 @@ public class RestaurantService {
 //            throw new NotAcceptException("Restaurant 정보를 저장하는 도중에 Error 가 발생하였습니다.");
 //        }
 //        return restaurantEntityCreated.getRstrId();
+//    }
+
+//    //외부 API 식당 메뉴 설명 불러오기
+//    public String getMenuDscrn() {return restTemplate.getForObject(buildRequestUrl("/api/menu-dscrn/korean"), String.class);
 //    }

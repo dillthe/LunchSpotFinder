@@ -60,6 +60,9 @@ dependencies {
 
     //implementation 'org.json:json:20210307'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
+
+    //GeoDistance
+    implementation 'com.github.calzam:geo-distance:1.0.2'
 }
 
 tasks.named('test') {

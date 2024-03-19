@@ -36,11 +36,11 @@ public class RestaurantEntity {
 
     @JsonProperty("RSTR_LA")
     @Column(name = "latitude")
-    private String latitude;
+    private BigDecimal rsLatitude;
 
     @JsonProperty("RSTR_LO")
-    @Column(name = "longtitude")
-    private BigDecimal longtitude;
+    @Column(name = "longitude")
+    private BigDecimal rsLongitude;
 
     @JsonProperty("RSTR_TELNO")
     @Column(name = "tell_number")

@@ -5,7 +5,7 @@ import com.github.yumyum.exceptions.NotAcceptException;
 import com.github.yumyum.exceptions.NotFoundException;
 import com.github.yumyum.map.repository.InterestRepository;
 import com.github.yumyum.map.repository.MemberRepository;
-import com.github.yumyum.map.repository.RestaurantJpaRepository;
+import com.github.yumyum.map.repository.RestaurantRepository;
 import com.github.yumyum.map.repository.entity.InterestEntity;
 import com.github.yumyum.map.repository.entity.RestaurantEntity;
 import com.github.yumyum.map.service.mapper.InterestMapper;
@@ -19,13 +19,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class InterestService {
 
-    private final RestaurantJpaRepository restaurantJpaRepository;
+    private final RestaurantRepository restaurantRepository;
     private final MemberRepository memberRepository;
     private final InterestRepository interestRepository;
 
     //유저 정보 받아서 넣는거 나중에 로그인 완성되면 추가하기.
     public Integer addToInterest(InterestBody interestBody) {
-        RestaurantEntity restaurantEntity = restaurantJpaRepository.findById(interestBody.getRstrId())
+        RestaurantEntity restaurantEntity = restaurantRepository.findById(interestBody.getRstrId())
                 .orElseThrow(() -> new NotFoundException("식당을 찾을 수 없습니다."));
         InterestEntity interestEntity = InterestMapper.INSTANCE.idAndInterestBodyToInterestEntity(null,interestBody);
         interestEntity.setRstrName(restaurantEntity.getRstrName());

@@ -18,8 +18,8 @@ public class RestaurantDTO {
     private Integer rstrId;
     private String rstrName;
     private String address;
-    private String latitude;
-    private BigDecimal longtitude;
+    private BigDecimal rsLatitude;
+    private BigDecimal rsLongitude;
     private String tell_number;
     private String cuisine;
     }

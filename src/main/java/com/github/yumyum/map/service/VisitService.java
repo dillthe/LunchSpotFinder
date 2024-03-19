@@ -3,7 +3,7 @@ package com.github.yumyum.map.service;
 
 import com.github.yumyum.exceptions.NotAcceptException;
 import com.github.yumyum.exceptions.NotFoundException;
-import com.github.yumyum.map.repository.RestaurantJpaRepository;
+import com.github.yumyum.map.repository.RestaurantRepository;
 import com.github.yumyum.map.repository.VisitRepository;
 import com.github.yumyum.map.repository.entity.RestaurantEntity;
 import com.github.yumyum.map.repository.entity.VisitEntity;
@@ -20,12 +20,12 @@ import static java.time.LocalDate.now;
 @Service
 public class VisitService {
 
-    private final RestaurantJpaRepository restaurantJpaRepository;
+    private final RestaurantRepository restaurantRepository;
     private final VisitRepository visitRepository;
 
     //유저 정보 받아서 넣는거 나중에 로그인 완성되면 추가하기.
     public Integer addToVisit(VisitBody visitBody) {
-        RestaurantEntity restaurantEntity = restaurantJpaRepository.findById(visitBody.getRstrId())
+        RestaurantEntity restaurantEntity = restaurantRepository.findById(visitBody.getRstrId())
                 .orElseThrow(() -> new NotFoundException("식당을 찾을 수 없습니다."));
         VisitEntity visitEntity = VisitMapper.INSTANCE.idAndVisitBodyToVisitEntity(null,visitBody);
         visitEntity.setRstrName(restaurantEntity.getRstrName());

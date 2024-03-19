@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RequiredArgsConstructor
 @RestController
 @Slf4j
@@ -21,10 +23,21 @@ public class InterestController implements ApiController{
         return ResponseEntity.ok("식당 정보가 즐겨찾기에 추가되었습니다.");
     }
 
+
+    @Operation(summary = "관심있는 식당 정보 삭제")
+    @DeleteMapping("/delete-interest/{interestId}")
+    public ResponseEntity<String> deleteInterest(@PathVariable String interestId){
+        interestService.deleteInterest(interestId);
+        return ResponseEntity.ok("식당 정보가 즐겨찾기에서 삭제되었습니다.");
+    }
+
 //    @Operation(summary = "관심있는 식당 정보 삭제")
-//    @DeleteMapping("/delete-interest/{interestId}")
-//    public ResponseEntity<String> deleteInterest(@PathVariable String interestId){
-//        interestService.deleteInterest(interestId);
-//        return ResponseEntity.ok("식당 정보(ID:"+interestId+")가 즐겨찾기에서 삭제되었습니다.");
+//    @DeleteMapping("/delete-interest")
+//    public ResponseEntity<String> deleteInterest(@RequestBody Map<String, Integer> requestBody){
+//        Integer memberId = requestBody.get("memberId");
+//        Integer rstrId = requestBody.get("rstrId");
+//        interestService.deleteInterest(memberId,rstrId);
+//        return ResponseEntity.ok("식당 정보가 즐겨찾기에서 삭제되었습니다.");
 //    }
+
 }

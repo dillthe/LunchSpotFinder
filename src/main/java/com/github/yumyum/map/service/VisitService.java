@@ -3,15 +3,11 @@ package com.github.yumyum.map.service;
 
 import com.github.yumyum.exceptions.NotAcceptException;
 import com.github.yumyum.exceptions.NotFoundException;
-import com.github.yumyum.map.repository.InterestRepository;
 import com.github.yumyum.map.repository.RestaurantJpaRepository;
 import com.github.yumyum.map.repository.VisitRepository;
-import com.github.yumyum.map.repository.entity.InterestEntity;
 import com.github.yumyum.map.repository.entity.RestaurantEntity;
 import com.github.yumyum.map.repository.entity.VisitEntity;
-import com.github.yumyum.map.service.mapper.InterestMapper;
 import com.github.yumyum.map.service.mapper.VisitMapper;
-import com.github.yumyum.map.web.dto.interested.InterestBody;
 import com.github.yumyum.map.web.dto.visited.VisitBody;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,15 +41,17 @@ public class VisitService {
             return visitEntityCreated.getVisitId();
     }
 
-    //관심있는 식당 삭제하기
-//    public void deleteInterest(String interestId) {
-//        try {
-//            Integer interestIdInt = Integer.valueOf(interestId);
-//            interestRepository.deleteById(interestIdInt);
-//        } catch (NumberFormatException e) {
-//            throw new NotAcceptException("Id 형식이 올바르지 않습니다.");
-//        }
-//    }
+    //다녀간 식당 정보 삭제하기
+    public void deleteVisit(String visitId, Integer memberId) {
+        try {
+            Integer visitIdInt = Integer.valueOf(visitId);
+//            Integer memberIdInt = Integer.valueOf(memberId);
+            visitRepository.findById(memberId);
+            visitRepository.deleteById(visitIdInt);
+        } catch (NumberFormatException e) {
+            throw new NotAcceptException("Id 형식이 올바르지 않습니다.");
+        }
+    }
 
 
 }

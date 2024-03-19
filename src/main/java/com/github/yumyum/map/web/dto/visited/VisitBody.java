@@ -19,5 +19,4 @@ public class VisitBody {
     private Integer memberId;
     private Integer rstrId;
     private LocalDate visitDate;
-
 }

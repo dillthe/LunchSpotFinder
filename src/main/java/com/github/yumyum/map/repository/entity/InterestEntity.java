@@ -12,11 +12,12 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name="interested_restaurant")
+@Table(name = "Interested_Restaurant",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"member_id", "rstr_id"})})
 public class InterestEntity{
     @Id @Column(name="interest_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer InterestId;
+    private Integer interestId;
     @ManyToOne
     @JoinColumn(name = "member_id")
     private MemberEntity memberEntity;

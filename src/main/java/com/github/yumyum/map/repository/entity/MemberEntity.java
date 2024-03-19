@@ -16,7 +16,7 @@ import java.util.Set;
 @Entity
 @Table(name="Member")
 public class MemberEntity {
-    @Id
+    @Id @Column(name="member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer memberId;
     @Column(name="email")

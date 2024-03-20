@@ -67,7 +67,7 @@ public class RestaurantController implements ApiController{
         return ResponseEntity.ok("외부 API 정보가 데이터베이스에 저장되었습니다.");
     }
 
-    @Operation(summary = "사용자 반경 내 식당 정보 조회")
+    @Operation(summary = "사용자 지정 반경 내 식당 정보 조회-위도 경도 및 반경 정보 필요")
     @GetMapping("/restaurants/within-radius")
     public ResponseEntity<List<RestaurantEntity>> getRestaurantsWithinRadius(
             @RequestParam("latitude") BigDecimal latitude,
@@ -85,17 +85,14 @@ public class RestaurantController implements ApiController{
         return ResponseEntity.ok(restaurantsByCategory);
     }
 
-    @Operation(summary = "사용자 반경 내 음식 카테고리별 식당 조회")
+    @Operation(summary = "지정 반경 설정, 음식 카테고리별 식당 조회 - 위도 경도 및 반경 정보 필요, ")
     @GetMapping("/restaurants/within-radius-and-category")
     public ResponseEntity<List<RestaurantEntity>> getRestaurantsWithinRadiusAndCategory(
             @RequestParam("latitude") BigDecimal latitude,
             @RequestParam("longitude") BigDecimal longitude,
             @RequestParam("radius") BigDecimal radius,
             @RequestParam("cuisine") String cuisine) {
-
-        if (cuisine != null && cuisine.equals("desired_cuisine")) {
-            // Do something
-        }
+//        if (cuisine != null && cuisine.equals("cuisine")) {} }
         List<RestaurantEntity> restaurants = restaurantService.findRestaurantsWithinRadiusAndCategory(latitude, longitude, radius, cuisine);
         return ResponseEntity.ok(restaurants);
     }

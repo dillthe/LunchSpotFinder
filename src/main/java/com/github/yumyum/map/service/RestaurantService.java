@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.yumyum.exceptions.InvalidValueException;
 import com.github.yumyum.exceptions.NotAcceptException;
+import com.github.yumyum.exceptions.NotFoundException;
 import com.github.yumyum.map.repository.MemberRepository;
 import com.github.yumyum.map.repository.RestaurantRepository;
 import com.github.yumyum.map.repository.entity.MemberEntity;
@@ -16,6 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Metrics;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -112,7 +115,7 @@ public class RestaurantService {
         }
     }
 
-    //사용자 반경 내 식당 정보 조회
+    //사용자 지정 반경 내 식당 정보 조회
     public List<RestaurantEntity> findRestaurantsWithinRadius(BigDecimal latitude, BigDecimal longitude, BigDecimal radius) {
         List<RestaurantEntity> restaurants = restaurantRepository.findRestaurantsWithinRadiusForMember(latitude, longitude, radius);
         return restaurants;
@@ -132,9 +135,19 @@ public class RestaurantService {
             List<RestaurantEntity> filteredRestaurants = restaurants.stream()
                     .filter(restaurant -> cuisine.equals(restaurant.getCuisine()))
                     .collect(Collectors.toList());
-            return filteredRestaurants;
-        } else {
-            return restaurants;
+            if (filteredRestaurants.isEmpty()) {
+                throw new NotFoundException("지정하신 반경 내 해당 음식 종류:" + cuisine + "를 판매하는 식당을 찾지 못했습니다.");
+            } else {
+                return filteredRestaurants;
+            }
+        }
+         else {
+             if(restaurants.isEmpty()){
+                 throw new NotFoundException("지정하신 반경 내에 있는 식당을 찾지 못했습니다.");
+             }else {
+                 return restaurants;
+             }
+
         }
     }
 

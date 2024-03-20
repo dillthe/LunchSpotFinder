@@ -1,10 +1,8 @@
 package com.github.yumyum.chat.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(of = {"memberId", "email", "name"})
 @Entity
 @Table(name = "member")
 public class Member {
@@ -25,6 +24,12 @@ public class Member {
     private String email;
     @Column
     private String name;
+    @JsonIgnore
+    @OneToMany(mappedBy = "member1")
+    private List<Friendship> friendships1;
+    @JsonIgnore
+    @OneToMany(mappedBy = "member2")
+    private List<Friendship> friendships2;
 
     public Member(int memberId) {
         this.memberId = memberId;

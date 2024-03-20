@@ -3,6 +3,8 @@ package com.github.yumyum.chat.service;
 import com.github.yumyum.chat.entity.Friendship;
 import com.github.yumyum.chat.entity.Member;
 import com.github.yumyum.chat.repository.FriendshipRepository;
+import com.github.yumyum.chat.repository.MemberFriendRepository;
+import com.github.yumyum.chat.repository.MemberQuerydslRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ import java.util.List;
 @Service
 public class ChatApiService {
 
+    private final MemberFriendRepository memberFriendRepository;
+    private final MemberQuerydslRepository memberQuerydslRepository;
     private final FriendshipRepository friendshipRepository;
 
     @Transactional
@@ -34,10 +38,10 @@ public class ChatApiService {
         return friendshipRepository.findAll();
     }
 
-//    @Transactional
-//    public List<Friendship> getMemberAllFriends(int id) {
-//        return friendshipRepository.findAllById(id);
-//    }
+    @Transactional
+    public List<Member> getMemberAllFriends(int id) {
+        return memberQuerydslRepository.findByMemberId1(id);
+    }
 
     /**
      * friendship table에서 row (id1, id2), (id2, id1) 2개씩 저장

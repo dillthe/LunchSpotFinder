@@ -45,4 +45,14 @@ public class MemberQuerydslRepository {
                 )))
                 .fetch();
     }
+
+    public List<Member> findByUsernameContainingOrEmailContaining(String keyword) {
+        return queryFactory
+                .selectFrom(member)
+                .where(
+                        member.name.contains(keyword)
+                    .or(member.email.contains(keyword))
+                )
+                .fetch();
+    }
 }

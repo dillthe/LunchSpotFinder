@@ -99,6 +99,10 @@ public class ChatApiService {
         return String.format("%s와 %s는 친구가 되었습니다.", userId1, friendShipSearchId);
     }
 
+    public List<Member> searchUsers(String keyword) {
+        return memberQuerydslRepository.findByUsernameContainingOrEmailContaining(keyword);
+    }
+
 //
 //    @Transactional
 //    public void createChatroom() {

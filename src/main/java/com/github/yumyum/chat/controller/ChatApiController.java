@@ -5,6 +5,7 @@ import com.github.yumyum.chat.entity.Member;
 import com.github.yumyum.chat.service.ChatApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,8 +27,18 @@ public class ChatApiController {
      * @return
      */
     @GetMapping(value = "/{userId}/friends")
-    public List<Member> getMemberFriends(@PathVariable("userId") int userId1) {
+    public List<Member> getFriendshipMembers(@PathVariable("userId") int userId1) {
         return chatApiService.getMemberAllFriends(userId1);
+    }
+
+    /**
+     * email or name keyword 포함하는 유저 검색
+     * @param keyword
+     * @return
+     */
+    @GetMapping
+    public List<Member> searchUsers(@RequestParam("keyword") String keyword) {
+        return chatApiService.searchUsers(keyword);
     }
 
     /**
@@ -52,7 +63,7 @@ public class ChatApiController {
      * @return
      */
     @DeleteMapping(value = "/{userId}/friend")
-    public String getMemberFriends(@PathVariable("userId") int userId1, @RequestBody FriendshipId friendshipId) {
+    public String getFriendshipMembers(@PathVariable("userId") int userId1, @RequestBody FriendshipId friendshipId) {
         chatApiService.breakFreindship(userId1, friendshipId.getFriendshipId());
 
         return "delete 성공";

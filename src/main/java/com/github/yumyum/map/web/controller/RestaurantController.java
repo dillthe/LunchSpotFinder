@@ -7,6 +7,7 @@ import com.github.yumyum.map.web.dto.restaurant.RestaurantDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -92,7 +93,6 @@ public class RestaurantController implements ApiController{
             @RequestParam("longitude") BigDecimal longitude,
             @RequestParam("radius") BigDecimal radius,
             @RequestParam("cuisine") String cuisine) {
-//        if (cuisine != null && cuisine.equals("cuisine")) {} }
         List<RestaurantEntity> restaurants = restaurantService.findRestaurantsWithinRadiusAndCategory(latitude, longitude, radius, cuisine);
         return ResponseEntity.ok(restaurants);
     }

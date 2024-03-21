@@ -13,6 +13,7 @@ import com.github.yumyum.map.service.mapper.RestaurantMapper;
 import com.github.yumyum.map.web.dto.restaurant.RestaurantDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.NotFound;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.geo.Distance;
@@ -136,18 +137,17 @@ public class RestaurantService {
                     .filter(restaurant -> cuisine.equals(restaurant.getCuisine()))
                     .collect(Collectors.toList());
             if (filteredRestaurants.isEmpty()) {
-                throw new NotFoundException("지정하신 반경 내 해당 음식 종류:" + cuisine + "를 판매하는 식당을 찾지 못했습니다.");
+                throw new NotFoundException( "지정하신 반경 내 해당 음식(" + cuisine + ")을 판매하는 식당을 찾지 못했습니다.");
             } else {
                 return filteredRestaurants;
             }
         }
          else {
              if(restaurants.isEmpty()){
-                 throw new NotFoundException("지정하신 반경 내에 있는 식당을 찾지 못했습니다.");
+                throw new NotFoundException("지정하신 반경 내에 있는 식당을 찾지 못했습니다.");
              }else {
                  return restaurants;
              }
-
         }
     }
 

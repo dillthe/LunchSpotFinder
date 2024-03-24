@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class ChatController {
 
-    // "/chat.sendMessage"
+    // http://localhost:8085 : 채팅방 임시 link
     @MessageMapping("/chat/{roomId}/sendMessage")    // 구독 경로 설정
     @SendTo("/topic/{roomId}/public")    // 1:n 으로 메세지를 뿌릴 때 사용하는 구조, 보통 경로가 /topic 으로 시작
     public ChatMessage sendMessage(
@@ -26,7 +26,7 @@ public class ChatController {
         return chatMessage;
     }
 
-    // "/chat.addUser"
+
     @MessageMapping("/chat/{roomId}/addUser")
     @SendTo("/topic/{roomId}/public")
     public ChatMessage addUser(

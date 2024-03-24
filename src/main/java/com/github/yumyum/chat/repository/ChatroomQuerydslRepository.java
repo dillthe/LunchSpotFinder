@@ -1,10 +1,12 @@
 package com.github.yumyum.chat.repository;
 
 import com.github.yumyum.chat.dto.ChatroomDto;
+import com.github.yumyum.chat.dto.ChatroomUpdateDto;
 import com.github.yumyum.chat.dto.LeaveChatDto;
 import com.github.yumyum.chat.entity.Chatroom;
 import com.github.yumyum.chat.entity.Member;
 import com.github.yumyum.chat.entity.MemberChatroom;
+import com.github.yumyum.chat.entity.QChatroom;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.util.List;
 
+import static com.github.yumyum.chat.entity.QChatroom.chatroom;
 import static com.github.yumyum.chat.entity.QMember.member;
 import static com.github.yumyum.chat.entity.QMemberChatroom.memberChatroom;
 
@@ -84,6 +87,17 @@ public class ChatroomQuerydslRepository {
             .where(memberChatroom.member.memberId.eq(leaveChatDto.getMemberId()),
                     memberChatroom.chatroom.chatroomId.eq(leaveChatDto.getChatroomId()))
             .execute();
+
+        // TODO 특정 채팅방에 있는 모든 유저 모두 나가면 해당 채팅 내역 삭제
     }
 
+    @Transactional
+    public void updateChatroom(Integer chatroomId, ChatroomUpdateDto chatroomUpdateDto) throws IOException {
+        queryFactory
+            .update(chatroom)
+            .set(chatroom.profile, chatroomUpdateDto.getProfile().getBytes())
+            .set(chatroom.title, chatroomUpdateDto.getTitle())
+            .where(chatroom.chatroomId.eq(chatroomId))
+            .execute();
+    }
 }

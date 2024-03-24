@@ -1,6 +1,7 @@
 package com.github.yumyum.chat.service;
 
 import com.github.yumyum.chat.dto.ChatroomDto;
+import com.github.yumyum.chat.dto.ChatroomUpdateDto;
 import com.github.yumyum.chat.dto.LeaveChatDto;
 import com.github.yumyum.chat.entity.Friendship;
 import com.github.yumyum.chat.entity.Member;
@@ -123,6 +124,10 @@ public class ChatApiService {
 
     public void leaveChatroomMember(LeaveChatDto leaveChatDto) {
         chatroomQuerydslRepository.deleteMemberChatroom(leaveChatDto);
+    }
+
+    public void updateChatroom(Integer chatroomId, ChatroomUpdateDto chatroomUpdateDto) throws IOException {
+        chatroomQuerydslRepository.updateChatroom(chatroomId, chatroomUpdateDto);
     }
 
 //    @Transactional

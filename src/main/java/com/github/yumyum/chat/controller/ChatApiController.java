@@ -1,6 +1,7 @@
 package com.github.yumyum.chat.controller;
 
 import com.github.yumyum.chat.dto.ChatroomDto;
+import com.github.yumyum.chat.dto.ChatroomUpdateDto;
 import com.github.yumyum.chat.dto.FriendshipId;
 import com.github.yumyum.chat.dto.LeaveChatDto;
 import com.github.yumyum.chat.entity.Member;
@@ -94,8 +95,24 @@ public class ChatApiController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
         return "create chatroom 성공";
+    }
+
+    /**
+     * 채팅방 정보 변경 (제목, 이미지)
+     * @param chatroomId
+     * @param chatroomUpdateDto
+     * @return
+     */
+    @PostMapping(value = "/chatroom/{chatroomId}")
+    public String updateChatroom(@PathVariable Integer chatroomId, ChatroomUpdateDto chatroomUpdateDto) {
+        log.info("chatroomUpdateDto: {}", chatroomUpdateDto);
+        try {
+            chatApiService.updateChatroom(chatroomId, chatroomUpdateDto);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return "update chatroom 성공";
     }
 
     /**

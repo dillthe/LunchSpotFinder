@@ -2,6 +2,7 @@ package com.github.yumyum.chat.repository;
 
 import com.github.yumyum.chat.dto.ChatroomDto;
 import com.github.yumyum.chat.entity.Chatroom;
+import com.github.yumyum.chat.entity.Member;
 import com.github.yumyum.chat.entity.MemberChatroom;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -57,8 +58,8 @@ public class ChatroomQuerydslRepository {
 
         for (Integer memberId : chatroomDto.getMemberIds()) {
             MemberChatroom memberChatroom = MemberChatroom.builder()
-                    .chatroomId(chatroomId)
-                    .memberId(memberId)
+                    .chatroom(Chatroom.builder().chatroomId(chatroomId).build())
+                    .member(Member.builder().memberId(memberId).build())
                     .build();
             save(memberChatroom);
         }

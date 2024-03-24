@@ -6,31 +6,19 @@ import lombok.*;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @ToString
 @Entity
 @Table(name = "member_chatroom")
 public class MemberChatroom {
     @Id
-    @Column(name = "member_id")
-    private Integer memberId;
+    @ManyToOne(fetch = FetchType.LAZY)  // TODO CASCADE 설정
+    @JoinColumn(name = "member_id") // 실제 DB column
+    private Member member;
 
     @Id
-    @Column(name = "chatroom_id")
-    private Integer chatroomId;
-
-//    @JsonIgnore
-//    @ManyToOne(fetch = FetchType.LAZY)  // TODO CASCADE 설정
-//    @JoinColumn(name = "memberChatrooms")
-//    private Member member;
-//
-//    @JsonIgnore
-//    @ManyToOne(fetch = FetchType.LAZY)  // TODO CASCADE 설정
-//    @JoinColumn(name = "memberChatroom")
-//    private Chatroom chatroom;
-
-    @Builder
-    public MemberChatroom(Integer memberId, Integer chatroomId) {
-        this.memberId = memberId;
-        this.chatroomId = chatroomId;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)  // TODO CASCADE 설정
+    @JoinColumn(name = "chatroom_id") // 실제 DB column
+    private Chatroom chatroom;
 }

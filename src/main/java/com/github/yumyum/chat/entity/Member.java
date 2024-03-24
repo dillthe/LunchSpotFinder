@@ -35,9 +35,9 @@ public class Member {
     @OneToMany(mappedBy = "member2")
     private List<Friendship> friendships2 = new ArrayList<>();
 
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "member")
-//    private List<MemberChatroom> memberChatrooms = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "member")
+    private List<MemberChatroom> memberChatrooms = new ArrayList<>();
 
     public Member(int memberId) {
         this.memberId = memberId;

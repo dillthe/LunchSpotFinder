@@ -116,6 +116,10 @@ public class ChatApiService {
         chatroomQuerydslRepository.saveChatroom(chatroomDto);
     }
 
+    public List<Member> getChatroomMembers(Integer chatroomId) {
+        return chatroomQuerydslRepository.getChatroomMembers(chatroomId);
+    }
+
 //    @Transactional
 //    public void joinChatroom() {
 //

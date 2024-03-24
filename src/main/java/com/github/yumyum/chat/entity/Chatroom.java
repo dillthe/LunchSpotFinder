@@ -40,7 +40,7 @@ public class Chatroom {
     @Column(name = "updated_date")
     private LocalDateTime updatedDate;
 
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "chatroom")
-//    private List<MemberChatroom> memberChatroom = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "chatroom")
+    private List<MemberChatroom> memberChatroom = new ArrayList<>();
 }

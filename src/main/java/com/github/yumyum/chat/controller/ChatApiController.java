@@ -80,6 +80,11 @@ public class ChatApiController {
         return "delete 성공";
     }
 
+    /**
+     * 채팅방 생성
+     * @param ChatroomDto
+     * @return
+     */
     @PostMapping(value = "/chatroom")
     public String makeChatroom(ChatroomDto ChatroomDto) {
         log.info("ChatroomDto: {}", ChatroomDto);
@@ -92,5 +97,8 @@ public class ChatApiController {
         return "create chatroom 성공";
     }
 
-
+    @GetMapping(value = "/chatroom/{chatroomId}/members")
+    public List<Member> getChatroomMembers(@PathVariable Integer chatroomId) {
+        return chatApiService.getChatroomMembers(chatroomId);
+    }
 }

@@ -11,8 +11,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.List;
 
-import static com.github.yumyum.chat.entity.QChatroom.chatroom;
+import static com.github.yumyum.chat.entity.QMember.member;
+import static com.github.yumyum.chat.entity.QMemberChatroom.memberChatroom;
 
 @Slf4j
 @Repository
@@ -63,6 +65,14 @@ public class ChatroomQuerydslRepository {
                     .build();
             save(memberChatroom);
         }
+    }
+
+    public List<Member> getChatroomMembers(Integer chatroomId) {
+        return queryFactory
+                .selectFrom(member)
+                .join(member.memberChatrooms, memberChatroom)
+                .where(memberChatroom.chatroom.chatroomId.eq(chatroomId))
+                .fetch();
     }
 
 //    @Transactional

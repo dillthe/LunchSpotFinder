@@ -1,6 +1,7 @@
 package com.github.yumyum.chat.service;
 
 import com.github.yumyum.chat.dto.ChatroomDto;
+import com.github.yumyum.chat.dto.LeaveChatDto;
 import com.github.yumyum.chat.entity.Friendship;
 import com.github.yumyum.chat.entity.Member;
 import com.github.yumyum.chat.repository.ChatroomQuerydslRepository;
@@ -118,6 +119,10 @@ public class ChatApiService {
 
     public List<Member> getChatroomMembers(Integer chatroomId) {
         return chatroomQuerydslRepository.getChatroomMembers(chatroomId);
+    }
+
+    public void leaveChatroomMember(LeaveChatDto leaveChatDto) {
+        chatroomQuerydslRepository.deleteMemberChatroom(leaveChatDto);
     }
 
 //    @Transactional

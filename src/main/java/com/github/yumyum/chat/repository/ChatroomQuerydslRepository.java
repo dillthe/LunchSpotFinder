@@ -1,6 +1,7 @@
 package com.github.yumyum.chat.repository;
 
 import com.github.yumyum.chat.dto.ChatroomDto;
+import com.github.yumyum.chat.dto.LeaveChatDto;
 import com.github.yumyum.chat.entity.Chatroom;
 import com.github.yumyum.chat.entity.Member;
 import com.github.yumyum.chat.entity.MemberChatroom;
@@ -38,6 +39,7 @@ public class ChatroomQuerydslRepository {
         return memberChatroom;
     }
 
+    // TODO @Transactional 꼭 필요한 부분만 사용하게 추후 메소드 수정
     @Transactional
     public void saveChatroom(ChatroomDto chatroomDto) throws IOException {
         if (chatroomDto.getMemberIds().isEmpty() ||
@@ -66,41 +68,22 @@ public class ChatroomQuerydslRepository {
             save(memberChatroom);
         }
     }
-
+    
     public List<Member> getChatroomMembers(Integer chatroomId) {
         return queryFactory
                 .selectFrom(member)
-                .join(member.memberChatrooms, memberChatroom)
+                .join(member.memberChatrooms, memberChatroom).fetchJoin()
                 .where(memberChatroom.chatroom.chatroomId.eq(chatroomId))
                 .fetch();
     }
 
-//    @Transactional
-//    public void saveChatroom(ChatroomProfileImg chatroomProfileImgDto) {
-//        if (chatroomProfileImgDto.getMemberIds().isEmpty() ||
-//                chatroomProfileImgDto.getProfile() == null ||
-//                chatroomProfileImgDto.getTitle().isEmpty()){
-//            log.error("chatroomProfileImgDto: {}", chatroomProfileImgDto);
-//            throw new RuntimeException("saveChatroom null 에러");
-//        }
-////        em.createQuery("INSERT INTO Chatroom (title, profile) VALUES (:title, :profile)")
-////                .setParameter("title", chatroomProfileImgDto.getTitle())
-////                .setParameter("profile", chatroomProfileImgDto.getProfile())
-////                .executeUpdate();
-//        Chatroom chatroom = Chatroom.builder()
-//                .title(chatroomProfileImgDto.getTitle())
-//                .profile(chatroomProfileImgDto.getProfile())
-//                .build();
-//        int chatroomId = save(chatroom).getChatroomId();
-//        log.info("chatroomId: {}", chatroomId);
-//
-//        for (Integer memberId : chatroomProfileImgDto.getMemberIds()) {
-//            MemberChatroom memberChatroom = MemberChatroom.builder()
-//                    .chatroomId(chatroomId)
-//                    .memberId(memberId)
-//                    .build();
-//            save(memberChatroom);
-//        }
-//    }
+    @Transactional
+    public void deleteMemberChatroom(LeaveChatDto leaveChatDto) {
+        queryFactory
+            .delete(memberChatroom)
+            .where(memberChatroom.member.memberId.eq(leaveChatDto.getMemberId()),
+                    memberChatroom.chatroom.chatroomId.eq(leaveChatDto.getChatroomId()))
+            .execute();
+    }
 
 }

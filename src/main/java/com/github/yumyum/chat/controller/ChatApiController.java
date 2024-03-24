@@ -2,6 +2,7 @@ package com.github.yumyum.chat.controller;
 
 import com.github.yumyum.chat.dto.ChatroomDto;
 import com.github.yumyum.chat.dto.FriendshipId;
+import com.github.yumyum.chat.dto.LeaveChatDto;
 import com.github.yumyum.chat.entity.Member;
 import com.github.yumyum.chat.service.ChatApiService;
 import lombok.RequiredArgsConstructor;
@@ -97,8 +98,25 @@ public class ChatApiController {
         return "create chatroom 성공";
     }
 
+    /**
+     * 채팅방에 있는 모든 유저 조회
+     * @param chatroomId
+     * @return
+     */
     @GetMapping(value = "/chatroom/{chatroomId}/members")
     public List<Member> getChatroomMembers(@PathVariable Integer chatroomId) {
         return chatApiService.getChatroomMembers(chatroomId);
+    }
+
+    /**
+     * 특정 유저, 특정 채팅방 나기기
+     * @param leaveChatDto
+     * @return
+     */
+    @DeleteMapping(value = "/chatroom")
+    public String leaveChatroomMember(@RequestBody LeaveChatDto leaveChatDto) {
+        log.info("leaveChatDto: {}", leaveChatDto);
+        chatApiService.leaveChatroomMember(leaveChatDto);
+        return String.format("%s 유저 %s 채팅방 나가기 성공", leaveChatDto.getMemberId(), leaveChatDto.getChatroomId());
     }
 }

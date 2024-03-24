@@ -1,7 +1,9 @@
 package com.github.yumyum.chat.service;
 
+import com.github.yumyum.chat.dto.ChatroomDto;
 import com.github.yumyum.chat.entity.Friendship;
 import com.github.yumyum.chat.entity.Member;
+import com.github.yumyum.chat.repository.ChatroomQuerydslRepository;
 import com.github.yumyum.chat.repository.FriendshipRepository;
 import com.github.yumyum.chat.repository.MemberFriendRepository;
 import com.github.yumyum.chat.repository.MemberQuerydslRepository;
@@ -10,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -20,6 +23,7 @@ public class ChatApiService {
     private final MemberFriendRepository memberFriendRepository;
     private final MemberQuerydslRepository memberQuerydslRepository;
     private final FriendshipRepository friendshipRepository;
+    private final ChatroomQuerydslRepository chatroomQuerydslRepository;
 
     @Transactional
     public int isUsersFriend(final int memberId1, final int memberId2) {
@@ -103,12 +107,15 @@ public class ChatApiService {
         return memberQuerydslRepository.findByUsernameContainingOrEmailContaining(keyword);
     }
 
-//
-//    @Transactional
-//    public void createChatroom() {
-//
-//    }
-//
+    public List<Member> getAllUsers() {
+        return memberFriendRepository.findAll();
+    }
+
+    @Transactional
+    public void createChatroom(ChatroomDto chatroomDto) throws IOException {
+        chatroomQuerydslRepository.saveChatroom(chatroomDto);
+    }
+
 //    @Transactional
 //    public void joinChatroom() {
 //

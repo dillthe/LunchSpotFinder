@@ -1,13 +1,14 @@
 package com.github.yumyum.chat.controller;
 
+import com.github.yumyum.chat.dto.ChatroomDto;
 import com.github.yumyum.chat.dto.FriendshipId;
 import com.github.yumyum.chat.entity.Member;
 import com.github.yumyum.chat.service.ChatApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +43,16 @@ public class ChatApiController {
     }
 
     /**
+     * 모든 유저 검색(훈희님이 메소드 생성 하셨으면 해당 내용으로 사용)
+     * @param
+     * @return
+     */
+    @GetMapping(value = "/users")
+    public List<Member> getAllUsers() {
+        return chatApiService.getAllUsers();
+    }
+
+    /**
      * 특정유저 2명 친구 관계 설정
      * @param userId1
      * @param friendshipId
@@ -68,4 +79,18 @@ public class ChatApiController {
 
         return "delete 성공";
     }
+
+    @PostMapping(value = "/chatroom")
+    public String makeChatroom(ChatroomDto ChatroomDto) {
+        log.info("ChatroomDto: {}", ChatroomDto);
+        try {
+            chatApiService.createChatroom(ChatroomDto);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return "create chatroom 성공";
+    }
+
+
 }

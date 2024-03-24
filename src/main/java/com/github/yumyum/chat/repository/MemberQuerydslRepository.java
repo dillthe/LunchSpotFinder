@@ -1,13 +1,11 @@
 package com.github.yumyum.chat.repository;
 
-import com.github.yumyum.chat.entity.Friendship;
 import com.github.yumyum.chat.entity.Member;
-import com.github.yumyum.chat.entity.QFriendship;
-import com.github.yumyum.chat.entity.QMember;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -33,6 +31,7 @@ public class MemberQuerydslRepository {
 //                .on(member.memberId.eq(friendship.friendshipId))
 //                .fetch();
 //    }
+    @Transactional
     public List<Member>findByMemberId1(int memberId) {
         return queryFactory
 //                .select(member.memberId, member.email, member.name)
@@ -46,6 +45,7 @@ public class MemberQuerydslRepository {
                 .fetch();
     }
 
+    @Transactional
     public List<Member> findByUsernameContainingOrEmailContaining(String keyword) {
         return queryFactory
                 .selectFrom(member)
@@ -55,4 +55,6 @@ public class MemberQuerydslRepository {
                 )
                 .fetch();
     }
+
+
 }

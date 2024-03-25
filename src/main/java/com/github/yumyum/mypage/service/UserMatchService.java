@@ -24,6 +24,7 @@ public class UserMatchService {
     private final UserJpaRepository userRepository;
 
     public List<UserEntity> getUserIdSearch(UserDTO userDTO) {
+        // 유저 아이디 검색 (user_id)
         return userRepository.findByUserIdContaining(userDTO.getUserId()).orElseThrow(() -> new NotFoundException("검색 결과가 없습니다."));
     }
 

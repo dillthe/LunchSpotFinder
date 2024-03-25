@@ -2,6 +2,9 @@ package com.github.yumyum.mypage.repository.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.util.Date;
 
 @Getter
 @Setter
@@ -21,10 +24,10 @@ public class SavePlaceEntity {
     private int userSn;
 
     @Column(name = "place_sn")
-    private String placeSn;
+    private int placeSn;
 
+    @CreationTimestamp
     @Column(name = "save_dt")
-    private String saveDt;
-
+    private Date saveDt;
 
 }

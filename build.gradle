@@ -31,7 +31,7 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
 
-    implementation 'com.h2database:h2'
+//    implementation 'com.h2database:h2'
 
     //Mapstruct
     implementation 'org.mapstruct:mapstruct:1.5.3.Final'
@@ -52,13 +52,17 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
 
     // security
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-
-    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
+//    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
     // validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+    //implementation 'org.json:json:20210307'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
+
+    //GeoDistance
+    implementation 'com.github.calzam:geo-distance:1.0.2'
 }
 
 tasks.named('test') {

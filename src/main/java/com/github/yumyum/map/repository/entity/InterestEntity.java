@@ -1,10 +1,7 @@
 package com.github.yumyum.map.repository.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.math.BigDecimal;
 
 @Getter
 @Setter

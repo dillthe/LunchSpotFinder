@@ -22,18 +22,27 @@ import java.util.HashMap;
 )
 public class JpaConfig {
 
-    @Bean
-    public DataSource dataSource(){
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUsername("root");
-        dataSource.setPassword("8282");
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/yumyum?useUnicode=true&characterEncoding=UTF-8");
-        return dataSource;
-    }
+//    @Bean
+//    public DataSource dataSource(){
+//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//        dataSource.setUsername("root");
+//        dataSource.setPassword("8282");
+//        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+//        dataSource.setUrl("jdbc:mysql://localhost:3306/yumyum?useUnicode=true&characterEncoding=UTF-8");
+//        return dataSource;
+//    }
 
+//    @Bean
+//    public DataSource dataSource(){
+//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//        dataSource.setUsername("r2yaeuknxoku0ulxvyzf");
+//        dataSource.setPassword("pscale_pw_knQ4IeqjLU9nTUVLxZ5EbkkXh6NI99agrVOQTcCwR4U");
+//        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+//        dataSource.setUrl("gcp.connect.psdb.cloud/yumyum?useUnicode=true&characterEncoding=UTF-8");
+//        return dataSource;
+//    }
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(@Qualifier("dataSource") DataSource dataSource) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(/*@Qualifier("dataSource")*/ DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
         em.setPackagesToScan(
@@ -55,7 +64,7 @@ public class JpaConfig {
 
 
     @Bean(name = "tmJpa")
-    public PlatformTransactionManager transactionManager(@Qualifier("dataSource") DataSource dataSource) {
+    public PlatformTransactionManager transactionManager(/*@Qualifier("dataSource")*/ DataSource dataSource) {
 
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactoryBean(dataSource).getObject());

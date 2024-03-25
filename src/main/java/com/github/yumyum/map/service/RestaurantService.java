@@ -7,28 +7,18 @@ import com.github.yumyum.exceptions.NotAcceptException;
 import com.github.yumyum.exceptions.NotFoundException;
 import com.github.yumyum.map.repository.MemberRepository;
 import com.github.yumyum.map.repository.RestaurantRepository;
-import com.github.yumyum.map.repository.entity.MemberEntity;
 import com.github.yumyum.map.repository.entity.RestaurantEntity;
-import com.github.yumyum.map.service.mapper.RestaurantMapper;
-import com.github.yumyum.map.web.dto.restaurant.RestaurantDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.annotations.NotFound;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.geo.Distance;
-import org.springframework.data.geo.Metrics;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 
-import java.awt.*;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -47,7 +37,7 @@ public class RestaurantService {
     private final MemberRepository memberRepository;
 
     private final RestTemplate restTemplate;
-    private static final Logger logger = LoggerFactory.getLogger(RestaurantService.class);
+//    private static final Logger logger = LoggerFactory.getLogger(RestaurantService.class);
 
     public String getEncodedServiceKey() {
         return URLEncoder.encode(SERVICE_KEY, StandardCharsets.UTF_8);

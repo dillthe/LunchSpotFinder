@@ -4,6 +4,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -43,6 +46,14 @@ public class JpaConfig {
 //    }
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(/*@Qualifier("dataSource")*/ DataSource dataSource) {
+
+        entityManagerFactoryRef = "entityManagerFactory",
+        transactionManagerRef = "transactionManager"
+)
+public class JpaConfig {
+
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
         em.setPackagesToScan(
@@ -72,4 +83,11 @@ public class JpaConfig {
     }
 
 
+    @Bean
+    public PlatformTransactionManager transactionManager(DataSource dataSource) {
+
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(entityManagerFactory(dataSource).getObject());
+        return transactionManager;
+    }
 }

@@ -4,9 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -35,25 +32,8 @@ public class JpaConfig {
 //        return dataSource;
 //    }
 
-//    @Bean
-//    public DataSource dataSource(){
-//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//        dataSource.setUsername("r2yaeuknxoku0ulxvyzf");
-//        dataSource.setPassword("pscale_pw_knQ4IeqjLU9nTUVLxZ5EbkkXh6NI99agrVOQTcCwR4U");
-//        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-//        dataSource.setUrl("gcp.connect.psdb.cloud/yumyum?useUnicode=true&characterEncoding=UTF-8");
-//        return dataSource;
-//    }
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(/*@Qualifier("dataSource")*/ DataSource dataSource) {
-
-        entityManagerFactoryRef = "entityManagerFactory",
-        transactionManagerRef = "transactionManager"
-)
-public class JpaConfig {
-
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean(@Qualifier("dataSource") DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
         em.setPackagesToScan(
@@ -75,19 +55,11 @@ public class JpaConfig {
 
 
     @Bean(name = "tmJpa")
-    public PlatformTransactionManager transactionManager(/*@Qualifier("dataSource")*/ DataSource dataSource) {
+    public PlatformTransactionManager transactionManager(@Qualifier("dataSource") DataSource dataSource) {
 
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactoryBean(dataSource).getObject());
         return transactionManager;
     }
 
-
-    @Bean
-    public PlatformTransactionManager transactionManager(DataSource dataSource) {
-
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactory(dataSource).getObject());
-        return transactionManager;
-    }
 }

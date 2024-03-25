@@ -1,8 +1,8 @@
-package menu.yumyum.yumyum.redis.web;
+package com.github.yumyum.redis.web;
 
 import lombok.RequiredArgsConstructor;
-import menu.yumyum.yumyum.redis.dto.RedisInviteReqDto;
-import menu.yumyum.yumyum.redis.service.RedisService;
+import com.github.yumyum.redis.dto.RedisInviteReqDto;
+import com.github.yumyum.redis.service.RedisService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

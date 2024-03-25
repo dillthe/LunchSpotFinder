@@ -1,9 +1,8 @@
-package menu.yumyum.yumyum.common.config;
-
+package com.github.yumyum.common.config;
+import com.github.yumyum.common.security.JwtAuthenticationFilter;
+import com.github.yumyum.common.security.JwtProvider;
+import com.github.yumyum.common.util.ObjectUtil;
 import lombok.RequiredArgsConstructor;
-import menu.yumyum.yumyum.common.security.JwtAuthenticationFilter;
-import menu.yumyum.yumyum.common.security.JwtProvider;
-import menu.yumyum.yumyum.common.util.ObjectUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;

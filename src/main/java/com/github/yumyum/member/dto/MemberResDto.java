@@ -1,4 +1,4 @@
-package menu.yumyum.yumyum.member.dto;
+package com.github.yumyum.member.dto;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,8 +1,8 @@
-//package menu.yumyum.yumyum.auth.web;
+//package com.github.yumyum.auth.web;
 //
 //import jakarta.mail.Message;
 //import jakarta.servlet.http.HttpServletRequest;
-//import menu.yumyum.yumyum.auth.service.AuthService;
+//import com.github.yumyum.auth.service.AuthService;
 //import org.springframework.boot.configurationprocessor.json.JSONObject;
 //import org.springframework.http.*;
 //import org.springframework.stereotype.Controller;

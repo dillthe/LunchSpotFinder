@@ -1,4 +1,4 @@
-package menu.yumyum.yumyum.common.exception.response;
+package com.github.yumyum.common.exception.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;

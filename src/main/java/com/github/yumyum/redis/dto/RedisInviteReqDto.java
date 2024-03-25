@@ -1,4 +1,4 @@
-package menu.yumyum.yumyum.redis.dto;
+package com.github.yumyum.redis.dto;
 
 import lombok.Data;
 

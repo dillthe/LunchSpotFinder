@@ -1,4 +1,4 @@
-package menu.yumyum.yumyum.common.constant;
+package com.github.yumyum.common.constant;
 
 import lombok.Getter;
 

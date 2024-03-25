@@ -1,8 +1,8 @@
-package menu.yumyum.yumyum.redis.entity;
+package com.github.yumyum.redis.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import menu.yumyum.yumyum.common.constant.RedisKeyType;
+import com.github.yumyum.common.constant.RedisKeyType;
 
 @Data
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

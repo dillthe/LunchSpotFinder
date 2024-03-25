@@ -1,9 +1,9 @@
-package menu.yumyum.yumyum.member.web;
+package com.github.yumyum.member.web;
 
 import lombok.RequiredArgsConstructor;
-import menu.yumyum.yumyum.member.dto.MemberReqDto;
-import menu.yumyum.yumyum.member.dto.MemberResDto;
-import menu.yumyum.yumyum.member.service.MemberService;
+import com.github.yumyum.member.dto.MemberReqDto;
+import com.github.yumyum.member.dto.MemberResDto;
+import com.github.yumyum.member.service.MemberService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

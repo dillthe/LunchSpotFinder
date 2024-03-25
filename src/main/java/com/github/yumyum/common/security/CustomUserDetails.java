@@ -1,6 +1,6 @@
-package menu.yumyum.yumyum.common.security;
+package com.github.yumyum.common.security;
 
-import menu.yumyum.yumyum.member.entity.Member;
+import com.github.yumyum.member.entity.Member;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

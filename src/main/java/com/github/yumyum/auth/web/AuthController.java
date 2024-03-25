@@ -1,10 +1,10 @@
-package menu.yumyum.yumyum.auth.web;
+package com.github.yumyum.auth.web;
 
 import lombok.RequiredArgsConstructor;
-import menu.yumyum.yumyum.auth.dto.*;
-import menu.yumyum.yumyum.auth.service.AuthService;
-import menu.yumyum.yumyum.common.config.CookieConfig;
-import menu.yumyum.yumyum.common.security.JwtProvider;
+import com.github.yumyum.auth.dto.*;
+import com.github.yumyum.auth.service.AuthService;
+import com.github.yumyum.common.config.CookieConfig;
+import com.github.yumyum.common.security.JwtProvider;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -114,18 +114,5 @@ public class AuthController {
                 .secure(cookieConfig.isSecure())
                 .sameSite(cookieConfig.getSameSite())
                 .build();
-    }
-
-
-
-    @Transactional
-    public LoginResponse register(final String code) {
-        final String accessToken = kakaoOAuthClient.getAccessToken(code);
-        final KakaoMemberResponse response = kakaoOAuthClient.getMemberInfo(accessToken);
-
-        final Member member = Member.from(response);
-        final Member registeredMember = memberService.register(member);
-        final String token = tokenProcessor.generateToken(registeredMember);
-        return new LoginResponse(token, registeredMember.hasEssentialInfo());
     }
 }

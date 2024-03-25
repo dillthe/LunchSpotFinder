@@ -15,7 +15,7 @@ import lombok.Setter;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class InterestDTO {
         private Integer interestId;
-        private Integer memberId;
+        private Long memberId;
         private Integer rstrId;
         private String rstrName;
         private String address;

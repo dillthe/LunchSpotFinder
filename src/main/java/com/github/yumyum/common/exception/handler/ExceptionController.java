@@ -1,10 +1,10 @@
-package menu.yumyum.yumyum.common.exception.handler;
+package com.github.yumyum.common.exception.handler;
 
 import jakarta.servlet.http.HttpServletResponse;
-import menu.yumyum.yumyum.common.exception.CustomException;
-import menu.yumyum.yumyum.common.exception.response.ErrorCode;
-import menu.yumyum.yumyum.common.exception.response.ErrorMap;
-import menu.yumyum.yumyum.common.exception.response.ErrorResponse;
+import com.github.yumyum.common.exception.CustomException;
+import com.github.yumyum.common.exception.response.ErrorCode;
+import com.github.yumyum.common.exception.response.ErrorMap;
+import com.github.yumyum.common.exception.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;

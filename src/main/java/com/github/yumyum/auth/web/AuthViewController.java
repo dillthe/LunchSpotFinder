@@ -1,4 +1,4 @@
-package menu.yumyum.yumyum.auth.web;
+package com.github.yumyum.auth.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

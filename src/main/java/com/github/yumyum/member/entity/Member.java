@@ -1,4 +1,4 @@
-package menu.yumyum.yumyum.member.entity;
+package com.github.yumyum.member.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

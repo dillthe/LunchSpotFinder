@@ -1,10 +1,10 @@
-package menu.yumyum.yumyum.redis.entity;
+package com.github.yumyum.redis.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import menu.yumyum.yumyum.common.constant.RedisKeyType;
-import menu.yumyum.yumyum.member.entity.RedisAuthMember;
+import com.github.yumyum.common.constant.RedisKeyType;
+import com.github.yumyum.member.entity.RedisAuthMember;
 
 @EqualsAndHashCode(callSuper = true)
 @Data

@@ -1,14 +1,14 @@
-package menu.yumyum.yumyum.member.service;
+package com.github.yumyum.member.service;
 
 
 import lombok.RequiredArgsConstructor;
-import menu.yumyum.yumyum.common.exception.ResourceNotFoundException;
-import menu.yumyum.yumyum.common.exception.response.ErrorMap;
-import menu.yumyum.yumyum.common.exception.response.ErrorMessage;
-import menu.yumyum.yumyum.member.dto.MemberReqDto;
-import menu.yumyum.yumyum.member.dto.MemberResDto;
-import menu.yumyum.yumyum.member.entity.Member;
-import menu.yumyum.yumyum.member.repository.MemberRepository;
+import com.github.yumyum.common.exception.ResourceNotFoundException;
+import com.github.yumyum.common.exception.response.ErrorMap;
+import com.github.yumyum.common.exception.response.ErrorMessage;
+import com.github.yumyum.member.dto.MemberReqDto;
+import com.github.yumyum.member.dto.MemberResDto;
+import com.github.yumyum.member.entity.Member;
+import com.github.yumyum.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor

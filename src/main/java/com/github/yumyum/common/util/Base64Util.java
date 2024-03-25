@@ -1,4 +1,4 @@
-package menu.yumyum.yumyum.common.util;
+package com.github.yumyum.common.util;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;

@@ -1,9 +1,9 @@
-package menu.yumyum.yumyum.redis.service;
+package com.github.yumyum.redis.service;
 
 import lombok.RequiredArgsConstructor;
-import menu.yumyum.yumyum.common.util.ObjectUtil;
-import menu.yumyum.yumyum.member.entity.RedisAuthMember;
-import menu.yumyum.yumyum.redis.entity.RedisJoinMember;
+import com.github.yumyum.common.util.ObjectUtil;
+import com.github.yumyum.member.entity.RedisAuthMember;
+import com.github.yumyum.redis.entity.RedisJoinMember;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.util.StringUtils;

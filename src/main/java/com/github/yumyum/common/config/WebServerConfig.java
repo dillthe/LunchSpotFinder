@@ -1,4 +1,4 @@
-package menu.yumyum.yumyum.common.config;
+package com.github.yumyum.common.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

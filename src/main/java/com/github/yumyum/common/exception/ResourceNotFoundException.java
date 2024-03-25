@@ -1,8 +1,8 @@
-package menu.yumyum.yumyum.common.exception;
+package com.github.yumyum.common.exception;
 
 
-import menu.yumyum.yumyum.common.exception.response.ErrorCode;
-import menu.yumyum.yumyum.common.exception.response.ErrorMap;
+import com.github.yumyum.common.exception.response.ErrorCode;
+import com.github.yumyum.common.exception.response.ErrorMap;
 
 import java.util.Collections;
 import java.util.List;

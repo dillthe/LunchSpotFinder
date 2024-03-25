@@ -1,4 +1,4 @@
-package menu.yumyum.yumyum.common.config;
+package com.github.yumyum.common.config;
 
 import org.springframework.context.annotation.Configuration;
 

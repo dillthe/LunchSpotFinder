@@ -1,4 +1,4 @@
-package menu.yumyum.yumyum.auth.dto;
+package com.github.yumyum.auth.dto;
 
 import lombok.Builder;
 import lombok.Data;

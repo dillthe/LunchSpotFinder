@@ -1,4 +1,4 @@
-package menu.yumyum.yumyum.common.security;
+package com.github.yumyum.common.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -10,10 +10,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import menu.yumyum.yumyum.common.config.JwtConfig;
-import menu.yumyum.yumyum.member.entity.Member;
+import com.github.yumyum.common.config.JwtConfig;
+import com.github.yumyum.member.entity.Member;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -100,7 +99,7 @@ public class JwtProvider {
         }
     }
 
-    public Authentication getAuthentication(String token) {
+    public UsernamePasswordAuthenticationToken getAuthentication(String token) {
         String memberId = getMemberId(token);
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(memberId);
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());

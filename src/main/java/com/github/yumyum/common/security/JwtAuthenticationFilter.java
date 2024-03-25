@@ -1,4 +1,4 @@
-package menu.yumyum.yumyum.common.security;
+package com.github.yumyum.common.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

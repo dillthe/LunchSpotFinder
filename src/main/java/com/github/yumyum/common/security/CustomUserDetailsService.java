@@ -1,9 +1,9 @@
-package menu.yumyum.yumyum.common.security;
+package com.github.yumyum.common.security;
 
 import lombok.RequiredArgsConstructor;
-import menu.yumyum.yumyum.common.exception.BadCredentialException;
-import menu.yumyum.yumyum.member.entity.Member;
-import menu.yumyum.yumyum.member.repository.MemberRepository;
+import com.github.yumyum.common.exception.BadCredentialException;
+import com.github.yumyum.member.entity.Member;
+import com.github.yumyum.member.repository.MemberRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

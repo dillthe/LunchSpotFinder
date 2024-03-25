@@ -1,6 +1,6 @@
-package menu.yumyum.yumyum.member.repository;
+package com.github.yumyum.member.repository;
 
-import menu.yumyum.yumyum.member.entity.Member;
+import com.github.yumyum.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

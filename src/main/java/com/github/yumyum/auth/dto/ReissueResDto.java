@@ -1,9 +1,9 @@
-package menu.yumyum.yumyum.auth.dto;
+package com.github.yumyum.auth.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
-import menu.yumyum.yumyum.common.security.JwtProvider;
+import com.github.yumyum.common.security.JwtProvider;
 
 @Data
 @Builder

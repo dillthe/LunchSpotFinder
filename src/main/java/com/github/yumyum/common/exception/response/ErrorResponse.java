@@ -1,4 +1,4 @@
-package menu.yumyum.yumyum.common.exception.response;
+package com.github.yumyum.common.exception.response;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import menu.yumyum.yumyum.common.util.ObjectUtil;
+import com.github.yumyum.common.util.ObjectUtil;
 import org.springframework.http.HttpStatus;
 
 import java.io.IOException;

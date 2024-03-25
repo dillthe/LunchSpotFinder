@@ -1,4 +1,4 @@
-package menu.yumyum.yumyum.common.util;
+package com.github.yumyum.common.util;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
@@ -60,3 +60,4 @@ public class RequestUtil {
     }
 
 }
+

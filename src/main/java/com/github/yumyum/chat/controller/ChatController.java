@@ -15,10 +15,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class ChatController {
 
     // http://localhost:8085 : 채팅방 임시 link
-    @MessageMapping("/chat/{roomId}/sendMessage")    // 구독 경로 설정
+
+    /**
+     * 채팅 전송
+     * @param chatMessage
+     * @return
+     */
+    @MessageMapping("/chat/{roomId}/sendMessage")    // 구독 경로 설정 (메시지 라우팅)
     @SendTo("/topic/{roomId}/public")    // 1:n 으로 메세지를 뿌릴 때 사용하는 구조, 보통 경로가 /topic 으로 시작
     public ChatMessage sendMessage(
-            @Payload ChatMessage chatMessage
+            @Payload ChatMessage chatMessage    // 메시지의 Payload에 접근 (MessageConverter 의해서 변환)
 //            @PathVariable Integer roomId
     ) {
 //        log.info("sendMessage roomId: {}", roomId);
@@ -27,6 +33,14 @@ public class ChatController {
     }
 
 
+    /**
+     * 채팅방 유저 참가
+     * @param chatMessage
+     * @param headerAccessor
+     * @param roomId
+     * @return
+     * @link https://velog.io/@koseungbin/WebSocket
+     */
     @MessageMapping("/chat/{roomId}/addUser")
     @SendTo("/topic/{roomId}/public")
     public ChatMessage addUser(
@@ -36,6 +50,7 @@ public class ChatController {
     ) {
 //        log.info("addUser roomId: {}", roomId); // {"sender":"aa","roomId":1,"type":"JOIN"}
 //        log.info("addUser roomId: {}", roomId.get);
+
         // Add username in websocket session
         headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
 //        headerAccessor.getSessionAttributes().put("roomId", roomId);

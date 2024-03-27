@@ -22,16 +22,16 @@ public class ChatApiController {
 
     private final ChatApiService chatApiService;
 
-    // TODO 모든 api 호출시 token값의 id와 userId 동일 여부 체크하도록 요청
+    // TODO 모든 api 호출시 token값의 id와 memberId 동일 여부 체크하도록 요청
 
     /**
      * 특정 유저와 친구관계인 유저 모두 불러오기
-     * @param userId1
+     * @param memberId
      * @return
      */
-    @GetMapping(value = "/{userId}/friends")
-    public List<Member> getFriendshipMembers(@PathVariable("userId") int userId1) {
-        return chatApiService.getMemberAllFriends(userId1);
+    @GetMapping(value = "/{memberId}/friends")
+    public List<Member> getFriendshipMembers(@PathVariable int memberId) {
+        return chatApiService.getMemberAllFriends(memberId);
     }
 
     /**
@@ -40,8 +40,8 @@ public class ChatApiController {
      * @return
      */
     @GetMapping
-    public List<Member> searchUsers(@RequestParam("keyword") String keyword) {
-        return chatApiService.searchUsers(keyword);
+    public List<Member> searchMembers(@RequestParam("keyword") String keyword) {
+        return chatApiService.searchMembers(keyword);
     }
 
     /**
@@ -49,37 +49,37 @@ public class ChatApiController {
      * @param
      * @return
      */
-    @GetMapping(value = "/users")
-    public List<Member> getAllUsers() {
-        return chatApiService.getAllUsers();
+    @GetMapping(value = "/members")
+    public List<Member> getAllMembers() {
+        return chatApiService.getAllMembers();
     }
 
     /**
      * 특정유저 2명 친구 관계 설정
-     * @param userId1
+     * @param memberId
      * @param friendshipId
      * @return
      */
-    @PostMapping(value = "/{userId}/friend")
-    public String makeFriendship(@PathVariable("userId") int userId1, @RequestBody FriendshipId friendshipId) {
+    @PostMapping(value = "/{memberId}/friend")
+    public String makeFriendship(@PathVariable int memberId, @RequestBody FriendshipId friendshipId) {
         int friendShipSearchId = Optional.ofNullable(friendshipId.getFriendshipId())
                 .orElseThrow(IllegalArgumentException::new);
-        log.info("userId1: {}, friendShipSearchId: {}", userId1, friendShipSearchId);
+        log.info("memberId: {}, friendShipSearchId: {}", memberId, friendShipSearchId);
 
-        return chatApiService.checkMembersFriendShip(userId1, friendShipSearchId);
+        return chatApiService.checkMembersFriendShip(memberId, friendShipSearchId);
     }
 
     /**
      * 특정 유저 2명 친구 관계 제거
-     * @param userId1
+     * @param memberId
      * @param friendshipId
      * @return
      */
-    @DeleteMapping(value = "/{userId}/friend")
-    public String getFriendshipMembers(@PathVariable("userId") int userId1, @RequestBody FriendshipId friendshipId) {
-        chatApiService.breakFreindship(userId1, friendshipId.getFriendshipId());
+    @DeleteMapping(value = "/{memberId}/friend")
+    public String getFriendshipMembers(@PathVariable int memberId, @RequestBody FriendshipId friendshipId) {
+        chatApiService.breakFreindship(memberId, friendshipId.getFriendshipId());
 
-        return "delete 성공";
+        return String.format("%s와 %s의 친구 관계 제거", memberId, friendshipId.getFriendshipId());
     }
 
     /**

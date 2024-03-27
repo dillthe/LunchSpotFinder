@@ -8,6 +8,7 @@ import com.github.yumyum.chat.entity.Member;
 import com.github.yumyum.chat.entity.MemberChatroom;
 import com.github.yumyum.chat.entity.QChatroom;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.querydsl.jpa.impl.JPAUpdateClause;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -93,9 +94,13 @@ public class ChatroomQuerydslRepository {
 
     @Transactional
     public void updateChatroom(Integer chatroomId, ChatroomUpdateDto chatroomUpdateDto) throws IOException {
-        queryFactory
-            .update(chatroom)
-            .set(chatroom.profile, chatroomUpdateDto.getProfile().getBytes())
+        JPAUpdateClause updateClause = queryFactory.update(chatroom);
+
+        if (chatroomUpdateDto.getProfile().getBytes() != null) {
+            updateClause.set(chatroom.profile, chatroomUpdateDto.getProfile().getBytes());
+        }
+
+        updateClause
             .set(chatroom.title, chatroomUpdateDto.getTitle())
             .where(chatroom.chatroomId.eq(chatroomId))
             .execute();

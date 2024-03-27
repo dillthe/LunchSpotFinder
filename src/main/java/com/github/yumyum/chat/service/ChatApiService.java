@@ -105,11 +105,11 @@ public class ChatApiService {
         return String.format("%s와 %s는 친구가 되었습니다.", userId1, friendShipSearchId);
     }
 
-    public List<Member> searchUsers(String keyword) {
+    public List<Member> searchMembers(String keyword) {
         return memberQuerydslRepository.findByUsernameContainingOrEmailContaining(keyword);
     }
 
-    public List<Member> getAllUsers() {
+    public List<Member> getAllMembers() {
         return memberFriendRepository.findAll();
     }
 

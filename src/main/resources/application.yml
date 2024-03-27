@@ -4,3 +4,21 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/yumyum?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 8282
+#
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: gcp.connect.psdb.cloud/yumyum
+#    username: r2yaeuknxoku0ulxvyzf
+#    password: pscale_pw_knQ4IeqjLU9nTUVLxZ5EbkkXh6NI99agrVOQTcCwR4U
+
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG

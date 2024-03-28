@@ -1,14 +1,12 @@
 package com.github.yumyum.chat.controller;
 
-import com.github.yumyum.chat.dto.ChatroomDto;
-import com.github.yumyum.chat.dto.ChatroomUpdateDto;
-import com.github.yumyum.chat.dto.FriendshipId;
-import com.github.yumyum.chat.dto.LeaveChatDto;
+import com.github.yumyum.chat.dto.*;
 import com.github.yumyum.chat.entity.Member;
 import com.github.yumyum.chat.service.ChatApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -136,4 +134,5 @@ public class ChatApiController {
         chatApiService.leaveChatroomMember(leaveChatDto);
         return String.format("%s 유저 %s 채팅방 나가기 성공", leaveChatDto.getMemberId(), leaveChatDto.getChatroomId());
     }
+
 }

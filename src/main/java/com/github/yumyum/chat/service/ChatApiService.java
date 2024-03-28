@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -125,41 +126,55 @@ public class ChatApiService {
         chatroomQuerydslRepository.updateChatroom(chatroomId, chatroomUpdateDto);
     }
 
-    public void saveChatContent(ChatMessage chatMessage) {
+    public void saveChatContent(ChatMessage chatMessage) throws IOException {
         MessageType chatMessageType = chatMessage.getType();
+        Integer memberId = chatMessage.getMemberId();
+        Integer roomId = chatMessage.getRoomId();
+        if (memberId == null) {
+            String.format("memberId는 null 일 수 없습니다.");
+        }
+        if (roomId == null) {
+            String.format("roomId는 null 일 수 없습니다.");
+        }
+
+        MemberChatroom memberChatroom = MemberChatroom
+                .builder()
+                .member(
+                        Member
+                            .builder()
+                            .memberId(memberId)
+                            .build()
+                )
+                .chatroom(
+                        Chatroom
+                            .builder()
+                            .chatroomId(roomId)
+                            .build()
+                )
+                .build();
+
         if (chatMessageType == MessageType.CHAT_TEXT) {
             String content = chatMessage.getContent();
-            Integer memberId = chatMessage.getMemberId();
-            Integer roomId = chatMessage.getRoomId();
-//            chatContentRepository.saveText(
-//                    content,
-//                    memberId,
-//                    roomId
-//            );
+
             ChatContent chatContent = ChatContent
                     .builder()
                     .text(content)
-                    .memberChatroom(
-                            MemberChatroom
-                                    .builder()
-                                    .member(
-                                        Member
-                                            .builder()
-                                            .memberId(memberId)
-                                            .build()
-                                    )
-                                    .chatroom(
-                                        Chatroom
-                                            .builder()
-                                            .chatroomId(roomId)
-                                            .build()
-                                    )
-                                    .build()
-                    )
+                    .memberChatroom(memberChatroom)
                     .build();
             chatroomQuerydslRepository.save(chatContent);
         } else if (chatMessageType == MessageType.CHAT_IMG) {
-            log.info("img");
+            MultipartFile messageFile = chatMessage.getFile();
+            if (messageFile == null) {
+                throw new RuntimeException("해당 파일은 빈 파일 입니다.");
+            }
+            ChatContent chatContent = ChatContent
+                    .builder()
+                    .memberChatroom(memberChatroom)
+                    .build();
+            chatContent.setImg(messageFile.getBytes());
+            chatroomQuerydslRepository.save(chatContent);
+        } else if (chatMessageType == MessageType.CHAT_GAME) {
+            log.info("game 결과 저장");
         } else {
             throw new RuntimeException(String.format("%s는 허용되지 않는 메세지 타입", chatMessageType));
         }

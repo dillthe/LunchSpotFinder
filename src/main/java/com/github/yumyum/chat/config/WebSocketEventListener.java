@@ -22,15 +22,15 @@ public class WebSocketEventListener {
             SessionDisconnectEvent event
     ) {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
-        String username = (String) headerAccessor.getSessionAttributes().get("username");
+        Integer userId = (Integer) headerAccessor.getSessionAttributes().get("userId");
         Integer roomId = (Integer) headerAccessor.getSessionAttributes().get("roomId");
         log.info("roomId: {}", roomId);
         log.info("headerAccessor.getSessionAttributes(): {}", headerAccessor.getSessionAttributes());
-        if (username != null) {
-            log.info("Room({}) User disconnected: {}", roomId, username);
+        if (userId != null) {
+            log.info("Room({}) User disconnected: {}", roomId, userId);
             ChatMessage chatMessage = ChatMessage.builder()
+                    .memberId(userId)
                     .type(MessageType.LEAVE)
-                    .sender(username)
                     .build();
             messageTemplate.convertAndSend("/topic/${roomId}/public", chatMessage);
 

@@ -1,7 +1,8 @@
 package com.github.yumyum.chat.controller;
 
 import com.github.yumyum.chat.dto.ChatMessage;
-import com.github.yumyum.exceptions.InvalidValueException;
+import com.github.yumyum.chat.service.ChatApiService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -10,9 +11,13 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 
+@RequiredArgsConstructor
 @Slf4j
 @Controller
 public class ChatController {
+
+    private final ChatApiService chatApiService;
+
 
     // http://localhost:8085 : 채팅방 임시 link
 
@@ -27,8 +32,12 @@ public class ChatController {
             @Payload ChatMessage chatMessage    // 메시지의 Payload에 접근 (MessageConverter 의해서 변환)
 //            @PathVariable Integer roomId
     ) {
-//        log.info("sendMessage roomId: {}", roomId);
+        // TODO 임시로 설정 훈희님 memberId 가져오는 걸로 구현
+        chatMessage.setMemberId(2); 
         log.info("sendMessage chatMessage: {}", chatMessage);
+
+        chatApiService.saveChatContent(chatMessage);
+
         return chatMessage;
     }
 
@@ -52,10 +61,10 @@ public class ChatController {
 //        log.info("addUser roomId: {}", roomId.get);
 
         // Add username in websocket session
-        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+        headerAccessor.getSessionAttributes().put("memberId", chatMessage.getMemberId());
 //        headerAccessor.getSessionAttributes().put("roomId", roomId);
         log.info("addUser chatMessage: {}", chatMessage);
-        log.info("addUser chatMessage getSender: {}", chatMessage.getSender());
+        log.info("addUser chatMessage memberId: {}", chatMessage.getMemberId());
         log.info("addUser chatMessage getRoomId: {}", chatMessage.getRoomId());
         log.info("addUser headerAccessor: {}", headerAccessor);
 

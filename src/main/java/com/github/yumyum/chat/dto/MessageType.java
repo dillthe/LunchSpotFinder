@@ -2,7 +2,8 @@ package com.github.yumyum.chat.dto;
 
 public enum MessageType {
 
-    CHAT,
+    CHAT_TEXT,
+    CHAT_IMG,
     JOIN,
     LEAVE
 }

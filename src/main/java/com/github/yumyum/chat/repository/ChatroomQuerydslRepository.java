@@ -1,12 +1,10 @@
 package com.github.yumyum.chat.repository;
 
+import com.github.yumyum.chat.dto.ChatMessage;
 import com.github.yumyum.chat.dto.ChatroomDto;
 import com.github.yumyum.chat.dto.ChatroomUpdateDto;
 import com.github.yumyum.chat.dto.LeaveChatDto;
-import com.github.yumyum.chat.entity.Chatroom;
-import com.github.yumyum.chat.entity.Member;
-import com.github.yumyum.chat.entity.MemberChatroom;
-import com.github.yumyum.chat.entity.QChatroom;
+import com.github.yumyum.chat.entity.*;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import jakarta.persistence.EntityManager;
@@ -33,14 +31,23 @@ public class ChatroomQuerydslRepository {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
+    @Transactional
     public Chatroom save(Chatroom chatroom){
         em.persist(chatroom);
         return chatroom;
     }
 
+    @Transactional
     public MemberChatroom save(MemberChatroom memberChatroom){
         em.persist(memberChatroom);
         return memberChatroom;
+    }
+
+    @Transactional
+    public ChatContent save(ChatContent chatContent){
+        log.info("chatContent: {}", chatContent);
+        em.persist(chatContent);
+        return chatContent;
     }
 
     // TODO @Transactional 꼭 필요한 부분만 사용하게 추후 메소드 수정

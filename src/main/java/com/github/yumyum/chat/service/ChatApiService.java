@@ -1,14 +1,8 @@
 package com.github.yumyum.chat.service;
 
-import com.github.yumyum.chat.dto.ChatroomDto;
-import com.github.yumyum.chat.dto.ChatroomUpdateDto;
-import com.github.yumyum.chat.dto.LeaveChatDto;
-import com.github.yumyum.chat.entity.Friendship;
-import com.github.yumyum.chat.entity.Member;
-import com.github.yumyum.chat.repository.ChatroomQuerydslRepository;
-import com.github.yumyum.chat.repository.FriendshipRepository;
-import com.github.yumyum.chat.repository.MemberFriendRepository;
-import com.github.yumyum.chat.repository.MemberQuerydslRepository;
+import com.github.yumyum.chat.dto.*;
+import com.github.yumyum.chat.entity.*;
+import com.github.yumyum.chat.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,6 +20,7 @@ public class ChatApiService {
     private final MemberQuerydslRepository memberQuerydslRepository;
     private final FriendshipRepository friendshipRepository;
     private final ChatroomQuerydslRepository chatroomQuerydslRepository;
+//    private final ChatContentRepository chatContentRepository;
 
     @Transactional
     public int isUsersFriend(final int memberId1, final int memberId2) {
@@ -128,6 +123,46 @@ public class ChatApiService {
 
     public void updateChatroom(Integer chatroomId, ChatroomUpdateDto chatroomUpdateDto) throws IOException {
         chatroomQuerydslRepository.updateChatroom(chatroomId, chatroomUpdateDto);
+    }
+
+    public void saveChatContent(ChatMessage chatMessage) {
+        MessageType chatMessageType = chatMessage.getType();
+        if (chatMessageType == MessageType.CHAT_TEXT) {
+            String content = chatMessage.getContent();
+            Integer memberId = chatMessage.getMemberId();
+            Integer roomId = chatMessage.getRoomId();
+//            chatContentRepository.saveText(
+//                    content,
+//                    memberId,
+//                    roomId
+//            );
+            ChatContent chatContent = ChatContent
+                    .builder()
+                    .text(content)
+                    .memberChatroom(
+                            MemberChatroom
+                                    .builder()
+                                    .member(
+                                        Member
+                                            .builder()
+                                            .memberId(memberId)
+                                            .build()
+                                    )
+                                    .chatroom(
+                                        Chatroom
+                                            .builder()
+                                            .chatroomId(roomId)
+                                            .build()
+                                    )
+                                    .build()
+                    )
+                    .build();
+            chatroomQuerydslRepository.save(chatContent);
+        } else if (chatMessageType == MessageType.CHAT_IMG) {
+            log.info("img");
+        } else {
+            throw new RuntimeException(String.format("%s는 허용되지 않는 메세지 타입", chatMessageType));
+        }
     }
 
 //    @Transactional

@@ -17,7 +17,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/{memberId}")
-    public ResponseEntity<MemberResDto> memberList(@PathVariable Long memberId, MemberReqDto dto) {
+    public ResponseEntity<MemberResDto> memberList(@PathVariable Integer memberId, MemberReqDto dto) {
         dto.setMemberId(memberId);
         return ResponseEntity.ok(memberService.memberList(dto));
     }

@@ -9,7 +9,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface InterestMapper {
     InterestMapper INSTANCE = Mappers.getMapper(InterestMapper.class);
-    @Mapping(target="memberEntity.memberId", source="interestBody.memberId")
+    @Mapping(target="member.id", source="interestBody.memberId")
     @Mapping(target="restaurantEntity.rstrId", source="interestBody.rstrId")
     InterestEntity idAndInterestBodyToInterestEntity(Integer id, InterestBody interestBody);
 

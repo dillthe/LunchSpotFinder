@@ -9,7 +9,6 @@ import com.github.yumyum.map.repository.entity.InterestEntity;
 import com.github.yumyum.map.repository.entity.RestaurantEntity;
 import com.github.yumyum.map.service.mapper.InterestMapper;
 import com.github.yumyum.map.web.dto.interested.InterestBody;
-import com.github.yumyum.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class InterestService {
 
     private final RestaurantRepository restaurantRepository;
-    private final MemberRepository memberRepository;
+
     private final InterestRepository interestRepository;
 
     //유저 정보 받아서 넣는거 나중에 로그인 완성되면 추가하기.

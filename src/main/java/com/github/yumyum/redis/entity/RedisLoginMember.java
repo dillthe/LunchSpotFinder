@@ -10,7 +10,7 @@ import com.github.yumyum.common.constant.RedisKeyType;
 @Builder
 public class RedisLoginMember {
 
-    private Long memberId;
+    private Integer memberId;
     private String refreshToken;
 
     @JsonIgnore

@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder
 public class MemberResDto {
 
-    private Long memberId;
+    private Integer memberId;
     private String loginId;
     private String memberName;
 }

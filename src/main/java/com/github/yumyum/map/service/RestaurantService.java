@@ -7,7 +7,6 @@ import com.github.yumyum.exceptions.NotAcceptException;
 import com.github.yumyum.exceptions.NotFoundException;
 import com.github.yumyum.map.repository.RestaurantRepository;
 import com.github.yumyum.map.repository.entity.RestaurantEntity;
-import com.github.yumyum.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,7 +31,6 @@ public class RestaurantService {
     private final String SERVICE_KEY = "2Bddfov1kOBIF6qf9y9XVS9aWPuSSHaauwrAxK1mvtwFQy2r7FUpWSPfwAUFQv8G";
 
     private final RestaurantRepository restaurantRepository;
-    private final MemberRepository memberRepository;
 
     private final RestTemplate restTemplate;
 //    private static final Logger logger = LoggerFactory.getLogger(RestaurantService.class);

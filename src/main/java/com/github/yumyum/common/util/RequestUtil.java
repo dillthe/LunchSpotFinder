@@ -54,9 +54,9 @@ public class RequestUtil {
         return Agent.WEB;
     }
 
-    public static Long getMemberId() {
+    public static Integer getMemberId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return Long.parseLong(authentication.getName());
+        return Integer.parseInt(authentication.getName());
     }
 
 }

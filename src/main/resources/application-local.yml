@@ -1,18 +1,18 @@
-spring:
-  config:
-    activate:
-      on-profile: local
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/yomi?useUnicode=true&characterEncoding=UTF-8
-    username: root
-    password: 8282
-server:
-  port: 8080
-
-logging:
-  config: classpath:logback-spring-local.xml
-  level:
-    org:
-      hibernate:
-        SQL: DEBUG
+#spring:
+#  config:
+#    activate:
+#      on-profile: local
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/yomi?useUnicode=true&characterEncoding=UTF-8
+#    username: root
+#    password: 8282
+#server:
+#  port: 8080
+#
+#logging:
+#  config: classpath:logback-spring-local.xml
+#  level:
+#    org:
+#      hibernate:
+#        SQL: DEBUG

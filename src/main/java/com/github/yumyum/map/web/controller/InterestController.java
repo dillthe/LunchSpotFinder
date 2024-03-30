@@ -1,5 +1,6 @@
 package com.github.yumyum.map.web.controller;
 
+import com.github.yumyum.common.util.RequestUtil;
 import com.github.yumyum.map.service.InterestService;
 import com.github.yumyum.map.web.dto.interested.InterestBody;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,6 +21,7 @@ public class InterestController implements ApiController{
     @Operation(summary = "관심있는 식당 정보 추가")
     @PostMapping("/add-to-interest")
     public ResponseEntity<String> addToInterest(@RequestBody InterestBody interestBody){
+        interestBody.setMemberId(RequestUtil.getMemberId());
         interestService.addToInterest(interestBody);
         return ResponseEntity.ok("식당 정보가 즐겨찾기에 추가되었습니다.");
     }

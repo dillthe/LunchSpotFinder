@@ -3,6 +3,7 @@ package com.github.yumyum.chat.controller;
 import com.github.yumyum.chat.dto.*;
 import com.github.yumyum.chat.service.ChatApiService;
 import com.github.yumyum.member.entity.Member;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ public class ChatApiController {
      * @param memberId
      * @return
      */
+    @Operation(summary = "특정 유저와 친구관계인 유저 모두 불러오기")
     @GetMapping(value = "/{memberId}/friends")
     public List<Member> getFriendshipMembers(@PathVariable Integer memberId) {
         return chatApiService.getMemberAllFriends(memberId);
@@ -36,6 +38,7 @@ public class ChatApiController {
      * @param keyword
      * @return
      */
+    @Operation(summary = "email or name keyword 포함하는 유저 검색")
     @GetMapping
     public List<Member> searchMembers(@RequestParam("keyword") String keyword) {
         return chatApiService.searchMembers(keyword);
@@ -46,6 +49,7 @@ public class ChatApiController {
      * @param
      * @return
      */
+    @Operation(summary = "모든 유저 불러오기")
     @GetMapping(value = "/members")
     public List<Member> getAllMembers() {
         return chatApiService.getAllMembers();
@@ -57,6 +61,7 @@ public class ChatApiController {
      * @param friendshipId
      * @return
      */
+    @Operation(summary = "특정유저 2명 친구 관계 설정")
     @PostMapping(value = "/{memberId}/friend")
     public String makeFriendship(@PathVariable int memberId, @RequestBody FriendshipId friendshipId) {
         int friendShipSearchId = Optional.ofNullable(friendshipId.getFriendshipId())
@@ -72,6 +77,7 @@ public class ChatApiController {
      * @param friendshipId
      * @return
      */
+    @Operation(summary = "특정유저 2명 친구 관계 제거")
     @DeleteMapping(value = "/{memberId}/friend")
     public String getFriendshipMembers(@PathVariable int memberId, @RequestBody FriendshipId friendshipId) {
         chatApiService.breakFreindship(memberId, friendshipId.getFriendshipId());
@@ -84,6 +90,7 @@ public class ChatApiController {
      * @param ChatroomDto
      * @return
      */
+    @Operation(summary = "채팅방 생성")
     @PostMapping(value = "/chatroom")
     public String makeChatroom(ChatroomDto ChatroomDto) {
         log.info("ChatroomDto: {}", ChatroomDto);
@@ -101,6 +108,7 @@ public class ChatApiController {
      * @param chatroomUpdateDto
      * @return
      */
+    @Operation(summary = "채팅방 정보 변경 (제목, 이미지)")
     @PostMapping(value = "/chatroom/{chatroomId}")
     public String updateChatroom(@PathVariable Integer chatroomId, ChatroomUpdateDto chatroomUpdateDto) {
         log.info("chatroomUpdateDto: {}", chatroomUpdateDto);
@@ -117,6 +125,7 @@ public class ChatApiController {
      * @param chatroomId
      * @return
      */
+    @Operation(summary = "채팅방에 있는 모든 유저 조회")
     @GetMapping(value = "/chatroom/{chatroomId}/members")
     public List<Member> getChatroomMembers(@PathVariable Integer chatroomId) {
         return chatApiService.getChatroomMembers(chatroomId);
@@ -127,6 +136,7 @@ public class ChatApiController {
      * @param leaveChatDto
      * @return
      */
+    @Operation(summary = "특정 유저, 특정 채팅방 나기기")
     @DeleteMapping(value = "/chatroom")
     public String leaveChatroomMember(@RequestBody LeaveChatDto leaveChatDto) {
         log.info("leaveChatDto: {}", leaveChatDto);

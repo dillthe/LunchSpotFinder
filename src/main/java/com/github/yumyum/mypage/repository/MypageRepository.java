@@ -1,5 +1,6 @@
 package com.github.yumyum.mypage.repository;
 
+import com.github.yumyum.member.entity.Member;
 import com.github.yumyum.mypage.repository.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -11,20 +12,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserJpaRepository extends JpaRepository<UserEntity, Integer> {
+public interface MypageRepository extends JpaRepository<Member, Integer> {
     // jpa 메소드로 검색
-    Optional<List<UserEntity>> findByUserIdContaining(String userId);
+//    Optional<List<Member>> findByUserIdContaining(String userId);
     // 쿼리로 검색
-    /*@Query("SELECT ue FROM UserEntity ue WHERE ue.userId LIKE CONCAT('%', :userId, '%')")
-    Optional<List<UserEntity>> searchUserId(String userId);*/
+//    @Query("SELECT ue FROM UserEntity ue WHERE ue.userId LIKE CONCAT('%', :userId, '%')")
+//    Optional<List<UserEntity>> searchUserId(String userId);
 
-    Optional<UserEntity> findByUserSn(int userSn);
 
     @Modifying
     @Transactional
-    @Query("UPDATE UserEntity u SET u.password = :password WHERE u.userSn = :userSn")
-    int updatePassword(int userSn, String password);
-
-    @Transactional
-    int deleteByUserSn(int userSn);
+    @Query("UPDATE Member u SET u.password = :password WHERE u.id = :id")
+    int updatePassword(int id, String password);
 }

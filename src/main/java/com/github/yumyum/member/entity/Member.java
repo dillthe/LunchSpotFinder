@@ -22,9 +22,16 @@ public class Member {
     @Column(name = "member_id")
     private Integer id;
 
+    @Column(name = "login_id")
     private String loginId;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "member_name")
     private String memberName;
+
+    @Column(name = "phone_num")
     private String phoneNum;
 
 

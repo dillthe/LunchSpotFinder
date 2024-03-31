@@ -9,11 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
-    private int userSn;
-    private String userId;
+public class MypageDTO {
+    private int id;
     private String password;
-    private String userName;
-    private String email;
-    private String userPhone;
 }

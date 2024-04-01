@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface  SavePlaceRepository extends JpaRepository<SavePlaceEntity, Integer> {
-    Optional<List<SavePlaceEntity>> findByUserSn(int userSn);
 
+    List<SavePlaceEntity> findByMemberId(int id);
 }

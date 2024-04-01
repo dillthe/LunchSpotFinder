@@ -155,7 +155,7 @@ public class ChatApiController {
     }
 
     @Operation(summary = "채팅 저장 (문자)")
-    @PostMapping(value = "/chatroom/{chatroomId}/chat")
+    @PostMapping(value = "/chatroom/{chatroomId}/chat", params = "type=text")
     public ResponseEntity saveTextChat(ChatTextMessage chatTextMessage,
                                        @PathVariable Integer chatroomId) {
         log.info("chatTextMessage: {}", chatTextMessage);
@@ -164,7 +164,7 @@ public class ChatApiController {
     }
 
     @Operation(summary = "채팅 저장 (이미지)")
-    @PostMapping(value = "/chatroom/{chatroomId}/chat")
+    @PostMapping(value = "/chatroom/{chatroomId}/chat", params = "type=img")
     public ResponseEntity saveTextChat(ChatImgMessage chatImgMessage,
                                        @PathVariable Integer chatroomId) {
         try {

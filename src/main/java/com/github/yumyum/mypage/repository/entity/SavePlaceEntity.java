@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -32,6 +33,6 @@ public class SavePlaceEntity {
 
     @CreationTimestamp
     @Column(name = "save_dt")
-    private Date saveDt;
+    private LocalDate saveDt;
 
 }

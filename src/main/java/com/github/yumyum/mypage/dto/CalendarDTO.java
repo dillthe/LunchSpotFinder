@@ -5,18 +5,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class CalendarDTO {
-    private int calendarSn;
+    private Integer calendarSn;
     private String calendarCn;
-    private Date memoDt;
-    private Date regDt;
-    private int userSn;
+    private LocalDate memoDt;
+    private LocalDate regDt;
+    private Integer memberId;
 
 
 }

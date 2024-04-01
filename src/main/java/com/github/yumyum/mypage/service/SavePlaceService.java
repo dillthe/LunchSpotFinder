@@ -5,7 +5,6 @@ import com.github.yumyum.map.repository.RestaurantRepository;
 import com.github.yumyum.map.repository.entity.RestaurantEntity;
 import com.github.yumyum.member.entity.Member;
 import com.github.yumyum.member.repository.MemberRepository;
-import com.github.yumyum.mypage.dto.SavePlaceDTO;
 import com.github.yumyum.mypage.dto.SaveReqDTO;
 import com.github.yumyum.mypage.repository.SavePlaceRepository;
 import com.github.yumyum.mypage.repository.entity.SavePlaceEntity;
@@ -60,13 +59,6 @@ public class SavePlaceService {
         savePlaceRepository.delete(savePlaceEntity);
 
         return saveSn;
-    }
-
-    private SavePlaceEntity convertDtoToEntity(SavePlaceDTO savePlaceDTO) {
-        // SavePlaceDTO를 SavePlaceEntity로 변환
-        return SavePlaceEntity.builder()
-                .saveSn(savePlaceDTO.getSaveSn())
-                .build();
     }
 
 }

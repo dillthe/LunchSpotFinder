@@ -1,9 +1,11 @@
 package com.github.yumyum.mypage.repository.entity;
 
+import com.github.yumyum.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -24,12 +26,13 @@ public class CalendarEntity {
     private String calendarCn;
 
     @Column(name = "memo_dt")
-    private Date memoDt;
+    private LocalDate memoDt;
 
     @CreationTimestamp
     @Column(name = "reg_dt")
-    private Date regDt;
+    private LocalDate regDt;
 
-    @Column(name = "user_sn")
-    private int userSn;
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 }

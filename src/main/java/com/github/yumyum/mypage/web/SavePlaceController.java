@@ -1,6 +1,5 @@
 package com.github.yumyum.mypage.web;
 
-import com.github.yumyum.mypage.dto.SavePlaceDTO;
 import com.github.yumyum.mypage.dto.SaveReqDTO;
 import com.github.yumyum.mypage.service.SavePlaceService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,8 +31,8 @@ public class SavePlaceController {
 
     // 즐겨찾기 해제
     @Operation(summary = "즐겨찾기 해제")
-    @DeleteMapping("/delSavePlace")
-    public ResponseEntity<?> delSavePlace(@RequestBody Integer saveSn) {
+    @DeleteMapping("/delSavePlace/{saveSn}")
+    public ResponseEntity<?> delSavePlace(@PathVariable int saveSn) {
         return ResponseEntity.ok(savePlaceService.delSavePlace(saveSn));
     }
 

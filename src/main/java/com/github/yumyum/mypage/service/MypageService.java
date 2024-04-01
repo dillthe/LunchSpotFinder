@@ -5,7 +5,6 @@ import com.github.yumyum.exceptions.NotFoundException;
 import com.github.yumyum.member.entity.Member;
 import com.github.yumyum.mypage.dto.MypageDTO;
 import com.github.yumyum.mypage.repository.MypageRepository;
-import com.github.yumyum.mypage.repository.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

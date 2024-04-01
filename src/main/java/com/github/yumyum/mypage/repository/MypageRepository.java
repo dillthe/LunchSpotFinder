@@ -1,7 +1,6 @@
 package com.github.yumyum.mypage.repository;
 
 import com.github.yumyum.member.entity.Member;
-import com.github.yumyum.mypage.repository.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

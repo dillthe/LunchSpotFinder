@@ -24,13 +24,6 @@ public class MemberQuerydslRepository {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
-//    public List<Member> findByMemberId1(Integer memberId1) {
-//        return queryFactory
-//                .selectFrom(member)
-//                .leftJoin(member.friendships1, friendship)
-//                .on(member.memberId.eq(friendship.friendshipId))
-//                .fetch();
-//    }
     @Transactional
     public List<Member>findByMemberId1(int memberId) {
         return queryFactory

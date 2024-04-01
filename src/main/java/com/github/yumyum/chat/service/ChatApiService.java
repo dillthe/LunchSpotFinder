@@ -22,19 +22,11 @@ public class ChatApiService {
     private final MemberQuerydslRepository memberQuerydslRepository;
     private final FriendshipRepository friendshipRepository;
     private final ChatroomQuerydslRepository chatroomQuerydslRepository;
-//    private final ChatContentRepository chatContentRepository;
 
     @Transactional
     public int isUsersFriend(final int memberId1, final int memberId2) {
         return friendshipRepository.existsFriendship(memberId1, memberId2);
     }
-
-//    @Transactional
-//    public void makeFreindship(final int memberId1, final int memberId2) {
-////        Friendship friendship = friendshipRepository.findByMemberId1AndMemberId2(memberId1, memberId2)
-////                .orElseThrow(IllegalArgumentException::new);
-////        friendshipRepository.findByMemberId1AndMemberId2(memberId1, memberId2);
-//    }
 
     @Transactional
     public List<Friendship> getFriends() {
@@ -131,28 +123,8 @@ public class ChatApiService {
         MessageType chatMessageType = chatMessage.getType();
         Integer memberId = chatMessage.getMemberId();
         Integer roomId = chatMessage.getRoomId();
-        if (memberId == null) {
-            String.format("memberId는 null 일 수 없습니다.");
-        }
-        if (roomId == null) {
-            String.format("roomId는 null 일 수 없습니다.");
-        }
 
-        MemberChatroom memberChatroom = MemberChatroom
-                .builder()
-                .member(
-                        Member
-                            .builder()
-                            .id(memberId)
-                            .build()
-                )
-                .chatroom(
-                        Chatroom
-                            .builder()
-                            .chatroomId(roomId)
-                            .build()
-                )
-                .build();
+        MemberChatroom memberChatroom = getMemberChatroom(memberId, roomId);
 
         if (chatMessageType == MessageType.CHAT_TEXT) {
             String content = chatMessage.getContent();
@@ -181,7 +153,55 @@ public class ChatApiService {
         }
     }
 
-//    @Transactional
+    private MemberChatroom getMemberChatroom(Integer memberId, Integer roomId) {
+        MemberChatroom memberChatroom;
+        if (memberId != null && roomId != null) {
+            memberChatroom = MemberChatroom
+                    .builder()
+                    .member(
+                            Member
+                                .builder()
+                                .id(memberId)
+                                .build()
+                    )
+                    .chatroom(
+                            Chatroom
+                                .builder()
+                                .chatroomId(roomId)
+                                .build()
+                    )
+                    .build();
+        } else {
+            throw new IllegalArgumentException(String.format("파라미터에 null 값이 올 수 없습니다.(memberId: %s, roomId: %s )", memberId, roomId));
+        }
+        return memberChatroom;
+    }
+
+    public void saveChatTextContent(ChatTextMessage chatTextMessage) {
+        String content = chatTextMessage.getContent();
+        MemberChatroom memberChatroom = getMemberChatroom(chatTextMessage.getMemberId(), chatTextMessage.getRoomId());
+
+        ChatContent chatContent = ChatContent.builder()
+                .text(content)
+                .memberChatroom(memberChatroom)
+                .build();
+
+        chatroomQuerydslRepository.save(chatContent);
+    }
+
+    public void saveChatImgContent(ChatImgMessage chatImgMessage) throws IOException {
+        MultipartFile imgFile = chatImgMessage.getFile();
+        MemberChatroom memberChatroom = getMemberChatroom(chatImgMessage.getMemberId(), chatImgMessage.getRoomId());
+
+        ChatContent chatContent = ChatContent.builder()
+                .memberChatroom(memberChatroom)
+                .build();
+        chatContent.setImg(imgFile.getBytes());
+
+        chatroomQuerydslRepository.save(chatContent);
+    }
+
+    //    @Transactional
 //    public void joinChatroom() {
 //
 //    }
@@ -195,4 +215,5 @@ public class ChatApiService {
 //    public void getChatroomList() {
 //
 //    }
+
 }

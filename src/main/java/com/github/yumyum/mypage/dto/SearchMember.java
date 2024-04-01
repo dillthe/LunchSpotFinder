@@ -1,5 +1,6 @@
 package com.github.yumyum.mypage.dto;
 
+import com.github.yumyum.member.dto.MemberResDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,10 +12,8 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SavePlaceDTO {
-    private int saveSn;
-    private int userSn;
-    private int placeSn;
-    private Date saveDt;
+public class SearchMember {
+    private int id;
+    private String searchId;
 
 }

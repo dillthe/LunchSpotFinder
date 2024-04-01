@@ -1,11 +1,13 @@
 package com.github.yumyum.mypage.dto;
 
-import com.github.yumyum.mypage.repository.entity.UserEntity;
+import com.github.yumyum.member.dto.MemberResDto;
+import com.github.yumyum.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -15,9 +17,9 @@ import java.util.Date;
 public class UserMatchDTO {
     private int matchSn;
     private char matchCode;
-    private Date sendDt;
-    private Date matchDt;
-    private UserEntity sendUser;
-    private UserEntity receiveUser;
+    private LocalDate sendDt;
+    private LocalDate matchDt;
+    private int sendUser;
+    private int receiveUser;
 
 }

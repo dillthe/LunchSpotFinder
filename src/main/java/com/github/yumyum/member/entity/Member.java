@@ -1,6 +1,7 @@
 package com.github.yumyum.member.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.yumyum.chat.entity.Friendship;
 import com.github.yumyum.chat.entity.MemberChatroom;
 import jakarta.persistence.*;
@@ -14,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "member")
 public class Member {
 
@@ -35,16 +37,16 @@ public class Member {
     private String phoneNum;
 
 
-    @JsonIgnore
     @OneToMany(mappedBy = "member1")
+    @JsonIgnore
     private List<Friendship> friendships1;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "member2")
+    @JsonIgnore
     private List<Friendship> friendships2 = new ArrayList<>();
 
-    @JsonIgnore
     @OneToMany(mappedBy = "member")
+    @JsonIgnore
     private List<MemberChatroom> memberChatrooms = new ArrayList<>();
 
 }

@@ -9,9 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PlaceDTO {
-    private int placeSn;
-    private String placeName;
-    private String address;
-    private String tel;
+public class MatchDTO {
+    private int id;
+    private int matchId;
 }

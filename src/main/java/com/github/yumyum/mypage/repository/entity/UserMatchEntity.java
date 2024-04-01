@@ -1,9 +1,13 @@
 package com.github.yumyum.mypage.repository.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.yumyum.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -11,7 +15,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "user_friend")
+@Table(name = "user_match")
 
 public class UserMatchEntity {
     @Id
@@ -23,20 +27,20 @@ public class UserMatchEntity {
     private char matchCode;
 
     @CreationTimestamp
-    @Column(name = "send_dt")
-    private String sendDt;
+    @Column(name = "send_dt", updatable = false)
+    private LocalDate sendDt;
 
+    @Column(name = "match_dt", insertable = false)
     @UpdateTimestamp
-    @Column(name = "match_dt")
-    private String matchDt;
+    private LocalDate matchDt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "send_user", referencedColumnName = "user_sn")
-    private UserEntity sendUser;
+    @JoinColumn(name = "send_user", referencedColumnName = "member_id")
+    @JsonIgnore
+    private Member sendUser;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "receive_user", referencedColumnName = "user_sn")
-    private UserEntity receiveUser;
-
-
+    @JoinColumn(name = "receive_user", referencedColumnName = "member_id")
+    @JsonIgnore
+    private Member receiveUser;
 }

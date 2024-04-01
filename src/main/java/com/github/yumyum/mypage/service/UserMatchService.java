@@ -1,48 +1,70 @@
 package com.github.yumyum.mypage.service;
 
-import com.github.yumyum.exceptions.NotFoundException;
-import com.github.yumyum.mypage.dto.UserDTO;
+import com.github.yumyum.chat.entity.Friendship;
+import com.github.yumyum.chat.repository.FriendshipRepository;
+import com.github.yumyum.chat.service.ChatApiService;
+import com.github.yumyum.member.entity.Member;
+import com.github.yumyum.member.repository.MemberRepository;
 import com.github.yumyum.mypage.dto.UserMatchDTO;
-import com.github.yumyum.mypage.repository.UserJpaRepository;
-import com.github.yumyum.mypage.repository.UserMatchJpaRepository;
-import com.github.yumyum.mypage.repository.entity.UserEntity;
+import com.github.yumyum.mypage.repository.MypageRepository;
+import com.github.yumyum.mypage.repository.UserMatchRepository;
 import com.github.yumyum.mypage.repository.entity.UserMatchEntity;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class UserMatchService {
 
-    private final UserMatchJpaRepository userMatchJpaRepository;
-    private final UserJpaRepository userRepository;
+    private final UserMatchRepository userMatchRepository;
+    private final MemberRepository memberRepository;
+    private final FriendshipRepository friendshipRepository;
+    private final ChatApiService chatApiService;
 
-    public List<UserEntity> getUserIdSearch(UserDTO userDTO) {
-        // 유저 아이디 검색 (user_id)
-        return userRepository.findByUserIdContaining(userDTO.getUserId()).orElseThrow(() -> new NotFoundException("검색 결과가 없습니다."));
+//    public List<UserMatchEntity> matchState(MatchDTO matchDTO) {
+//        return userMatchJpaRepository.matchState(matchDTO.getId(), matchDTO.getMatchId());
+//    }
+
+    public List<Member> getUserIdSearch(String loginId) {
+
+        return memberRepository.getUserIdSearch(loginId);
     }
 
     @Transactional
     public int insertUserMatch(UserMatchDTO userMatchDTO) {
 
-        // 매칭 코드 W:대기, Y:수락, N:거절
-        userMatchDTO.setMatchCode('W');
+        // 현재 매칭 상태 확인
+        UserMatchEntity userMatchEntities = userMatchRepository.matchState(userMatchDTO.getSendUser(), userMatchDTO.getReceiveUser());
+        if(userMatchEntities != null) {
+            switch (userMatchEntities.getMatchCode()) {
+                case 'W': // 대기 상태인 경우
+                    return -1;
+                case 'Y': // 수락 상태인 경우
+                    return -2;
+                default:
+                    break;
+            }
+        }
 
-        System.out.println("userMatchDTO = " + userMatchDTO.getMatchCode());
-        System.out.println("userMatchDTO = " + userMatchDTO.getSendUser());
-        System.out.println("userMatchDTO = " + userMatchDTO.getReceiveUser());
+        Member sendUser = memberRepository.findById(userMatchDTO.getSendUser()).orElseThrow(() -> new IllegalArgumentException("Invalid member ID"));
+        Member receiveUser = memberRepository.findById(userMatchDTO.getReceiveUser()).orElseThrow(() -> new IllegalArgumentException("Invalid member ID"));
 
-        // DTO를 엔티티로 변환하는 과정 필요
-        UserMatchEntity userMatchEntity = convertDtoToEntity(userMatchDTO);
+        // 엔티티 생성
+        UserMatchEntity userMatchEntity = UserMatchEntity.builder()
+                .matchCode('W') // 매칭 코드 W:대기, Y:수락, N:거절
+                .sendUser(sendUser)
+                .receiveUser(receiveUser)
+                .build();
 
         // 엔티티를 DB에 저장
-        userMatchJpaRepository.save(userMatchEntity);
+        userMatchRepository.save(userMatchEntity);
 
         return userMatchEntity.getMatchSn();
 
@@ -50,28 +72,49 @@ public class UserMatchService {
 
     // 내가 받은 친구 목록 리스트
     @Transactional
-    public List<UserMatchEntity> getReceiveMatchList(int receiveUserSn) {
-        return userMatchJpaRepository.findByReceiveUser(receiveUserSn);
-
-
-//        return userMatchJpaRepository.findByReceiveUser(userMatchDTO.getReceiveUser()).orElseThrow(() -> new NotFoundException("검색 결과가 없습니다."));
+    public List<UserMatchEntity> getReceiveMatchList(int id) {
+        return userMatchRepository.findByReceiveUser(id);
     }
 
-    // 친구 수락/거절 Service
-    public int satMatchStatus(UserMatchDTO userMatchDTO) {
-
-        return 0;
-
+    // 친구 수락/거절
+    @Transactional
+    public int setMatchStatus(UserMatchDTO userMatchDTO) {
+        UserMatchEntity userMatch = userMatchRepository.findById(userMatchDTO.getMatchSn()).orElseThrow(() -> new EntityNotFoundException("Match not found"));
+        char matchCode = userMatchDTO.getMatchCode();
+        if(matchCode == 'Y') {
+            chatApiService.makeFriend(userMatch.getSendUser().getId(), userMatch.getReceiveUser().getId());
+        }
+        userMatch.setMatchCode(matchCode);
+        return userMatchRepository.save(userMatch).getMatchSn();
+//        return userMatchRepository.updateMatchCode(userMatchDTO.getMatchSn(), userMatchDTO.getMatchCode());
     }
 
-    // convertDtoToEntity
-    private UserMatchEntity convertDtoToEntity(UserMatchDTO userMatchDTO) {
-        UserMatchEntity userMatchEntity = new UserMatchEntity();
-        userMatchEntity.setMatchCode(userMatchDTO.getMatchCode());
-        userMatchEntity.setSendUser(userMatchDTO.getSendUser());
-        userMatchEntity.setReceiveUser(userMatchDTO.getReceiveUser());
-        return userMatchEntity;
+    // 내 친구 목록 조회
+    @Transactional
+    public List<Member> getFriendList(int id) {
+        List<Friendship> friendships = friendshipRepository.getFriendList(id);
+        if(friendships.isEmpty()) {
+            throw new EntityNotFoundException("Friend not found");
+        }
+
+        List<Member> friendList = new ArrayList<>();
+        for(Friendship f : friendships) {
+            int friendId = f.getMember2().getId();
+            Member member = memberRepository.findById(friendId).orElseThrow(() -> new EntityNotFoundException("Friend not found"));
+            friendList.add(member);
+        }
+        return friendList;
     }
+
+//
+//    // convertDtoToEntity
+//    private UserMatchEntity convertDtoToEntity(UserMatchDTO userMatchDTO) {
+//        UserMatchEntity userMatchEntity = new UserMatchEntity();
+//        userMatchEntity.setMatchCode(userMatchDTO.getMatchCode());
+//        userMatchEntity.setSendUser(userMatchDTO.getSendUser());
+//        userMatchEntity.setReceiveUser(userMatchDTO.getReceiveUser());
+//        return userMatchEntity;
+//    }
 
 
 }

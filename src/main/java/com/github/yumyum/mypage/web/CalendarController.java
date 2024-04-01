@@ -37,11 +37,10 @@ public class CalendarController {
         return ResponseEntity.ok(calendarService.getDayMemoList(calendarDTO));
     }
     // 메모 수정
-    @Operation(summary = "메모 수정")
+    @Operation(summary = "메모 수정/ calendarSn: 메모 일련번호, calendarCn: 메모 내용, memoDt: 메모 날짜만 보내도 수정가능")
     @PostMapping("/updateMemo")
     public ResponseEntity<?> updateMemo(@RequestBody CalendarDTO calendarDTO) {
         return ResponseEntity.ok(calendarService.updateMemo(calendarDTO));
-
     }
     // 메모 삭제
     @Operation(summary = "메모 삭제")

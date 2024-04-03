@@ -13,7 +13,6 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
-//@RequestMapping("/rstr")
 @Slf4j
 public class InterestController implements ApiController{
     private final InterestService interestService;

@@ -8,7 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface InterestRepository extends JpaRepository<InterestEntity, Integer> {
-//  Optional<InterestEntity> findByMemberEntityAndRestaurantEntity(MemberEntity memberEntity, RestaurantEntity restaurantEntity);
-//
-//  void deleteByMemberIdAndRstrId(Integer memberId, Integer rstrId);
+
 }

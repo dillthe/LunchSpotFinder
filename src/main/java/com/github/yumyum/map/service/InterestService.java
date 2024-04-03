@@ -22,7 +22,6 @@ public class InterestService {
 
     private final InterestRepository interestRepository;
 
-    //유저 정보 받아서 넣는거 나중에 로그인 완성되면 추가하기.
     public Integer addToInterest(InterestBody interestBody) {
         RestaurantEntity restaurantEntity = restaurantRepository.findById(interestBody.getRstrId())
                 .orElseThrow(() -> new NotFoundException("식당을 찾을 수 없습니다."));
@@ -41,8 +40,12 @@ public class InterestService {
     }
 
     public void deleteInterest(String interestId) {
-        Integer interestIdInt = Integer.valueOf(interestId);
-        interestRepository.deleteById(interestIdInt);
+       try{
+         Integer interestIdInt = Integer.valueOf(interestId);
+         interestRepository.deleteById(interestIdInt);
+       } catch (RuntimeException e) {
+            throw new NotAcceptException("Id 형식이 올바르지 않습니다.");
+       }
     }
 
 }

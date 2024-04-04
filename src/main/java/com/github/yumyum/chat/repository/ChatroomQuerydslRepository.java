@@ -1,11 +1,9 @@
 package com.github.yumyum.chat.repository;
 
-import com.github.yumyum.chat.dto.ChatMessage;
-import com.github.yumyum.chat.dto.ChatroomDto;
-import com.github.yumyum.chat.dto.ChatroomUpdateDto;
-import com.github.yumyum.chat.dto.LeaveChatDto;
+import com.github.yumyum.chat.dto.*;
 import com.github.yumyum.chat.entity.*;
 import com.github.yumyum.member.entity.Member;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import jakarta.persistence.EntityManager;
@@ -80,9 +78,10 @@ public class ChatroomQuerydslRepository {
         }
     }
     
-    public List<Member> getChatroomMembers(Integer chatroomId) {
+    public List<MemberDto> getChatroomMembers(Integer chatroomId) {
         return queryFactory
-                .selectFrom(member)
+                .select(Projections.bean(MemberDto.class, member.id, member.loginId, member.memberName))
+                .from(member)
                 .join(member.memberChatrooms, memberChatroom).fetchJoin()
                 .where(memberChatroom.chatroom.chatroomId.eq(chatroomId))
                 .fetch();

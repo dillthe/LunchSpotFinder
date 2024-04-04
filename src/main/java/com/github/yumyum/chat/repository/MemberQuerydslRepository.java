@@ -40,9 +40,10 @@ public class MemberQuerydslRepository {
     }
 
     @Transactional
-    public List<Member> findByUsernameContainingOrEmailContaining(String keyword) {
+    public List<MemberDto> findByUsernameContainingOrEmailContaining(String keyword) {
         return queryFactory
-                .selectFrom(member)
+                .select(Projections.bean(MemberDto.class, member.id, member.loginId, member.memberName))
+                .from(member)
                 .where(
                         member.memberName.contains(keyword)
                     .or(member.loginId.contains(keyword))

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -94,12 +95,21 @@ public class ChatApiService {
         return String.format("%s와 %s는 친구가 되었습니다.", userId1, friendShipSearchId);
     }
 
-    public List<Member> searchMembers(String keyword) {
+    public List<MemberDto> searchMembers(String keyword) {
         return memberQuerydslRepository.findByUsernameContainingOrEmailContaining(keyword);
     }
 
-    public List<Member> getAllMembers() {
-        return memberFriendRepository.findAll();
+    public List<MemberDto> getAllMembers() {
+        List<Member> members = memberFriendRepository.findAll();
+        List<MemberDto> memberDtos = new ArrayList<>();
+        for (Member member : members) {
+            memberDtos.add(MemberDto.builder()
+                    .id(member.getId())
+                    .loginId(member.getLoginId())
+                    .memberName(member.getMemberName())
+                    .build());
+        }
+        return memberDtos;
     }
 
     @Transactional
@@ -107,7 +117,7 @@ public class ChatApiService {
         chatroomQuerydslRepository.saveChatroom(chatroomDto);
     }
 
-    public List<Member> getChatroomMembers(Integer chatroomId) {
+    public List<MemberDto> getChatroomMembers(Integer chatroomId) {
         return chatroomQuerydslRepository.getChatroomMembers(chatroomId);
     }
 

@@ -4,9 +4,9 @@
 #      on-profile: local
 #  datasource:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://localhost:3306/yomi?useUnicode=true&characterEncoding=UTF-8
-#    username: root
-#    password: 8282
+#    url: jdbc:mysql://gcp.connect.psdb.cloud:3306/yumyum
+#    username: r2yaeuknxoku0ulxvyzf
+#    password: pscale_pw_knQ4IeqjLU9nTUVLxZ5EbkkXh6NI99agrVOQTcCwR4U
 #server:
 #  port: 8080
 #

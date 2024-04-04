@@ -1,6 +1,7 @@
 package com.github.yumyum.map.service;
 
 
+import com.github.yumyum.common.util.RequestUtil;
 import com.github.yumyum.exceptions.NotAcceptException;
 import com.github.yumyum.exceptions.NotFoundException;
 import com.github.yumyum.map.repository.InterestRepository;

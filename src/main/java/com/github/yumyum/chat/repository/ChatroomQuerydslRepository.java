@@ -51,7 +51,6 @@ public class ChatroomQuerydslRepository {
         return chatContent;
     }
 
-    // TODO @Transactional 꼭 필요한 부분만 사용하게 추후 메소드 수정
     @Transactional
     public void saveChatroom(ChatroomDto chatroomDto) throws IOException {
         if (chatroomDto.getMemberIds().isEmpty() ||
@@ -97,7 +96,6 @@ public class ChatroomQuerydslRepository {
                     memberChatroom.chatroom.chatroomId.eq(leaveChatDto.getChatroomId()))
             .execute();
 
-        // TODO 특정 채팅방에 있는 모든 유저 모두 나가면 해당 채팅 내역 삭제
     }
 
     @Transactional

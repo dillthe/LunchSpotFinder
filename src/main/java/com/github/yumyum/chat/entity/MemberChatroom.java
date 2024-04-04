@@ -14,12 +14,12 @@ import lombok.*;
 @Table(name = "member_chatroom")
 public class MemberChatroom {
     @Id
-    @ManyToOne(fetch = FetchType.LAZY)  // TODO CASCADE 설정
-    @JoinColumn(name = "member_id") // 실제 DB column
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
     private Member member;
 
     @Id
-    @ManyToOne(fetch = FetchType.LAZY)  // TODO CASCADE 설정
-    @JoinColumn(name = "chatroom_id") // 실제 DB column
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "chatroom_id")
     private Chatroom chatroom;
 }

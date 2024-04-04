@@ -41,7 +41,7 @@ public class ChatContent {
     private LocalDateTime updatedDate;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)  // TODO CASCADE 설정
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name = "member_id"),
             @JoinColumn(name = "chatroom_id")

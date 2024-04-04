@@ -2,6 +2,7 @@ package com.github.yumyum.chat.controller;
 
 import com.github.yumyum.chat.dto.*;
 import com.github.yumyum.chat.service.ChatApiService;
+import com.github.yumyum.common.util.RequestUtil;
 import com.github.yumyum.member.entity.Member;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +22,6 @@ public class ChatApiController {
 
     private final ChatApiService chatApiService;
 
-    // TODO 모든 api 호출시 token값의 id와 memberId 동일 여부 체크하도록 요청
-
     /**
      * 특정 유저와 친구관계인 유저 모두 불러오기
      *
@@ -32,6 +31,8 @@ public class ChatApiController {
     @Operation(summary = "특정 유저와 친구관계인 유저 모두 불러오기")
     @GetMapping(value = "/{memberId}/friends")
     public List<Member> getFriendshipMembers(@PathVariable Integer memberId) {
+        Integer memberId1 = RequestUtil.getMemberId();
+        log.info("memberId1: {}", memberId1);
         return chatApiService.getMemberAllFriends(memberId);
     }
 

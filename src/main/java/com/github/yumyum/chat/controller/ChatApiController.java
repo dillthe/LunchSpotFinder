@@ -23,16 +23,16 @@ public class ChatApiController {
     private final ChatApiService chatApiService;
 
     /**
-     * 특정 유저와 친구관계인 유저 모두 불러오기
+     * 로그인 유저와 친구관계인 유저 모두 불러오기
      *
      * @param memberId
      * @return
      */
-    @Operation(summary = "특정 유저와 친구관계인 유저 모두 불러오기")
-    @GetMapping(value = "/{memberId}/friends")
-    public List<Member> getFriendshipMembers(@PathVariable Integer memberId) {
-        Integer memberId1 = RequestUtil.getMemberId();
-        log.info("memberId1: {}", memberId1);
+    @Operation(summary = "로그인 유저와 친구관계인 유저 모두 불러오기")
+    @GetMapping(value = "/friends")
+    public List<MemberDto> getFriendshipMembers() {
+        Integer memberId = RequestUtil.getMemberId();
+        log.info("memberId: {}", memberId);
         return chatApiService.getMemberAllFriends(memberId);
     }
 

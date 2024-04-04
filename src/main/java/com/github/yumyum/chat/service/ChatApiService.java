@@ -34,7 +34,7 @@ public class ChatApiService {
     }
 
     @Transactional
-    public List<Member> getMemberAllFriends(int id) {
+    public List<MemberDto> getMemberAllFriends(int id) {
         return memberQuerydslRepository.findByMemberId1(id);
     }
 

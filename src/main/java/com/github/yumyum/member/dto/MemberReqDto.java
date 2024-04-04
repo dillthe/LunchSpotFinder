@@ -7,5 +7,5 @@ import lombok.Data;
 public class MemberReqDto {
 
     @JsonIgnore
-    private Long memberId;
+    private Integer memberId;
 }

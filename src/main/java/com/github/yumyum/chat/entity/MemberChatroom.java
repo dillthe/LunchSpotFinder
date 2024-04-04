@@ -1,6 +1,7 @@
 package com.github.yumyum.chat.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.yumyum.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
 

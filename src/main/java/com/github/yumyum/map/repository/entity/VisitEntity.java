@@ -1,5 +1,6 @@
 package com.github.yumyum.map.repository.entity;
 
+import com.github.yumyum.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +20,7 @@ public class VisitEntity {
     private Integer visitId;
     @ManyToOne
     @JoinColumn(name = "member_id")
-    private MemberEntity memberEntity;
+    private Member member;
     @ManyToOne
     @JoinColumn(name = "rstr_id")
     private RestaurantEntity restaurantEntity;

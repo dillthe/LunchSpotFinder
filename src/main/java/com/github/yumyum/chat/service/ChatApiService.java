@@ -1,18 +1,14 @@
 package com.github.yumyum.chat.service;
 
-import com.github.yumyum.chat.dto.ChatroomDto;
-import com.github.yumyum.chat.dto.ChatroomUpdateDto;
-import com.github.yumyum.chat.dto.LeaveChatDto;
-import com.github.yumyum.chat.entity.Friendship;
-import com.github.yumyum.chat.entity.Member;
-import com.github.yumyum.chat.repository.ChatroomQuerydslRepository;
-import com.github.yumyum.chat.repository.FriendshipRepository;
-import com.github.yumyum.chat.repository.MemberFriendRepository;
-import com.github.yumyum.chat.repository.MemberQuerydslRepository;
+import com.github.yumyum.chat.dto.*;
+import com.github.yumyum.chat.entity.*;
+import com.github.yumyum.chat.repository.*;
+import com.github.yumyum.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,6 +22,7 @@ public class ChatApiService {
     private final MemberQuerydslRepository memberQuerydslRepository;
     private final FriendshipRepository friendshipRepository;
     private final ChatroomQuerydslRepository chatroomQuerydslRepository;
+//    private final ChatContentRepository chatContentRepository;
 
     @Transactional
     public int isUsersFriend(final int memberId1, final int memberId2) {
@@ -58,12 +55,12 @@ public class ChatApiService {
     @Transactional
     public void makeFriend(final int memberId1, final int memberId2) {
         Friendship friendship1 = Friendship.builder()
-                .member1(Member.builder().memberId(memberId1).build())
-                .member2(Member.builder().memberId(memberId2).build())
+                .member1(Member.builder().id(memberId1).build())
+                .member2(Member.builder().id(memberId2).build())
                 .build();
         Friendship friendship2 = Friendship.builder()
-                .member1(Member.builder().memberId(memberId2).build())
-                .member2(Member.builder().memberId(memberId1).build())
+                .member1(Member.builder().id(memberId2).build())
+                .member2(Member.builder().id(memberId1).build())
                 .build();
 
         friendshipRepository.save(friendship1);
@@ -128,6 +125,60 @@ public class ChatApiService {
 
     public void updateChatroom(Integer chatroomId, ChatroomUpdateDto chatroomUpdateDto) throws IOException {
         chatroomQuerydslRepository.updateChatroom(chatroomId, chatroomUpdateDto);
+    }
+
+    public void saveChatContent(ChatMessage chatMessage) throws IOException {
+        MessageType chatMessageType = chatMessage.getType();
+        Integer memberId = chatMessage.getMemberId();
+        Integer roomId = chatMessage.getRoomId();
+        if (memberId == null) {
+            String.format("memberId는 null 일 수 없습니다.");
+        }
+        if (roomId == null) {
+            String.format("roomId는 null 일 수 없습니다.");
+        }
+
+        MemberChatroom memberChatroom = MemberChatroom
+                .builder()
+                .member(
+                        Member
+                            .builder()
+                            .id(memberId)
+                            .build()
+                )
+                .chatroom(
+                        Chatroom
+                            .builder()
+                            .chatroomId(roomId)
+                            .build()
+                )
+                .build();
+
+        if (chatMessageType == MessageType.CHAT_TEXT) {
+            String content = chatMessage.getContent();
+
+            ChatContent chatContent = ChatContent
+                    .builder()
+                    .text(content)
+                    .memberChatroom(memberChatroom)
+                    .build();
+            chatroomQuerydslRepository.save(chatContent);
+        } else if (chatMessageType == MessageType.CHAT_IMG) {
+            MultipartFile messageFile = chatMessage.getFile();
+            if (messageFile == null) {
+                throw new RuntimeException("해당 파일은 빈 파일 입니다.");
+            }
+            ChatContent chatContent = ChatContent
+                    .builder()
+                    .memberChatroom(memberChatroom)
+                    .build();
+            chatContent.setImg(messageFile.getBytes());
+            chatroomQuerydslRepository.save(chatContent);
+        } else if (chatMessageType == MessageType.CHAT_GAME) {
+            log.info("game 결과 저장");
+        } else {
+            throw new RuntimeException(String.format("%s는 허용되지 않는 메세지 타입", chatMessageType));
+        }
     }
 
 //    @Transactional

@@ -135,7 +135,7 @@ public class AuthService {
             throw NotAuthenticatedException.fire();
         }
 
-        /* RedisJoinMemeber -> member */
+        /* RedisJoinMember -> member */
         Member member = Member.builder()
                 .loginId(redisJoinMember.getLoginId())
                 .password(passwordEncoder.encode(redisJoinMember.getPassword()))
@@ -221,7 +221,7 @@ public class AuthService {
         }
 
         Authentication authentication = jwtProvider.getAuthentication(dto.getRefreshToken());
-        Long memberId = Long.parseLong(authentication.getName());
+        Integer memberId = Integer.parseInt(authentication.getName());
 
         RedisLoginMember redisLoginMember = RedisLoginMember.builder()
                 .memberId(memberId)

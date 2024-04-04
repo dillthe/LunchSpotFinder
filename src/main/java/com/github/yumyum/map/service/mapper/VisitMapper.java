@@ -9,7 +9,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface VisitMapper {
     VisitMapper INSTANCE = Mappers.getMapper(VisitMapper.class);
-    @Mapping(target="memberEntity.memberId", source="visitBody.memberId")
+    @Mapping(target=" member.id", source="visitBody.memberId")
     @Mapping(target="restaurantEntity.rstrId", source="visitBody.rstrId")
     VisitEntity idAndVisitBodyToVisitEntity(Integer id, VisitBody visitBody);
 }

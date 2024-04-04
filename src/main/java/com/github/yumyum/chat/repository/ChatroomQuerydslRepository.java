@@ -1,12 +1,11 @@
 package com.github.yumyum.chat.repository;
 
+import com.github.yumyum.chat.dto.ChatMessage;
 import com.github.yumyum.chat.dto.ChatroomDto;
 import com.github.yumyum.chat.dto.ChatroomUpdateDto;
 import com.github.yumyum.chat.dto.LeaveChatDto;
-import com.github.yumyum.chat.entity.Chatroom;
-import com.github.yumyum.chat.entity.Member;
-import com.github.yumyum.chat.entity.MemberChatroom;
-import com.github.yumyum.chat.entity.QChatroom;
+import com.github.yumyum.chat.entity.*;
+import com.github.yumyum.member.entity.Member;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import jakarta.persistence.EntityManager;
@@ -18,7 +17,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static com.github.yumyum.chat.entity.QChatroom.chatroom;
-import static com.github.yumyum.chat.entity.QMember.member;
+import static com.github.yumyum.member.entity.QMember.member;
 import static com.github.yumyum.chat.entity.QMemberChatroom.memberChatroom;
 
 @Slf4j
@@ -33,14 +32,23 @@ public class ChatroomQuerydslRepository {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
+    @Transactional
     public Chatroom save(Chatroom chatroom){
         em.persist(chatroom);
         return chatroom;
     }
 
+    @Transactional
     public MemberChatroom save(MemberChatroom memberChatroom){
         em.persist(memberChatroom);
         return memberChatroom;
+    }
+
+    @Transactional
+    public ChatContent save(ChatContent chatContent){
+        log.info("chatContent: {}", chatContent);
+        em.persist(chatContent);
+        return chatContent;
     }
 
     // TODO @Transactional 꼭 필요한 부분만 사용하게 추후 메소드 수정
@@ -67,7 +75,7 @@ public class ChatroomQuerydslRepository {
         for (Integer memberId : chatroomDto.getMemberIds()) {
             MemberChatroom memberChatroom = MemberChatroom.builder()
                     .chatroom(Chatroom.builder().chatroomId(chatroomId).build())
-                    .member(Member.builder().memberId(memberId).build())
+                    .member(Member.builder().id(memberId).build())
                     .build();
             save(memberChatroom);
         }
@@ -85,7 +93,7 @@ public class ChatroomQuerydslRepository {
     public void deleteMemberChatroom(LeaveChatDto leaveChatDto) {
         queryFactory
             .delete(memberChatroom)
-            .where(memberChatroom.member.memberId.eq(leaveChatDto.getMemberId()),
+            .where(memberChatroom.member.id.eq(leaveChatDto.getMemberId()),
                     memberChatroom.chatroom.chatroomId.eq(leaveChatDto.getChatroomId()))
             .execute();
 

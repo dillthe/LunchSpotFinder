@@ -1,6 +1,6 @@
 package com.github.yumyum.chat.repository;
 
-import com.github.yumyum.chat.entity.Member;
+import com.github.yumyum.member.entity.Member;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static com.github.yumyum.chat.entity.QFriendship.friendship;
-import static com.github.yumyum.chat.entity.QMember.member;
+import static com.github.yumyum.member.entity.QMember.member;
 import static com.querydsl.core.types.ExpressionUtils.any;
 
 @Repository
@@ -37,10 +37,10 @@ public class MemberQuerydslRepository {
 //                .select(member.memberId, member.email, member.name)
                 .select(member)
                 .from(member)
-                .where(member.memberId.eq(any(
-                        JPAExpressions.select(friendship.member2.memberId)
+                .where(member.id.eq(any(
+                        JPAExpressions.select(friendship.member2.id)
                                 .from(friendship)
-                                .where(friendship.member1.memberId.eq(memberId))
+                                .where(friendship.member1.id.eq(memberId))
                 )))
                 .fetch();
     }
@@ -50,8 +50,8 @@ public class MemberQuerydslRepository {
         return queryFactory
                 .selectFrom(member)
                 .where(
-                        member.name.contains(keyword)
-                    .or(member.email.contains(keyword))
+                        member.memberName.contains(keyword)
+                    .or(member.loginId.contains(keyword))
                 )
                 .fetch();
     }

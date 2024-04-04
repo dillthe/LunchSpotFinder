@@ -33,4 +33,8 @@ public interface FriendshipRepository extends JpaRepository<Friendship, Integer>
 
 //    @Query(value = "SELECT COUNT(fs) > 0 FROM friendship fs WHERE fs.member_id1 = :memberId1")
 //    boolean existsByMemberId1(int memberId1);
+
+    // 내 친구 목록 리스트 가져오기 - 방선주
+    @Query("SELECT fs FROM Friendship fs WHERE fs.member1.id = :id")
+    List<Friendship> getFriendList(int id);
 }

@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class LogoutReqDto {
 
-    private Long memberId;
+    private Integer memberId;
 
 }

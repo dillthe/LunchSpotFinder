@@ -154,24 +154,17 @@ public class ChatApiController {
         return ResponseEntity.ok(String.format("%s 유저 %s 채팅방 나가기 성공", leaveChatDto.getMemberId(), leaveChatDto.getChatroomId()));
     }
 
-    @Operation(summary = "채팅 저장 (문자)")
-    @PostMapping(value = "/chatroom/{chatroomId}/chat", params = "type=text")
-    public ResponseEntity saveTextChat(ChatTextMessage chatTextMessage,
+    @Operation(summary = "채팅 저장")
+    @PostMapping(value = "/chatroom/{chatroomId}/chat")
+    public ResponseEntity saveTextChat(ChatMessageDto chatMessageDto,
                                        @PathVariable Integer chatroomId) {
-        log.info("chatTextMessage: {}", chatTextMessage);
-        chatApiService.saveChatTextContent(chatTextMessage);
-        return ResponseEntity.ok(String.format("chatroomId(%s) 채팅(%s) 저장 성공 ", chatroomId, chatTextMessage));
-    }
+        log.info("chatMessageDto: {}, chatroomId: {}", chatMessageDto, chatroomId);
 
-    @Operation(summary = "채팅 저장 (이미지)")
-    @PostMapping(value = "/chatroom/{chatroomId}/chat", params = "type=img")
-    public ResponseEntity saveTextChat(ChatImgMessage chatImgMessage,
-                                       @PathVariable Integer chatroomId) {
         try {
-            chatApiService.saveChatImgContent(chatImgMessage);
+            chatApiService.saveChatContent(chatMessageDto, chatroomId);
         } catch (IOException e) {
             throw new RuntimeException("img 파일이 올바르지 않습니다.");
         }
-        return ResponseEntity.ok(String.format("chatroomId(%s) 이미지 저장 성공 ", chatroomId));
+        return ResponseEntity.ok(String.format("chatroomId(%s) 채팅 저장 성공 ", chatroomId));
     }
 }

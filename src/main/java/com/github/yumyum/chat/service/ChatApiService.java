@@ -130,6 +130,7 @@ public class ChatApiService {
     }
 
     public void saveChatContent(ChatMessage chatMessage) throws IOException {
+
         MessageType chatMessageType = chatMessage.getType();
         Integer memberId = chatMessage.getMemberId();
         Integer roomId = chatMessage.getRoomId();
@@ -158,6 +159,44 @@ public class ChatApiService {
             chatroomQuerydslRepository.save(chatContent);
         } else if (chatMessageType == MessageType.CHAT_GAME) {
             log.info("game 결과 저장");
+        } else {
+            throw new RuntimeException(String.format("%s는 허용되지 않는 메세지 타입", chatMessageType));
+        }
+    }
+
+    public void saveChatContent(ChatMessageDto chatMessageDto, Integer chatroomId) throws IOException {
+
+        MessageType chatMessageType = chatMessageDto.getType();
+        Integer memberId = chatMessageDto.getMemberId();
+
+        MemberChatroom memberChatroom = getMemberChatroom(memberId, chatroomId);
+        log.info("memberChatroom: {}", memberChatroom);
+
+        if (chatMessageType == MessageType.CHAT_TEXT) {
+            String content = chatMessageDto.getContent();
+
+            ChatContent chatContent = ChatContent
+                    .builder()
+                    .text(content)
+                    .memberChatroom(memberChatroom)
+                    .build();
+            chatroomQuerydslRepository.save(chatContent);
+
+        } else if (chatMessageType == MessageType.CHAT_IMG) {
+            MultipartFile messageFile = chatMessageDto.getFile();
+            if (messageFile == null) {
+                throw new RuntimeException("해당 파일은 빈 파일 입니다.");
+            }
+            ChatContent chatContent = ChatContent
+                    .builder()
+                    .memberChatroom(memberChatroom)
+                    .build();
+            chatContent.setImg(messageFile.getBytes());
+            chatroomQuerydslRepository.save(chatContent);
+
+        } else if (chatMessageType == MessageType.CHAT_GAME) {
+            log.info("game 결과 저장");
+
         } else {
             throw new RuntimeException(String.format("%s는 허용되지 않는 메세지 타입", chatMessageType));
         }

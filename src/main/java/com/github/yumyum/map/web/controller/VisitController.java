@@ -29,5 +29,4 @@ public class VisitController implements ApiController{
         visitService.deleteVisit(visitId);
         return ResponseEntity.ok("식당 정보(ID:"+visitId+")가 즐겨찾기에서 삭제되었습니다.");
     }
-
 }

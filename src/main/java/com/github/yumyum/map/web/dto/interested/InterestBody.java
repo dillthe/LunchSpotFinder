@@ -9,7 +9,6 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @ToString
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class InterestBody {

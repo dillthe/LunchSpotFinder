@@ -38,9 +38,9 @@ spring:
 
   data:
     redis:
-      host: 210.217.8.204
-      port: 22002
-      password: "!hello.redis"
+      host: 138.2.122.249
+      port: 6379
+      password: local
 
 jwt:
   secret: accc9aebdfd7fc975d109d0289d68d08eaff563690791e854caa97c254365676ee94c5e05de4f5edbde0c3f63db60006b8298ac66c4e247ae80aea3f9f38347f

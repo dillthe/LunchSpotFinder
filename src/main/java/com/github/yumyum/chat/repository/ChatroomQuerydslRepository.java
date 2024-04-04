@@ -82,14 +82,14 @@ public class ChatroomQuerydslRepository {
         return queryFactory
                 .select(Projections.bean(MemberDto.class, member.id, member.loginId, member.memberName))
                 .from(member)
-                .join(member.memberChatrooms, memberChatroom).fetchJoin()
+                .innerJoin(member.memberChatrooms, memberChatroom)
                 .where(memberChatroom.chatroom.chatroomId.eq(chatroomId))
                 .fetch();
     }
 
     @Transactional
-    public void deleteMemberChatroom(LeaveChatDto leaveChatDto) {
-        queryFactory
+    public long deleteMemberChatroom(LeaveChatDto leaveChatDto) {
+        return queryFactory
             .delete(memberChatroom)
             .where(memberChatroom.member.id.eq(leaveChatDto.getMemberId()),
                     memberChatroom.chatroom.chatroomId.eq(leaveChatDto.getChatroomId()))

@@ -3,6 +3,9 @@ package com.github.yumyum.chat.service;
 import com.github.yumyum.chat.dto.*;
 import com.github.yumyum.chat.entity.*;
 import com.github.yumyum.chat.repository.*;
+import com.github.yumyum.exceptions.InvalidFileException;
+import com.github.yumyum.exceptions.InvalidMsgException;
+import com.github.yumyum.exceptions.InvalidParamException;
 import com.github.yumyum.exceptions.InvalidValueException;
 import com.github.yumyum.member.entity.Member;
 import lombok.RequiredArgsConstructor;
@@ -72,7 +75,7 @@ public class ChatApiService {
         int usersFriend = isUsersFriend(id1, id2);
         log.info("usersFriend: {}", usersFriend);
         if (isUsersFriend(id1, id2) == 0) {
-            new RuntimeException(String.format("%s와 %s는 이미 친구가 아닙니다.", id1, id2));
+            throw new InvalidValueException(String.format("%s와 %s는 이미 친구가 아닙니다.", id1, id2));
         } else {
             List<Friendship> friendships1 = friendshipRepository.findByMemberId1AndMemberId2(id1, id2);
             List<Friendship> friendships2 = friendshipRepository.findByMemberId1AndMemberId2(id2, id1);
@@ -83,9 +86,9 @@ public class ChatApiService {
         }
     }
 
-    public String checkMembersFriendShip(int userId1, int friendShipSearchId) {
+    public String checkMembersFriendShip(int userId1, int friendShipSearchId) throws InvalidValueException{
         if (userId1 == friendShipSearchId) {
-            throw new InvalidValueException(String.format("자기 자신과 친구 관계를 맺을 수 없습니다."));
+            throw new InvalidValueException("자기 자신과 친구 관계를 맺을 수 없습니다.");
         }
 
         if (isUsersFriend(userId1, friendShipSearchId) > 0) {
@@ -122,8 +125,8 @@ public class ChatApiService {
         return chatroomQuerydslRepository.getChatroomMembers(chatroomId);
     }
 
-    public void leaveChatroomMember(LeaveChatDto leaveChatDto) {
-        chatroomQuerydslRepository.deleteMemberChatroom(leaveChatDto);
+    public long leaveChatroomMember(LeaveChatDto leaveChatDto) {
+        return chatroomQuerydslRepository.deleteMemberChatroom(leaveChatDto);
     }
 
     public void updateChatroom(Integer chatroomId, ChatroomUpdateDto chatroomUpdateDto) throws IOException {
@@ -150,7 +153,7 @@ public class ChatApiService {
         } else if (chatMessageType == MessageType.CHAT_IMG) {
             MultipartFile messageFile = chatMessage.getFile();
             if (messageFile == null) {
-                throw new RuntimeException("해당 파일은 빈 파일 입니다.");
+                throw new InvalidFileException("해당 파일은 빈 파일 입니다.");
             }
             ChatContent chatContent = ChatContent
                     .builder()
@@ -161,7 +164,7 @@ public class ChatApiService {
         } else if (chatMessageType == MessageType.CHAT_GAME) {
             log.info("game 결과 저장");
         } else {
-            throw new RuntimeException(String.format("%s는 허용되지 않는 메세지 타입", chatMessageType));
+            throw new InvalidMsgException(String.format("%s는 허용되지 않는 메세지 타입", chatMessageType));
         }
     }
 
@@ -171,7 +174,7 @@ public class ChatApiService {
         Integer memberId = chatMessageDto.getMemberId();
 
         MemberChatroom memberChatroom = getMemberChatroom(memberId, chatroomId);
-        log.info("memberChatroom: {}", memberChatroom);
+        log.info("memberChatroom1: {}", memberChatroom);
 
         if (chatMessageType == MessageType.CHAT_TEXT) {
             String content = chatMessageDto.getContent();
@@ -186,20 +189,22 @@ public class ChatApiService {
         } else if (chatMessageType == MessageType.CHAT_IMG) {
             MultipartFile messageFile = chatMessageDto.getFile();
             if (messageFile == null) {
-                throw new RuntimeException("해당 파일은 빈 파일 입니다.");
+                throw new InvalidFileException("해당 파일은 빈 파일 입니다.");
             }
+            log.info("memberChatroom2: {}", memberChatroom);
             ChatContent chatContent = ChatContent
                     .builder()
                     .memberChatroom(memberChatroom)
                     .build();
             chatContent.setImg(messageFile.getBytes());
+            log.info("chatContent: {}", chatContent);
             chatroomQuerydslRepository.save(chatContent);
 
         } else if (chatMessageType == MessageType.CHAT_GAME) {
             log.info("game 결과 저장");
 
         } else {
-            throw new RuntimeException(String.format("%s는 허용되지 않는 메세지 타입", chatMessageType));
+            throw new InvalidMsgException(String.format("%s는 허용되지 않는 메세지 타입", chatMessageType));
         }
     }
 
@@ -222,7 +227,7 @@ public class ChatApiService {
                     )
                     .build();
         } else {
-            throw new IllegalArgumentException(String.format("파라미터에 null 값이 올 수 없습니다.(memberId: %s, roomId: %s )", memberId, roomId));
+            throw new InvalidParamException(String.format("파라미터에 null 값이 올 수 없습니다.(memberId: %s, roomId: %s )", memberId, roomId));
         }
         return memberChatroom;
     }
@@ -250,20 +255,5 @@ public class ChatApiService {
 
         chatroomQuerydslRepository.save(chatContent);
     }
-
-    //    @Transactional
-//    public void joinChatroom() {
-//
-//    }
-//
-//    @Transactional
-//    public void leaveChatroom() {
-//
-//    }
-//
-//    @Transactional
-//    public void getChatroomList() {
-//
-//    }
 
 }

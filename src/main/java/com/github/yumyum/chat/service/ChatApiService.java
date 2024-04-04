@@ -3,6 +3,7 @@ package com.github.yumyum.chat.service;
 import com.github.yumyum.chat.dto.*;
 import com.github.yumyum.chat.entity.*;
 import com.github.yumyum.chat.repository.*;
+import com.github.yumyum.exceptions.InvalidValueException;
 import com.github.yumyum.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -84,11 +85,11 @@ public class ChatApiService {
 
     public String checkMembersFriendShip(int userId1, int friendShipSearchId) {
         if (userId1 == friendShipSearchId) {
-            return String.format("자기 자신과 친구 관계를 맺을 수 없습니다.");
+            throw new InvalidValueException(String.format("자기 자신과 친구 관계를 맺을 수 없습니다."));
         }
 
         if (isUsersFriend(userId1, friendShipSearchId) > 0) {
-            return String.format("%s와 %s는 이미 친구입니다.", userId1, friendShipSearchId);
+            throw new InvalidValueException(String.format("%s와 %s는 이미 친구입니다.", userId1, friendShipSearchId));
         }
 
         makeFriend(userId1, friendShipSearchId);

@@ -1,6 +1,5 @@
 package com.github.yumyum.chat.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,11 +8,10 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 @Builder
-public class ChatMessage {
+public class ChatImgMessage{
 
     private Integer roomId;
     private Integer memberId;
-    private String content;
     private MultipartFile file;
     private MessageType type;
 }

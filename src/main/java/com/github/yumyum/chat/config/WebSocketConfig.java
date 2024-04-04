@@ -25,7 +25,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         // 연결할 소켓 엔드포인트를 지정
-        // TODO: HTTPS
         registry.addEndpoint("/ws").withSockJS();
     }
 }

@@ -1,6 +1,8 @@
 package com.github.yumyum.chat.repository;
 
+import com.github.yumyum.chat.dto.MemberDto;
 import com.github.yumyum.member.entity.Member;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -24,18 +26,10 @@ public class MemberQuerydslRepository {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
-//    public List<Member> findByMemberId1(Integer memberId1) {
-//        return queryFactory
-//                .selectFrom(member)
-//                .leftJoin(member.friendships1, friendship)
-//                .on(member.memberId.eq(friendship.friendshipId))
-//                .fetch();
-//    }
     @Transactional
-    public List<Member>findByMemberId1(int memberId) {
+    public List<MemberDto> findByMemberId1(int memberId) {
         return queryFactory
-//                .select(member.memberId, member.email, member.name)
-                .select(member)
+                .select(Projections.bean(MemberDto.class, member.id, member.loginId, member.memberName))
                 .from(member)
                 .where(member.id.eq(any(
                         JPAExpressions.select(friendship.member2.id)
@@ -46,9 +40,10 @@ public class MemberQuerydslRepository {
     }
 
     @Transactional
-    public List<Member> findByUsernameContainingOrEmailContaining(String keyword) {
+    public List<MemberDto> findByUsernameContainingOrEmailContaining(String keyword) {
         return queryFactory
-                .selectFrom(member)
+                .select(Projections.bean(MemberDto.class, member.id, member.loginId, member.memberName))
+                .from(member)
                 .where(
                         member.memberName.contains(keyword)
                     .or(member.loginId.contains(keyword))

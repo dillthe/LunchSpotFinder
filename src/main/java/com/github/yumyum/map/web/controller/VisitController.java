@@ -1,5 +1,6 @@
 package com.github.yumyum.map.web.controller;
 
+import com.github.yumyum.common.util.RequestUtil;
 import com.github.yumyum.map.service.VisitService;
 import com.github.yumyum.map.web.dto.visited.VisitBody;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,6 +18,7 @@ public class VisitController implements ApiController{
     @Operation(summary = "방문한 식당 정보 추가")
     @PostMapping("/add-to-visit")
     public ResponseEntity<String> addToVisit(@RequestBody VisitBody visitBody){
+        visitBody.setMemberId(RequestUtil.getMemberId());
         visitService.addToVisit(visitBody);
         return ResponseEntity.ok("방문한 식당 정보가 저장되었습니다.");
     }
@@ -27,5 +29,4 @@ public class VisitController implements ApiController{
         visitService.deleteVisit(visitId);
         return ResponseEntity.ok("식당 정보(ID:"+visitId+")가 즐겨찾기에서 삭제되었습니다.");
     }
-
 }

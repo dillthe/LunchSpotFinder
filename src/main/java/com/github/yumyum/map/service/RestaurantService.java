@@ -70,7 +70,7 @@ public class RestaurantService {
     public String getReviews() {return restTemplate.getForObject(buildRequestUrl("/api/rstr/qlt"), String.class);
     }
 
-    //아래 서비스는 오픈 API 서비스에 없는 것 같음.
+    //Id별로 불러오는 건 현재 사용하는 외부 API에서 지원해주지 않음.
     public String getReviewsById(String id) {
         Integer idInt = Integer.valueOf(id);
         return restTemplate.getForObject(buildRequestUrl("/api/rstr/qlt/" + idInt), String.class);
@@ -136,12 +136,9 @@ public class RestaurantService {
              }
         }
     }
-
-
-
 }
 
-//    임시로 JSON 데이터 저장해보기 - 성공
+//    임시로 JSON 데이터 저장해보기
 //    public Long saveRestaurant(RestaurantDTO restaurantDTO) {
 //        RestaurantEntity restaurantEntity = RestaurantMapper.INSTANCE.restaurantDTOtoRestaurantEntity(restaurantDTO);
 //        RestaurantEntity restaurantEntityCreated;

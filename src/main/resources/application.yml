@@ -1,24 +1,62 @@
-server:
-  port: 8080
+app: # build.gradle에서 가져오는 정보
+  name: ${name}
+  version: ${version}
+
+--- # local 설정
 spring:
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
+  config:
+    activate:
+      on-profile: local
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/yumyum?useUnicode=true&characterEncoding=UTF-8
-    username: root
-    password: 8282
-#
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: gcp.connect.psdb.cloud/yumyum
-#    username: r2yaeuknxoku0ulxvyzf
-#    password: pscale_pw_knQ4IeqjLU9nTUVLxZ5EbkkXh6NI99agrVOQTcCwR4U
+    url: jdbc:mysql://gcp.connect.psdb.cloud:3306/yumyum
+    username: r2yaeuknxoku0ulxvyzf
+    password: pscale_pw_knQ4IeqjLU9nTUVLxZ5EbkkXh6NI99agrVOQTcCwR4U
 
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        #show_sql: true
+  #        format_sql: true
+  #        use_sql_comments: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: woomj19994@gmail.com
+    password: ezyxfhbgjmkbmapx
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            required: true
+
+  data:
+    redis:
+      host: 210.217.8.204
+      port: 22002
+      password: "!hello.redis"
+
+jwt:
+  secret: accc9aebdfd7fc975d109d0289d68d08eaff563690791e854caa97c254365676ee94c5e05de4f5edbde0c3f63db60006b8298ac66c4e247ae80aea3f9f38347f
+  access-token-validation-time: 1h
+  refresh-token-validation-time: 30d
+
+cookie:
+  domain: localhost
+  secure: false
+  same-site: Lax
+
+server:
+  port: 8080
 
 logging:
   level:
     org:
       hibernate:
-        SQL: DEBUG
+        SQL: debug

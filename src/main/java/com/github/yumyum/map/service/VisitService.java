@@ -23,7 +23,6 @@ public class VisitService {
     private final RestaurantRepository restaurantRepository;
     private final VisitRepository visitRepository;
 
-    //유저 정보 받아서 넣는거 나중에 로그인 완성되면 추가하기.
     public Integer addToVisit(VisitBody visitBody) {
         RestaurantEntity restaurantEntity = restaurantRepository.findById(visitBody.getRstrId())
                 .orElseThrow(() -> new NotFoundException("식당을 찾을 수 없습니다."));
@@ -46,7 +45,7 @@ public class VisitService {
         try {
             Integer visitIdInt = Integer.valueOf(visitId);
             visitRepository.deleteById(visitIdInt);
-        } catch (NumberFormatException e) {
+        } catch (RuntimeException e) {
             throw new NotAcceptException("Id 형식이 올바르지 않습니다.");
         }
     }

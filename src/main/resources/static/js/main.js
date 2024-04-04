@@ -9,7 +9,7 @@ var connectingElement = document.querySelector('.connecting');
 console.log('a');
 
 let stompClient = null;
-let username = null;
+let memberId = 0;
 let roomId = 0;
 
 var colors = [
@@ -19,11 +19,12 @@ var colors = [
 
 // 연결 시도
 function connect(event) {
-    username = document.querySelector('#name').value.trim();
+    memberId = parseInt(document.querySelector('#memberId').value);
     roomId = parseInt(document.querySelector('#roomId').value);
+    console.log("memberId: " + memberId);
     console.log("roomId: " + roomId);
 
-    if(username) {
+    if(memberId) {
         usernamePage.classList.add('hidden');
         chatPage.classList.remove('hidden');
 
@@ -47,7 +48,7 @@ function onConnected(roomId) {
     stompClient.send("/app/chat/" + roomId + "/addUser",
         {},
         JSON.stringify({
-            sender: username,
+            memberId: memberId,
             roomId: roomId,
             type: 'JOIN'
         })
@@ -69,9 +70,9 @@ function sendMessage(event) {
         // chatMessage 객체 생성
         var chatMessage = {
             roomId: roomId,
-            sender: username,
+            sender: memberId,
             content: messageInput.value,
-            type: 'CHAT'
+            type: 'CHAT_TEXT'
         };
         stompClient.send("/app/chat/" + roomId + "/sendMessage", {}, JSON.stringify(chatMessage));
         messageInput.value = '';
@@ -101,10 +102,10 @@ function onMessageReceived(payload) {
 
         messageElement.appendChild(avatarElement);
 
-        var usernameElement = document.createElement('span');
-        var usernameText = document.createTextNode(message.sender);
-        usernameElement.appendChild(usernameText);
-        messageElement.appendChild(usernameElement);
+        var memberIdElement = document.createElement('span');
+        var memberIdText = document.createTextNode(message.sender);
+        memberIdElement.appendChild(memberIdText);
+        messageElement.appendChild(memberIdElement);
     }
 
     var textElement = document.createElement('p');

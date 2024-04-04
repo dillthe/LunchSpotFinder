@@ -1,6 +1,7 @@
 package com.github.yumyum.chat.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.yumyum.chat.dto.GameType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -26,6 +27,9 @@ public class ChatContent {
     @Column
     private byte[] img;
 
+    @Column(name = "game_type")
+    private GameType gameType;
+
     @JsonIgnore
     @CreationTimestamp // INSERT 시 자동으로 값을 채워줌
     @Column(name = "created_date")
@@ -37,7 +41,7 @@ public class ChatContent {
     private LocalDateTime updatedDate;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)  // TODO CASCADE 설정
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumns({
             @JoinColumn(name = "member_id"),
             @JoinColumn(name = "chatroom_id")

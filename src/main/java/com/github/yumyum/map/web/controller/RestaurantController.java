@@ -20,40 +20,40 @@ import java.util.List;
 public class RestaurantController implements ApiController{
     private final RestaurantService restaurantService;
 
-    @Operation(summary = "외부 API 식당 정보 가져오기")
+    @Operation(summary = "메인!!!외부 API 식당 정보 가져오기 ")
     @GetMapping("/restaurants")
     public String getRestaurants() {
         return restaurantService.getRestaurants();
     }
 
-    @Operation(summary = "식당 운영정보(시간, 좌석수, 주차, wifi, 놀이방, 반려동물, 다국어메뉴, 휴무일정, 예약방식, 홈페이지 URL, 배달정보 등) 가져오기")
+    @Operation(summary = "옵션:식당 운영정보(시간, 좌석수, 주차, wifi, 놀이방, 반려동물, 다국어메뉴, 휴무일정, 예약방식, 홈페이지 URL, 배달정보 등) 가져오기")
     @GetMapping("/restaurants/operation")
     public String getRestaurantOperation() {
         return restaurantService.getRestaurantOperation();
     }
 
-    @Operation(summary = "음식 이미지 가져오기")
+    @Operation(summary = "옵션:음식 이미지 가져오기")
     @GetMapping("/restaurants/food-image")
     public String getFoodImage() {
         return restaurantService.getFoodImage();
     }
-    @Operation(summary = "식당 이미지 가져오기")
+    @Operation(summary = "옵션:식당 이미지 가져오기")
     @GetMapping("/restaurants/rstr-image")
     public String getRestaurantImage() {
         return restaurantService.getRestaurantImage();
     }
-    @Operation(summary = "메뉴 정보 가져오기")
+    @Operation(summary = "옵션:메뉴 정보 가져오기")
     @GetMapping("/menu")
     public String getMenu() {
         return restaurantService.getMenu();
     }
-    @Operation(summary = "평점 정보 가져오기")
+    @Operation(summary = "옵션:평점 정보 가져오기")
     @GetMapping("/reviews")
     public String getReviews() {
         return restaurantService.getReviews();
     }
 
-    @Operation(summary = "특정 식당 평점 정보 가져오기")
+    @Operation(summary = "옵션:특정 식당 평점 정보 가져오기")
     @GetMapping("/reviews/{id}")
     public String getReviews(@PathVariable String id) {
         return restaurantService.getReviewsById(id);

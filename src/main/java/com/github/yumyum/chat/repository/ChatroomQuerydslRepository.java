@@ -1,11 +1,9 @@
 package com.github.yumyum.chat.repository;
 
-import com.github.yumyum.chat.dto.ChatMessage;
-import com.github.yumyum.chat.dto.ChatroomDto;
-import com.github.yumyum.chat.dto.ChatroomUpdateDto;
-import com.github.yumyum.chat.dto.LeaveChatDto;
+import com.github.yumyum.chat.dto.*;
 import com.github.yumyum.chat.entity.*;
 import com.github.yumyum.member.entity.Member;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import jakarta.persistence.EntityManager;
@@ -51,7 +49,6 @@ public class ChatroomQuerydslRepository {
         return chatContent;
     }
 
-    // TODO @Transactional 꼭 필요한 부분만 사용하게 추후 메소드 수정
     @Transactional
     public void saveChatroom(ChatroomDto chatroomDto) throws IOException {
         if (chatroomDto.getMemberIds().isEmpty() ||
@@ -81,9 +78,10 @@ public class ChatroomQuerydslRepository {
         }
     }
     
-    public List<Member> getChatroomMembers(Integer chatroomId) {
+    public List<MemberDto> getChatroomMembers(Integer chatroomId) {
         return queryFactory
-                .selectFrom(member)
+                .select(Projections.bean(MemberDto.class, member.id, member.loginId, member.memberName))
+                .from(member)
                 .join(member.memberChatrooms, memberChatroom).fetchJoin()
                 .where(memberChatroom.chatroom.chatroomId.eq(chatroomId))
                 .fetch();
@@ -97,7 +95,6 @@ public class ChatroomQuerydslRepository {
                     memberChatroom.chatroom.chatroomId.eq(leaveChatDto.getChatroomId()))
             .execute();
 
-        // TODO 특정 채팅방에 있는 모든 유저 모두 나가면 해당 채팅 내역 삭제
     }
 
     @Transactional

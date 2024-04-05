@@ -10,9 +10,17 @@ import com.github.yumyum.map.repository.entity.InterestEntity;
 import com.github.yumyum.map.repository.entity.RestaurantEntity;
 import com.github.yumyum.map.service.mapper.InterestMapper;
 import com.github.yumyum.map.web.dto.interested.InterestBody;
+import jakarta.persistence.PersistenceException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.TransientPropertyValueException;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionSystemException;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -34,10 +42,17 @@ public class InterestService {
        InterestEntity interestEntityCreated;
         try {
             interestEntityCreated = interestRepository.save(interestEntity);
-        } catch (RuntimeException exception) {
-            throw new NotAcceptException("식당정보를 저장하는 도중 오류가 발생하였습니다.");
+        } catch (DataIntegrityViolationException e) {
+            throw new NotAcceptException("관심 식당 리스트에 이미 저장되어 있습니다.");
+        } catch (RuntimeException e) {
+            throw new NotAcceptException("관심 식당을 저장하는 도중 예기치 않은 오류가 발생했습니다.");
         }
             return interestEntityCreated.getInterestId();
+    }
+
+    public List<InterestEntity> getInterestList(Integer memberId) {
+        List<InterestEntity> interestEntityList = interestRepository.findByMemberId(memberId);
+        return interestEntityList;
     }
 
     public void deleteInterest(String interestId) {
@@ -48,5 +63,6 @@ public class InterestService {
             throw new NotAcceptException("Id 형식이 올바르지 않습니다.");
        }
     }
+
 
 }

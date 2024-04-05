@@ -96,17 +96,4 @@ public class RestaurantController implements ApiController{
         List<RestaurantEntity> restaurants = restaurantService.findRestaurantsWithinRadiusAndCategory(latitude, longitude, radius, cuisine);
         return ResponseEntity.ok(restaurants);
     }
-
-    //    @Operation(summary = "JSON 정보 임시로 넣어보기")
-//    @PostMapping("/api/saveRes")
-//    public String addToRestaurant(@RequestBody RestaurantDTO restaurantDTO) {
-//        Long rstrId = restaurantService.saveRestaurant(restaurantDTO);
-//        return "restaurant ID: " + rstrId;
-//    }
-//
-//    @Operation(summary = "메뉴 설명 가져오기")
-//    @GetMapping("/menu/info")
-//    public String getMenuDescription() {
-//        return restaurantService.getMenuDscrn();
-//    }
 }

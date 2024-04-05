@@ -127,9 +127,9 @@ public class ChatApiService {
     }
 
     public void updateChatroom(Integer chatroomId, ChatroomUpdateDto chatroomUpdateDto) throws IOException {
-        if (chatroomUpdateDto.getProfile().getBytes() == null) {
-            throw new InvalidFileException("해당 파일은 빈 파일 입니다.");
-        }
+//        if (chatroomUpdateDto.getProfile() == null) {
+//            throw new InvalidFileException("해당 파일은 빈 파일 입니다.");
+//        }
         chatroomQuerydslRepository.updateChatroom(chatroomId, chatroomUpdateDto);
     }
 

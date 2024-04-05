@@ -18,6 +18,7 @@ import java.util.List;
 import static com.github.yumyum.chat.entity.QChatroom.chatroom;
 import static com.github.yumyum.member.entity.QMember.member;
 import static com.github.yumyum.chat.entity.QMemberChatroom.memberChatroom;
+import static com.querydsl.core.types.dsl.Expressions.nullExpression;
 
 @Slf4j
 @Repository
@@ -102,7 +103,11 @@ public class ChatroomQuerydslRepository {
     public void updateChatroom(Integer chatroomId, ChatroomUpdateDto chatroomUpdateDto) throws IOException {
         JPAUpdateClause updateClause = queryFactory.update(chatroom);
 
-        updateClause.set(chatroom.profile, chatroomUpdateDto.getProfile().getBytes());
+        if (chatroomUpdateDto.getProfile() != null) {
+            updateClause.set(chatroom.profile, chatroomUpdateDto.getProfile().getBytes());
+        } else {
+            updateClause.set(chatroom.profile, nullExpression());
+        }
 
         updateClause
             .set(chatroom.title, chatroomUpdateDto.getTitle())

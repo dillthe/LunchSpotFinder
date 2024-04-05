@@ -133,11 +133,17 @@ public class ChatApiController {
      * @param chatroomUpdateDto
      * @return
      */
+
     @Operation(summary = "채팅방 정보 변경 (제목, 이미지)")
     @PostMapping(value = "/chatroom/{chatroomId}",
                 consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
                 produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity updateChatroom(@PathVariable Integer chatroomId, ChatroomUpdateDto chatroomUpdateDto) {
+    public ResponseEntity updateChatroom(@PathVariable Integer chatroomId,
+        @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                description = "채팅방 정보 변경 (제목, 이미지) Form Data", required = true,
+                content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE,
+                        schema = @Schema(implementation = ChatroomUpdateDto.class)))
+            ChatroomUpdateDto chatroomUpdateDto) {
         log.info("chatroomUpdateDto: {}", chatroomUpdateDto);
         try {
             chatApiService.updateChatroom(chatroomId, chatroomUpdateDto);
@@ -179,8 +185,12 @@ public class ChatApiController {
     @PostMapping(value = "/chatroom/{chatroomId}/chat",
                 consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
                 produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity saveTextChat(ChatMessageDto chatMessageDto,
-                                       @PathVariable Integer chatroomId) {
+    public ResponseEntity saveTextChat(@PathVariable Integer chatroomId,
+        @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                description = "채팅방 채팅 저장 Form Data", required = true,
+                content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE,
+                        schema = @Schema(implementation = ChatMessageDto.class)))
+                ChatMessageDto chatMessageDto) {
         log.info("chatMessageDto: {}, chatroomId: {}", chatMessageDto, chatroomId);
 
         try {

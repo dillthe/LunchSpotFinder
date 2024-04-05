@@ -8,6 +8,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.impl.JPAUpdateClause;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -101,13 +102,19 @@ public class ChatroomQuerydslRepository {
     public void updateChatroom(Integer chatroomId, ChatroomUpdateDto chatroomUpdateDto) throws IOException {
         JPAUpdateClause updateClause = queryFactory.update(chatroom);
 
-        if (chatroomUpdateDto.getProfile().getBytes() != null) {
-            updateClause.set(chatroom.profile, chatroomUpdateDto.getProfile().getBytes());
-        }
+        updateClause.set(chatroom.profile, chatroomUpdateDto.getProfile().getBytes());
 
         updateClause
             .set(chatroom.title, chatroomUpdateDto.getTitle())
             .where(chatroom.chatroomId.eq(chatroomId))
             .execute();
+    }
+
+    public @Nullable MemberChatroom isExistMemberchatroomEntity(Integer memberId, Integer roomId) {
+        return queryFactory
+                .selectFrom(memberChatroom)
+                .where(memberChatroom.member.id.eq(memberId),
+                        memberChatroom.chatroom.chatroomId.eq(roomId))
+                .fetchOne();
     }
 }

@@ -3,10 +3,7 @@ package com.github.yumyum.chat.service;
 import com.github.yumyum.chat.dto.*;
 import com.github.yumyum.chat.entity.*;
 import com.github.yumyum.chat.repository.*;
-import com.github.yumyum.exceptions.InvalidFileException;
-import com.github.yumyum.exceptions.InvalidMsgException;
-import com.github.yumyum.exceptions.InvalidParamException;
-import com.github.yumyum.exceptions.InvalidValueException;
+import com.github.yumyum.exceptions.*;
 import com.github.yumyum.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -130,6 +127,9 @@ public class ChatApiService {
     }
 
     public void updateChatroom(Integer chatroomId, ChatroomUpdateDto chatroomUpdateDto) throws IOException {
+        if (chatroomUpdateDto.getProfile().getBytes() == null) {
+            throw new InvalidFileException("해당 파일은 빈 파일 입니다.");
+        }
         chatroomQuerydslRepository.updateChatroom(chatroomId, chatroomUpdateDto);
     }
 
@@ -139,6 +139,9 @@ public class ChatApiService {
         Integer memberId = chatMessage.getMemberId();
         Integer roomId = chatMessage.getRoomId();
 
+        if (chatroomQuerydslRepository.isExistMemberchatroomEntity(memberId, roomId) == null) {
+            throw new NotFoundException(String.format("%s 방에 %s 유저는 존재하지 않습니다.", roomId, memberId));
+        }
         MemberChatroom memberChatroom = getMemberChatroom(memberId, roomId);
 
         if (chatMessageType == MessageType.CHAT_TEXT) {
@@ -172,6 +175,11 @@ public class ChatApiService {
 
         MessageType chatMessageType = chatMessageDto.getType();
         Integer memberId = chatMessageDto.getMemberId();
+
+        if (chatroomQuerydslRepository.isExistMemberchatroomEntity(memberId, chatroomId) == null) {
+            log.info(String.format("chatroomId(%s) 방에 memberId(%s) 유저는 존재하지 않습니다.", chatroomId, memberId));
+            throw new NotFoundException("주어진 채팅방에 해당 유저는 존재하지 않습니다.");
+        }
 
         MemberChatroom memberChatroom = getMemberChatroom(memberId, chatroomId);
         log.info("memberChatroom1: {}", memberChatroom);

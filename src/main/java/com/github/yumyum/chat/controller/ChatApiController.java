@@ -3,10 +3,16 @@ package com.github.yumyum.chat.controller;
 import com.github.yumyum.chat.dto.*;
 import com.github.yumyum.chat.service.ChatApiService;
 import com.github.yumyum.common.util.RequestUtil;
+import com.github.yumyum.exceptions.InvalidFileException;
+import com.github.yumyum.exceptions.InvalidParamException;
+import com.github.yumyum.exceptions.InvalidValueException;
+import com.github.yumyum.exceptions.NotFoundException;
 import com.github.yumyum.member.entity.Member;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -98,13 +104,14 @@ public class ChatApiController {
      * @return
      */
     @Operation(summary = "채팅방 생성")
-    @PostMapping(value = "/chatroom")
+    @PostMapping(value = "/chatroom",
+                consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity makeChatroom(ChatroomDto ChatroomDto) {
         log.info("ChatroomDto: {}", ChatroomDto);
         try {
             chatApiService.createChatroom(ChatroomDto);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new InvalidParamException(e.toString());
         }
         return ResponseEntity.ok("create chatroom 성공");
     }
@@ -117,13 +124,14 @@ public class ChatApiController {
      * @return
      */
     @Operation(summary = "채팅방 정보 변경 (제목, 이미지)")
-    @PostMapping(value = "/chatroom/{chatroomId}")
+    @PostMapping(value = "/chatroom/{chatroomId}",
+                consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity updateChatroom(@PathVariable Integer chatroomId, ChatroomUpdateDto chatroomUpdateDto) {
         log.info("chatroomUpdateDto: {}", chatroomUpdateDto);
         try {
             chatApiService.updateChatroom(chatroomId, chatroomUpdateDto);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new InvalidParamException(e.toString());
         }
         return ResponseEntity.ok("update chatroom 성공");
     }
@@ -150,12 +158,15 @@ public class ChatApiController {
     @DeleteMapping(value = "/chatroom")
     public ResponseEntity leaveChatroomMember(@RequestBody LeaveChatDto leaveChatDto) {
         log.info("leaveChatDto: {}", leaveChatDto);
-        chatApiService.leaveChatroomMember(leaveChatDto);
+        if (chatApiService.leaveChatroomMember(leaveChatDto) == 0) {
+            throw new NotFoundException(String.format("%s 유저는 %s 채팅방에 존재하지 않습니다.", leaveChatDto.getMemberId(), leaveChatDto.getChatroomId()));
+        }
         return ResponseEntity.ok(String.format("%s 유저 %s 채팅방 나가기 성공", leaveChatDto.getMemberId(), leaveChatDto.getChatroomId()));
     }
 
     @Operation(summary = "채팅 저장")
-    @PostMapping(value = "/chatroom/{chatroomId}/chat")
+    @PostMapping(value = "/chatroom/{chatroomId}/chat",
+                consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity saveTextChat(ChatMessageDto chatMessageDto,
                                        @PathVariable Integer chatroomId) {
         log.info("chatMessageDto: {}, chatroomId: {}", chatMessageDto, chatroomId);
@@ -163,7 +174,7 @@ public class ChatApiController {
         try {
             chatApiService.saveChatContent(chatMessageDto, chatroomId);
         } catch (IOException e) {
-            throw new RuntimeException("img 파일이 올바르지 않습니다.");
+            throw new InvalidFileException("img 파일이 올바르지 않습니다.");
         }
         return ResponseEntity.ok(String.format("chatroomId(%s) 채팅 저장 성공 ", chatroomId));
     }

@@ -9,13 +9,18 @@ import com.github.yumyum.exceptions.InvalidValueException;
 import com.github.yumyum.exceptions.NotFoundException;
 import com.github.yumyum.member.entity.Member;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.beans.PropertyEditorSupport;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -105,8 +110,13 @@ public class ChatApiController {
      */
     @Operation(summary = "채팅방 생성")
     @PostMapping(value = "/chatroom",
-                consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity makeChatroom(ChatroomDto ChatroomDto) {
+                consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+                produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity makeChatroom(@io.swagger.v3.oas.annotations.parameters.RequestBody(
+            description = "채팅방 생성 Form Data", required = true,
+            content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE,
+                    schema = @Schema(implementation = ChatroomDto.class)))
+            ChatroomDto ChatroomDto) {
         log.info("ChatroomDto: {}", ChatroomDto);
         try {
             chatApiService.createChatroom(ChatroomDto);
@@ -125,7 +135,8 @@ public class ChatApiController {
      */
     @Operation(summary = "채팅방 정보 변경 (제목, 이미지)")
     @PostMapping(value = "/chatroom/{chatroomId}",
-                consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+                consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+                produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity updateChatroom(@PathVariable Integer chatroomId, ChatroomUpdateDto chatroomUpdateDto) {
         log.info("chatroomUpdateDto: {}", chatroomUpdateDto);
         try {
@@ -166,7 +177,8 @@ public class ChatApiController {
 
     @Operation(summary = "채팅 저장")
     @PostMapping(value = "/chatroom/{chatroomId}/chat",
-                consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+                consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+                produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity saveTextChat(ChatMessageDto chatMessageDto,
                                        @PathVariable Integer chatroomId) {
         log.info("chatMessageDto: {}, chatroomId: {}", chatMessageDto, chatroomId);
@@ -178,4 +190,25 @@ public class ChatApiController {
         }
         return ResponseEntity.ok(String.format("chatroomId(%s) 채팅 저장 성공 ", chatroomId));
     }
+
+    /**
+     * multipartfile null 변환
+     * 참고링크: 출처: https://whitelife.tistory.com/246 [White Life Story:티스토리]
+     *
+     * @param binder
+     * @throws Exception
+     */
+    @InitBinder
+    public void initBinder(WebDataBinder binder) throws Exception {
+        binder.registerCustomEditor(MultipartFile.class, new PropertyEditorSupport() {
+
+            @Override
+            public void setAsText(String text) {
+                log.debug("initBinder MultipartFile.class: {}; set null;", text);
+                setValue(null);
+            }
+
+        });
+    }
+
 }

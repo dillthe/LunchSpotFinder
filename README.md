@@ -24,7 +24,7 @@ Title: Lunch Menu Recommendation
     - Confirm restaurant locations through map page (Naver or KakaoMap)
     - Functionality to add and delete foods users want to add to the list
         
-        [Implementing Restaurant List Retrieval API](https://www.notion.so/API-06bc7056d9a94fff819adededfb37afa?pvs=21)
+        [Implementing Restaurant List Retrieval API]
         
 4. **My Page/Wish List**
     - User details

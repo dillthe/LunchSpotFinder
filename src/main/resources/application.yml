@@ -8,12 +8,7 @@ spring:
     activate:
       on-profile: local
 
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://gcp.connect.psdb.cloud:3306/yumyum
-    username: r2yaeuknxoku0ulxvyzf
-    password: pscale_pw_knQ4IeqjLU9nTUVLxZ5EbkkXh6NI99agrVOQTcCwR4U
-
+  
   jpa:
     hibernate:
       ddl-auto: none
@@ -24,17 +19,6 @@ spring:
   #        format_sql: true
   #        use_sql_comments: true
 
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: woomj19994@gmail.com
-    password: ezyxfhbgjmkbmapx
-    properties:
-      mail:
-        smtp:
-          starttls:
-            enable: true
-            required: true
 
   data:
     redis:

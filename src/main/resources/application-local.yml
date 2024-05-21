@@ -1,18 +1,1 @@
-#spring:
-#  config:
-#    activate:
-#      on-profile: local
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://gcp.connect.psdb.cloud:3306/yumyum
-#    username: r2yaeuknxoku0ulxvyzf
-#    password: pscale_pw_knQ4IeqjLU9nTUVLxZ5EbkkXh6NI99agrVOQTcCwR4U
-#server:
-#  port: 8080
-#
-#logging:
-#  config: classpath:logback-spring-local.xml
-#  level:
-#    org:
-#      hibernate:
-#        SQL: DEBUG
+

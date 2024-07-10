@@ -2,10 +2,9 @@
 
 LunchSpotFinder is a web application that helps users find lunch spots based on their location. Users can input their location and receive recommendations for nearby lunch spots, view them on a map, and add favorites for these spots.
 
-## Backend Build Team Project Details
 
 # Tech Stack
-**Backend**
+##Backend
 - Java : A robust and widely-used programming language suitable for building scalable backend services.
 - Spring Boot : A Java-based framework that simplifies the development of RESTful web services and microservices.
 - MySQL : A reliable and efficient relational database management system for storing application data.
@@ -33,14 +32,14 @@ LunchSpotFinder is a web application that helps users find lunch spots based on 
 - src/main/resources/: Application configuration files
 
 # ✅Challenges Faced
-**Calculating Locations**
- Accurately calculating and handling locations based on user input and integrating this with the Maps API was challenging.
-**Search Filters**
- Implementing filters for cuisine type, price range, and ratings to enhance the search experience.
-**User Authentication**
-Adding user authentication to provide personalized recommendations and secure user data.
-**Database Schema Design**
-Designing a database schema that efficiently handles user data, favorites, and locations was challenging but crucial for the application's performance.
+1. **Calculating Locations**
+   - Accurately calculating and handling locations based on user input and integrating this with the Maps API was challenging.
+2. **Search Filters**
+   - Implementing filters for cuisine type, price range, and ratings to enhance the search experience.
+3. **User Authentication**
+   - Adding user authentication to provide personalized recommendations and secure user data.
+4. **Database Schema Design**
+   - Designing a database schema that efficiently handles user data, favorites, and locations was challenging but crucial for the application's performance.
 
 
 

@@ -4,12 +4,14 @@ LunchSpotFinder is a web application that helps users find lunch spots based on 
 
 
 # Tech Stack
-##Backend
+## Backend
+
 - Java : A robust and widely-used programming language suitable for building scalable backend services.
 - Spring Boot : A Java-based framework that simplifies the development of RESTful web services and microservices.
 - MySQL : A reliable and efficient relational database management system for storing application data.
 
 # ✅ Features
+
 1. **Location-based Search**
    - Search for lunch spots based on user-provided location.
 2. **Recommendation System**
@@ -32,6 +34,7 @@ LunchSpotFinder is a web application that helps users find lunch spots based on 
 - src/main/resources/: Application configuration files
 
 # ✅Challenges Faced
+
 1. **Calculating Locations**
    - Accurately calculating and handling locations based on user input and integrating this with the Maps API was challenging.
 2. **Search Filters**
@@ -43,14 +46,13 @@ LunchSpotFinder is a web application that helps users find lunch spots based on 
 
 
 
-# Development Design Goals
+## Development Design Goals
 
 1. **Login/Registration**
     - User authentication through email verification (token issuance)
     - Social login feature (KakaoTalk, Google, Naver)
 2. **Games/Chat Room** 
     (Host: Person spinning the game roulette) > Game (ladder game, roulette) in the chat room > Save game history in chat room page to calendar
-    
     - Functionality to conduct games such as roulette in chat rooms > Implement only ladder game?? Or not at all?
     - Function to save game history to calendar
         - Library <HTML5 Canvas> - (Audio) WEB APIs (web audio api, web storage api)

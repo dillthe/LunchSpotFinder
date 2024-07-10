@@ -19,12 +19,12 @@ LunchSpotFinder is a web application that helps users find lunch spots based on 
 # ✅ Project Structure
 **backend/: Backend code**
 - src/main/java/: Java source files
--- github/yumyum/: Main package
---- controller/: REST controllers
---- service/: Business logic
---- repository/: Database access
---- entity/: Entity definitions
--- src/main/resources/: Application configuration files
+    - github/yumyum/: Main package
+        - controller/: REST controllers
+        - service/: Business logic
+        - repository/: Database access
+        - entity/: Entity definitions
+- src/main/resources/: Application configuration files
 
 # ✅Challenges Faced
 - Calculating Locations: Accurately calculating and handling locations based on user input and integrating this with the Maps API was challenging.

@@ -4,7 +4,7 @@ LunchSpotFinder is a web application that helps users find lunch spots based on 
 
 
 # ✅ Tech Stack
-## Backend
+##       Backend
 
 - Java : A robust and widely-used programming language suitable for building scalable backend services.
 - Spring Boot : A Java-based framework that simplifies the development of RESTful web services and microservices.

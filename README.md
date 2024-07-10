@@ -4,20 +4,26 @@ LunchSpotFinder is a web application that helps users find lunch spots based on 
 
 ## Backend Build Team Project Details
 
-# ✅ Tech Stack
+# Tech Stack
 **Backend**
 - Java : A robust and widely-used programming language suitable for building scalable backend services.
 - Spring Boot : A Java-based framework that simplifies the development of RESTful web services and microservices.
 - MySQL : A reliable and efficient relational database management system for storing application data.
 
 # ✅ Features
-1. **Location-based Search**: Search for lunch spots based on user-provided location.
-2. **Recommendation System**: Recommend lunch spots based on user location and preferences.
-3. **Map Display**: Display search results on a map for easy visualization.
-4. **User favorite**: View and add favorites for each lunch spot.
+1. **Location-based Search**
+   - Search for lunch spots based on user-provided location.
+2. **Recommendation System**
+   - Recommend lunch spots based on user location and preferences.
+3. **Map Display**
+   - Display search results on a map for easy visualization.
+4. **User favorite**
+   - View and add favorites for each lunch spot.
 
 # ✅ Project Structure
+
 **backend/: Backend code**
+
 - src/main/java/: Java source files
     - github/yumyum/: Main package
         - controller/: REST controllers
@@ -27,10 +33,14 @@ LunchSpotFinder is a web application that helps users find lunch spots based on 
 - src/main/resources/: Application configuration files
 
 # ✅Challenges Faced
-- Calculating Locations: Accurately calculating and handling locations based on user input and integrating this with the Maps API was challenging.
-- Search Filters : Implementing filters for cuisine type, price range, and ratings to enhance the search experience.
-- User Authentication: Adding user authentication to provide personalized recommendations and secure user data.
-- Database Schema Design: Designing a database schema that efficiently handles user data, favorites, and locations was challenging but crucial for the application's performance.
+**Calculating Locations**
+ Accurately calculating and handling locations based on user input and integrating this with the Maps API was challenging.
+**Search Filters**
+ Implementing filters for cuisine type, price range, and ratings to enhance the search experience.
+**User Authentication**
+Adding user authentication to provide personalized recommendations and secure user data.
+**Database Schema Design**
+Designing a database schema that efficiently handles user data, favorites, and locations was challenging but crucial for the application's performance.
 
 
 

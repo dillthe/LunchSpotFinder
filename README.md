@@ -3,7 +3,7 @@
 LunchSpotFinder is a web application that helps users find lunch spots based on their location. Users can input their location and receive recommendations for nearby lunch spots, view them on a map, and add favorites for these spots.
 
 
-# ✅Tech Stack
+# ✅ Tech Stack
 ## Backend
 
 - Java : A robust and widely-used programming language suitable for building scalable backend services.

@@ -1,19 +1,45 @@
-# 3rd Project
+# 3rd Project : Lunch Spot Finder
 
-Title: Lunch Menu Recommendation
+LunchSpotFinder is a web application that helps users find lunch spots based on their location. Users can input their location and receive recommendations for nearby lunch spots, view them on a map, and add favorites for these spots.
 
 ## Backend Build Team Project Details
 
-- **Development Method:** Creating a PWA (Progressive Web App) responsive web/app
-- **Target Audience:** Office workers or individuals
+# ✅ Tech Stack
+**Backend**
+- Java : A robust and widely-used programming language suitable for building scalable backend services.
+- Spring Boot : A Java-based framework that simplifies the development of RESTful web services and microservices.
+- MySQL : A reliable and efficient relational database management system for storing application data.
 
-# ✅ Development Design Goals**
+# ✅ Features
+1. **Location-based Search**: Search for lunch spots based on user-provided location.
+2. **Recommendation System**: Recommend lunch spots based on user location and preferences.
+3. **Map Display**: Display search results on a map for easy visualization.
+4. **User favorite**: View and add favorites for each lunch spot.
+
+# ✅ Project Structure
+**backend/: Backend code**
+- src/main/java/: Java source files
+-- github/yumyum/: Main package
+--- controller/: REST controllers
+--- service/: Business logic
+--- repository/: Database access
+--- entity/: Entity definitions
+-- src/main/resources/: Application configuration files
+
+# ✅Challenges Faced
+- Calculating Locations: Accurately calculating and handling locations based on user input and integrating this with the Maps API was challenging.
+- Search Filters : Implementing filters for cuisine type, price range, and ratings to enhance the search experience.
+- User Authentication: Adding user authentication to provide personalized recommendations and secure user data.
+- Database Schema Design: Designing a database schema that efficiently handles user data, favorites, and locations was challenging but crucial for the application's performance.
+
+
+
+# Development Design Goals
 
 1. **Login/Registration**
     - User authentication through email verification (token issuance)
     - Social login feature (KakaoTalk, Google, Naver)
 2. **Games/Chat Room** 
-    
     (Host: Person spinning the game roulette) > Game (ladder game, roulette) in the chat room > Save game history in chat room page to calendar
     
     - Functionality to conduct games such as roulette in chat rooms > Implement only ladder game?? Or not at all?

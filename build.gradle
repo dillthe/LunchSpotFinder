@@ -6,9 +6,18 @@ plugins {
 
 group = 'com.github'
 version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
 
-java {
-    sourceCompatibility = '17'
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
@@ -20,10 +29,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-    implementation 'mysql:mysql-connector-java:8.0.28'
+    // Removed the commented out MySQL connector dependency
     implementation 'org.jetbrains:annotations:24.0.0'
 
-    //Lombok
+    // Lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
@@ -31,36 +40,77 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
 
-    implementation 'com.h2database:h2'
+    // Removed the commented out H2 database dependency
 
-    //Mapstruct
+    // Mapstruct
     implementation 'org.mapstruct:mapstruct:1.5.3.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
 
-    //JPA
+    // JPA
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-    //Swagger
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.3'
+    // Swagger, updated to use a consistent version
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
 
     // Cache
     implementation 'org.springframework.boot:spring-boot-starter-cache'
 
-    // jwt
-    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    // Removed commented out JWT dependency
 
-    // security
+    // Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
-    // validation
+    // Validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-authorization-server'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'javax.servlet:javax.servlet-api:4.0.1'
+    implementation 'io.lettuce:lettuce-core'
+
+    runtimeOnly 'mysql:mysql-connector-java:8.0.33'
+
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    implementation 'org.bouncycastle:bcprov-jdk18on:1.76'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+    compileOnly 'org.projectlombok:lombok'
+
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jakarta'
+    annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
+    annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // Removed commented out JSON dependency
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
+
+    // GeoDistance
+    implementation 'com.github.calzam:geo-distance:1.0.2'
+
+    // websocket
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+    //Querydsl 추가
+    implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+    // annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+//Querydsl 추가, 자동 생성된 Q클래스 gradle clean으로 제거
+clean {
+    delete file('src/main/generated')
 }

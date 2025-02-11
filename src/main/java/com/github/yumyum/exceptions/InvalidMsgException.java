@@ -1,12 +1,12 @@
 package com.github.yumyum.exceptions;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
-public class NotAcceptException extends RuntimeException {
-    public NotAcceptException(String message) {
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+
+public class InvalidMsgException extends RuntimeException {
+    public InvalidMsgException(String message) {
         super(message);
     }
 }
